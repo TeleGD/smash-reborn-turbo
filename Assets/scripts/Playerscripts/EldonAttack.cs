@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,7 @@ public class EldonAttack : MonoBehaviour
     public PlayerInput Attack;
 
     private Animator eldonanim;
+  
 
     [Header("wall variables")]
     public bool istherewall;
@@ -28,8 +30,7 @@ public class EldonAttack : MonoBehaviour
     [Header("attack variables")]
     public int nrgregen;
     public int hpdamage;
-    public int nrgdamage;
-    public bool slayermode; //true:slayer false:eater
+    public int percent;
     public int attackdelay; //number of frames between attacks
     public int delaycounter;
 
@@ -38,9 +39,7 @@ public class EldonAttack : MonoBehaviour
     private int size;
     private Rigidbody2D enemyrb;
     private float playerx;
-    public float smallrecoil;
-    public float medrecoil;
-    public float bigrecoil;
+    public float baserecoil;
 
     public bool grounded;
 
@@ -48,19 +47,8 @@ public class EldonAttack : MonoBehaviour
     void Start()
     {
         eldonanim = GetComponent<Animator>();
-        slayermode = true;
-        GameObject.Find("slayertext").GetComponent<UnityEngine.UI.Text>().enabled = true;
-        GameObject.Find("eatertext").GetComponent<UnityEngine.UI.Text>().enabled = false;
-
     }
 
-    //Slayer and Eater modes
-
-    void OnModechange()
-
-    {
-        Modeswitch();
-    }
 
     void OnAttack()
     {
@@ -86,23 +74,6 @@ public class EldonAttack : MonoBehaviour
     }
 
 
-    void Modeswitch()
-    {
-        if(slayermode)
-        {
-            slayermode = false;
-            GameObject.Find("slayertext").GetComponent<UnityEngine.UI.Text>().enabled = false;
-            GameObject.Find("eatertext").GetComponent<UnityEngine.UI.Text>().enabled = true;
-        }
-            else
-        {
-            slayermode = true;
-            GameObject.Find("slayertext").GetComponent<UnityEngine.UI.Text>().enabled = true;
-            GameObject.Find("eatertext").GetComponent<UnityEngine.UI.Text>().enabled = false;
-        }
-    }
-
-
     void fctAttack()
     {
         //attack animation
@@ -114,56 +85,27 @@ public class EldonAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "enemy")
+            if (enemy.tag == "Player2")
             {
-                size = enemy.GetComponent<EnemyHP>().size;
+                enemy.GetComponent<EnemyHP>().enemyperc += percent;
                 enemyrb = enemy.GetComponent<Rigidbody2D>();
                 playerx = GetComponent<Rigidbody2D>().position.x;
 
-                if (slayermode)
+           
+                
+                
+                if(GameObject.Find("player1").transform.position.x>= enemy.transform.position.x)
                 {
-                    enemy.GetComponent<EnemyHP>().enemyhp -= hpdamage;
-                    enemy.GetComponent<EnemyHP>().enemyNRG -= (nrgdamage * 1/10);
-                    GameObject.Find("player1").GetComponent<PlayerHP>().EldonNRG += nrgdamage * 6 /10 ;
+                    enemyrb.AddForce(new Vector2(-baserecoil* enemy.GetComponent<EnemyHP>().enemyperc, 0));
+                    
                 }
                 else
                 {
-                    enemy.GetComponent<EnemyHP>().enemyhp -= hpdamage * 1/10;
-                    enemy.GetComponent<EnemyHP>().enemyNRG -= nrgdamage;
-                    GameObject.Find("player1").GetComponent<PlayerHP>().EldonNRG += nrgdamage;
+                    enemyrb.AddForce(new Vector2(baserecoil* enemy.GetComponent<EnemyHP>().enemyperc, 0));
                 }
-                if (enemyrb.position.x < playerx & enemy.GetComponent<EnemyHP>().enemyhp > 0)
-                {
-                    if (size==1)
-                    {
-                        //enemyrb.velocity = new Vector2(smallrecoil, enemyrb.velocity.y);
-                        enemyrb.AddForce(new Vector2(-smallrecoil, 0));
-                    }
-                    if (size == 2)
-                    {
-                        //enemyrb.velocity = new Vector2(enemyrb.velocity.x - medrecoil, enemyrb.velocity.y);
-                    }
-                    if (size == 3)
-                    {
-                        //enemyrb.velocity = new Vector2(enemyrb.velocity.x - bigrecoil, enemyrb.velocity.y);
-                    }
-                }
-                if (enemyrb.position.x > playerx & enemy.GetComponent<EnemyHP>().enemyhp > 0)
-                {
-                    if (size == 1)
-                    {
-                        // enemyrb.velocity = new Vector2(smallrecoil, enemyrb.velocity.y);
-                        enemyrb.AddForce(new Vector2(smallrecoil, 10f));
-                    }
-                    if (size == 2)
-                    {
-                       // enemyrb.velocity = new Vector2(enemyrb.velocity.x + medrecoil, enemyrb.velocity.y);
-                    }
-                    if (size == 3)
-                    {
-                       // enemyrb.velocity = new Vector2(enemyrb.velocity.x + bigrecoil, enemyrb.velocity.y);
-                    }
-                }
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
+                UnityEngine.Debug.Log(enemy.GetComponent<EnemyHP>().enemyperc);
+
 
             }
             

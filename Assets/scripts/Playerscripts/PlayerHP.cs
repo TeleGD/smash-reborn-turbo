@@ -28,9 +28,7 @@ public class PlayerHP : MonoBehaviour
         Eldonhp = Playervalues.EldonHP;
         Eldonmaxhp = Playervalues.EldonmaxHP;
         EldonNRG = 0;
-        EldonmaxNRG = Playervalues.EldonmaxNRG;
         healthbar.SetMaxhealth(Eldonmaxhp);
-        healthbar.SetMaxEnergy(EldonmaxNRG);
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -57,7 +55,6 @@ public class PlayerHP : MonoBehaviour
         }
 
         healthbar.SetHealth(Eldonhp);
-        healthbar.SetEnergy(EldonNRG);
 
         if (Eldonhp <= 0)
         {

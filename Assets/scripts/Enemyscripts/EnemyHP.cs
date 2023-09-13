@@ -43,6 +43,9 @@ public class EnemyHP : MonoBehaviour
     private Rigidbody2D rb2D;
 
 
+    public int enemyperc;
+
+
 
     void Start()
     {
@@ -50,7 +53,6 @@ public class EnemyHP : MonoBehaviour
         enemyhp = enemymaxhp;
         enemyNRG = enemymaxNRG;
         healthbar.SetMaxhealth(enemymaxhp);
-        healthbar.SetMaxEnergy(enemymaxNRG);
         cannotmove = GetComponent<EnemyAI>().cannotmove;
         enemyanim = GetComponent<Animator>();
         execution = false;
@@ -62,80 +64,14 @@ public class EnemyHP : MonoBehaviour
     void Update()
     {
 
-        if (execution)
-        {
-            cannotmove = true;
-            enemyanim.SetBool("Stun", true);
-            rb2D.velocity=new Vector2(0,0);
-        }
+        GameObject.Find("enpercent").GetComponent < playerpercent >().percent = enemyperc;
 
         GetComponent<EnemyAI>().cannotmove=cannotmove;
 
 
-        //Enemy's energy regen when not hit for some time
-        if (tempHP == enemyhp & enemyNRG < enemymaxNRG)
-        {
-            NRGcounter += 1;
-            if (NRGcounter >= NRGdelay & !stopenergyregen)
-            {
-                NRGrecharge += 1;
-                if (NRGrecharge == NRGrechargerate)
-                {
-                    enemyanim.SetBool("Stun", false);
-                    NRGrecharge = 0;
-                    enemyNRG += 1;
-                    execution = false;
-                }
-            }
-        }
-
-        //stun enemy if hit by an attack
-
-        if (tempHP!=enemyhp & !cannotmove & hitstuncounter==0)
-        {
-            hitstuncounter = hitstundelay;
-            cannotmove = true;
-        }
-
-        if (hitstuncounter>0)
-        {
-            hitstuncounter -= 1;
-            cannotmove = true;
-            
-        }
-        if (hitstuncounter <= 0 & !execution)
-        {
-            hitstuncounter = 0;
-            cannotmove = false;
-        }
-
-        //Reinitialization of NRGcounter
-        if (enemyNRG == enemymaxNRG | tempHP != enemyhp)
-        {
-            NRGcounter = 0;
-        }
-
-        //temporary execution
-
-        if (enemyNRG<=0)
-        {
-            
-            if (execution && enemyhp < tempHP)
-            {
-                enemyhp=0;
-            }
-
-            if (enemyhp<tempHP)
-            {
-                execution = true;
-            }
-            
-
-        }
 
         //update of the healthbar
         healthbar.SetHealth(enemyhp);
-        healthbar.SetEnergy(enemyNRG);
 
         //death of the enemy
 

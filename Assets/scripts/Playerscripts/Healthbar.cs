@@ -22,16 +22,4 @@ public class Healthbar : MonoBehaviour
         sliderHP.value = health;
     }
 
-    public void SetMaxEnergy(float maxenergy)
-    {
-        sliderNRG.maxValue = maxenergy;
-    }
-
-
-
-    public void SetEnergy(float energy)
-    {
-        sliderNRG.value = energy;
-    }
-
 }

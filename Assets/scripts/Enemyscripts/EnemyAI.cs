@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -61,13 +62,9 @@ public class EnemyAI : MonoBehaviour
         if (targetted && distplayer>= abandonrange || enemyHP <= 0)
         {
             targetted = false;
-            GameObject.Find("music").GetComponent<musicmanager>().playcbt = false;
+          
         }
 
-        if (targetted)
-        {
-            GameObject.Find("music").GetComponent<musicmanager>().playcbt = true;
-        }
 
         if (atkcdcounter != 0)
         {
@@ -109,7 +106,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     if (rb2D.velocity.x> -xspeed)
                     {
-                        rb2D.velocity = new Vector2(rb2D.velocity.x - xspeed * 0.08f, 0);
+                        rb2D.velocity = new Vector2(rb2D.velocity.x - xspeed * 0.08f, rb2D.velocity.y);
                     }
                     walkingright = false;
                 }
@@ -117,7 +114,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     if (rb2D.velocity.x < xspeed)
                     {
-                        rb2D.velocity = new Vector2(rb2D.velocity.x + xspeed * 0.08f, 0);
+                        rb2D.velocity = new Vector2(rb2D.velocity.x + xspeed * 0.08f, rb2D.velocity.y);
                     }
                     walkingright = true;
                 }
@@ -152,6 +149,21 @@ public class EnemyAI : MonoBehaviour
             initiateattack = false;
             cannotmoveatk=false;
             atkcdcounter = atkcd;
+        }
+
+        if (rb2D.position.y<= -3)
+        {
+            if (GetComponent<EnemyHP>().enemyhp > 1)
+            {
+                GetComponent<EnemyHP>().enemyhp -= 1;
+                GameObject.Find("Petitslime1").transform.position = new Vector2(1, 1);
+                GetComponent<EnemyHP>().enemyperc = 0;
+
+            }
+            else
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
         }
 
 

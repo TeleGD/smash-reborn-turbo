@@ -68,7 +68,7 @@ public class musicmanager : MonoBehaviour
         }
         cbtactvol = musiccbt.volume;
         expactvol = musicexp.volume;
-        if (playcbt)
+        if (!playcbt)
         {
             if (musiccbt.volume <0.0001f)
             {
