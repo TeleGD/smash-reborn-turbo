@@ -30,6 +30,7 @@ public class PlayerJumpV3 : MonoBehaviour
     public float dbjumpcounter;
     public float dbjumpdelay;
     public float dbjumpdelaycounter;
+    public bool jumplache;
 
 
     [Header("Ground details")]
@@ -109,15 +110,15 @@ public class PlayerJumpV3 : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             myanim.SetTrigger("jump");
         }
-        if (!grounded && pressedjump && jumpcounter > 0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            jumpcounter -= Time.deltaTime;
-            myanim.SetTrigger("jump");
-            walljumpleftrdy = true;
-            walljumprightrdy = true;
+        //if (!grounded && pressedjump && jumpcounter > 0)
+        //{
+            //rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            //jumpcounter -= Time.deltaTime;
+            //myanim.SetTrigger("jump");
+            //walljumpleftrdy = true;
+            //walljumprightrdy = true;
             
-        }
+       // }
         if (jumpcounter <= 0)
         {
             dbjumpdelaycounter -= Time.deltaTime;
@@ -129,6 +130,7 @@ public class PlayerJumpV3 : MonoBehaviour
         }
         if (!pressedjump && !grounded)
         {
+            jumplache = true;
             jumpcounter = 0;
             dbjumpcounter = 0;
             myanim.SetBool("falling", true);
@@ -143,7 +145,7 @@ public class PlayerJumpV3 : MonoBehaviour
         //double jump
 
 
-        if (pressedjump && !grounded && allowdoublejump && touchedground)
+        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache)
         {
             rb.velocity = new Vector2(rb.velocity.x, dbjumpForce);
             myanim.SetTrigger("jump");
@@ -151,7 +153,7 @@ public class PlayerJumpV3 : MonoBehaviour
             touchedground = false;
         }
 
-        if (!grounded && pressedjump && dbjumpcounter > 0 && allowdoublejump)
+        if (!grounded && pressedjump && dbjumpcounter > 0 && allowdoublejump && jumplache)
         {
             UnityEngine.Debug.Log("doublejump2");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -172,6 +174,7 @@ public class PlayerJumpV3 : MonoBehaviour
         }
         if (stuckinwall)
         {
+            allowdoublejump = true;
             rb.velocity = new Vector2(0, 0);
             rb.gravityScale = 0;
             if (pressedjump)
@@ -181,12 +184,14 @@ public class PlayerJumpV3 : MonoBehaviour
                     rb.velocity = new Vector2(wjforceside, wjforceup);
                     walljumpleftrdy = true;
                     walljumprightrdy = false;
+                    allowdoublejump= true;
                 }
                 else
                 {
                     rb.velocity = new Vector2(-wjforceside, wjforceup);
                     walljumpleftrdy = false;
                     walljumprightrdy = true;
+                    allowdoublejump = true;
                 }
                 //rb.velocity = new Vector2(wjforceside*lasthorizontal*(-1), wjforceup);
                 rb.gravityScale = gravity;
@@ -236,6 +241,7 @@ public class PlayerJumpV3 : MonoBehaviour
     {
         if (grounded)
         {
+            jumplache = false;
             allowjump = true;
             touchedground = true;
             jumpcounter = jumptime;

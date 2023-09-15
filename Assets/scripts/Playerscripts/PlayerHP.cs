@@ -8,8 +8,7 @@ public class PlayerHP : MonoBehaviour
 {
     public float Eldonhp;
     public float Eldonmaxhp;
-    public float EldonNRG;
-    public float EldonmaxNRG;
+    public int player1percent;
     [SerializeField] private LayerMask whatisspike;
     [SerializeField] private Transform groundcheck;
     private bool inv = false;
@@ -27,7 +26,6 @@ public class PlayerHP : MonoBehaviour
     {
         Eldonhp = Playervalues.EldonHP;
         Eldonmaxhp = Playervalues.EldonmaxHP;
-        EldonNRG = 0;
         healthbar.SetMaxhealth(Eldonmaxhp);
         rb = GetComponent<Rigidbody2D>();
     }
