@@ -107,8 +107,9 @@ public class EnJumpV3 : MonoBehaviour
 
         if (pressedjump && grounded)
         {
+            myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            //myanim.SetTrigger("jump");
+           myanim.SetBool("falling", true);
         }
             
        // }
@@ -126,12 +127,11 @@ public class EnJumpV3 : MonoBehaviour
             jumplache = true;
             jumpcounter = 0;
             dbjumpcounter = 0;
-            //myanim.SetBool("falling", true);
-            //myanim.SetTrigger("jump");
+            myanim.SetBool("falling", true);
         }
         if (rb.velocity.y < 0)
         {
-            //myanim.SetBool("falling", true);
+            myanim.SetBool("falling", true);
         }
 
 
@@ -140,8 +140,9 @@ public class EnJumpV3 : MonoBehaviour
 
         if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache)
         {
+            myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, dbjumpForce);
-            //myanim.SetTrigger("jump");
+            myanim.SetBool("falling", true);
             UnityEngine.Debug.Log("doublejump1");
             touchedground = false;
         }
@@ -151,7 +152,10 @@ public class EnJumpV3 : MonoBehaviour
             UnityEngine.Debug.Log("doublejump2");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             dbjumpcounter -= Time.deltaTime;
-            //myanim.SetTrigger("jump");
+            myanim.SetTrigger("jump");
+            myanim.ResetTrigger("jump");
+            myanim.SetBool("falling", true);
+
             touchedground = false;
         }
         if(dbjumpcounter<=0)
@@ -240,8 +244,8 @@ public class EnJumpV3 : MonoBehaviour
             jumpcounter = jumptime;
             dbjumpcounter = dbjumptime;
             dbjumpdelaycounter = dbjumpdelay;
-            //myanim.ResetTrigger("jump");
-            //myanim.SetBool("falling", false);
+            myanim.ResetTrigger("jump");
+            myanim.SetBool("falling", false);
 
         }
     }
@@ -256,11 +260,11 @@ public class EnJumpV3 : MonoBehaviour
     {
         if (!grounded)
         {
-            //myanim.SetLayerWeight(1, 1);
+            myanim.SetLayerWeight(1, 1);
         }
         else
         {
-            //myanim.SetLayerWeight(1, 0);
+            myanim.SetLayerWeight(1, 0);
         }
     }
     void OnEnable()

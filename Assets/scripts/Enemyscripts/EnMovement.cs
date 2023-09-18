@@ -57,7 +57,7 @@ public class EnMovement : MonoBehaviour
     {
         //Define the gamobjects found on the player
         rb2D = GetComponent<Rigidbody2D>();
-        //myanimator = GetComponent<Animator>();
+        myanimator = GetComponent<Animator>();
     }
 
     // Handles input of the physics
@@ -111,7 +111,7 @@ public class EnMovement : MonoBehaviour
             }
            
             Flip(horizontal);
-            //myanimator.SetFloat("speed", Mathf.Abs(horizontal));
+            myanimator.SetFloat("speed", Mathf.Abs(rb2D.velocity.x));
         }
         else
         {
