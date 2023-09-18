@@ -3193,6 +3193,7 @@ GameObject:
   - component: {fileID: 912949980}
   - component: {fileID: 912949979}
   - component: {fileID: 912949978}
+  - component: {fileID: 912949981}
   m_Layer: 0
   m_Name: Petitslime1
   m_TagString: Player2
@@ -3499,6 +3500,33 @@ MonoBehaviour:
   m_DefaultActionMap: gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &912949981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912949970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a786050b4eb9d0c4caa3da2a756a1077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Attack: {fileID: 0}
+  istherewall: 0
+  whatiswall:
+    serializedVersion: 2
+    m_Bits: 256
+  attackpoint: {fileID: 2060496075}
+  range: 0.25
+  walljumped: {fileID: 0}
+  nrgregen: 0
+  hpdamage: 0
+  percent: 10
+  attackdelay: 150
+  delaycounter: 0
+  baserecoil: 6
+  grounded: 0
 --- !u!1 &913976650
 GameObject:
   m_ObjectHideFlags: 0
@@ -7617,7 +7645,7 @@ MonoBehaviour:
   walljumped: {fileID: 0}
   nrgregen: 0
   hpdamage: 20
-  percent: 10
+  percent: 15
   attackdelay: 15
   delaycounter: 0
   baserecoil: 5
@@ -10879,7 +10907,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060496074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.342, y: -0.091, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
