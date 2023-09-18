@@ -14,7 +14,8 @@ public class playerpercent1 : MonoBehaviour
 
     void Start()
     {
-        TextUI = FindObjectOfType<TextMeshProUGUI>();
+        TextUI = GetComponent<TextMeshProUGUI>();
+
     }
 
     // Update is called once per frame

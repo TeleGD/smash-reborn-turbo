@@ -4,8 +4,9 @@ using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Diagnostics;
 
-public class playerpercent : MonoBehaviour
+public class enpercent : MonoBehaviour
 {
 
     public TextMeshProUGUI TextUI;
@@ -14,7 +15,7 @@ public class playerpercent : MonoBehaviour
 
     void Start()
     {
-        TextUI = FindObjectOfType<TextMeshProUGUI>();
+        TextUI = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame

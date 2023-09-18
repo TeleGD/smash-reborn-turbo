@@ -23,6 +23,9 @@ public class Playervalues : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+
+
+
     void Update()
     {
         Savepos();

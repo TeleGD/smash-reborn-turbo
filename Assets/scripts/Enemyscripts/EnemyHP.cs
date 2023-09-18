@@ -64,7 +64,7 @@ public class EnemyHP : MonoBehaviour
     void Update()
     {
 
-        GameObject.Find("enpercent").GetComponent < playerpercent >().percent = enemyperc;
+        //GameObject.Find("enpercent").GetComponent < enpercent >().percent = enemyperc;
 
         GetComponent<EnemyAI>().cannotmove=cannotmove;
 
