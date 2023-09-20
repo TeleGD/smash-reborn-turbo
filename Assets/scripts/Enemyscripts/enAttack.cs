@@ -17,8 +17,8 @@ public class enAttack : MonoBehaviour
 
     //size of the attack 
     [Header("hitbox of the attack")]
-    public Transform attackpoint;
-    public float range;
+    public Transform tiltattackpoint;
+    public float tiltrange;
 
 
     //attack variables
@@ -47,7 +47,7 @@ public class enAttack : MonoBehaviour
     {
         if (delaycounter==0)
         {
-            fctAttack();
+            TiltAttack();
             delaycounter = attackdelay;
         }
     }
@@ -65,13 +65,13 @@ public class enAttack : MonoBehaviour
     }
 
 
-    void fctAttack()
+    void TiltAttack()
     {
         //attack animation
         enanim.SetTrigger("attack");
 
         //get enemies in range
-        Collider2D[] hitenemies = Physics2D.OverlapCircleAll(attackpoint.position,range);
+        Collider2D[] hitenemies = Physics2D.OverlapCircleAll(tiltattackpoint.position,tiltrange);
 
         foreach (Collider2D enemy in hitenemies)
         {
@@ -104,7 +104,7 @@ public class enAttack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(attackpoint.position, range);
+        Gizmos.DrawWireSphere(tiltattackpoint.position, tiltrange);
     }
 //    void OnEnable()
   //  {

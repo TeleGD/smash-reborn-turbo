@@ -3457,8 +3457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attack: {fileID: 0}
-  attackpoint: {fileID: 2060496075}
-  range: 0.25
+  tiltattackpoint: {fileID: 2060496075}
+  tiltrange: 0.3
   percent: 10
   attackdelay: 150
   delaycounter: 0
@@ -7564,8 +7564,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attack: {fileID: 0}
-  attackpoint: {fileID: 1464795986}
-  range: 0.25
+  tiltattackpoint: {fileID: 1464795986}
+  tiltrange: 0.25
   percent: 15
   attackdelay: 15
   delaycounter: 0
@@ -7753,7 +7753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1464795986}
   m_Layer: 0
-  m_Name: attackpoint
+  m_Name: tiltattackpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10801,7 +10801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2060496075}
   m_Layer: 0
-  m_Name: attackpoint
+  m_Name: tiltattackpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
