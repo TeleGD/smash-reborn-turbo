@@ -10,7 +10,7 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 
 ## Commandes
 
-**Joueur 1 :**
+**Joueur 1 : Random perso que j'ai trouvé sur le store**
 
 - Gauche : `[Q]`
 - Droite : `[D]`
@@ -19,7 +19,7 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 - Sprint : Nope
 - Attaquer : `[C]`
 
-**Joueur 2 :**
+**Joueur 2 : Bobby S. Lime**
 
 - Gauche : `[K]`
 - Droite : `[M]`
