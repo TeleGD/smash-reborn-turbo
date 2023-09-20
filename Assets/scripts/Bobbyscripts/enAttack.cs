@@ -22,14 +22,14 @@ public class enAttack : MonoBehaviour
 
 
     //attack variables
-    [Header("attack variables")]
-    public int percent;
-    public int attackdelay; //number of frames between attacks
-    public int delaycounter;
+    [Header("Tiltattack variables")]
+    public int tiltpercent;
+    public int tiltattackdelay; //number of frames between attacks
+    public int tiltdelaycounter;
+    public int tiltshielddamage;
 
 
     [Header("recoil variables")]
-    private int size;
     private Rigidbody2D enemyrb;
     private float playerx;
     public float baserecoil;
@@ -45,10 +45,10 @@ public class enAttack : MonoBehaviour
 
     void OnAttack1()
     {
-        if (delaycounter==0)
+        if (tiltdelaycounter==0 && !GetComponent<EnMovement>().shielded)
         {
             TiltAttack();
-            delaycounter = attackdelay;
+            tiltdelaycounter = tiltattackdelay;
         }
     }
 
@@ -57,9 +57,9 @@ public class enAttack : MonoBehaviour
 
         grounded = GetComponent<EnJumpV3>().grounded;
         //attack cooldown
-        if (delaycounter>0)
+        if (tiltdelaycounter>0)
         {
-            delaycounter -= 1;
+            tiltdelaycounter -= 1;
         }
 
     }
@@ -75,26 +75,29 @@ public class enAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player")
+            if (enemy.tag != "Player2")
             {
-                enemy.GetComponent<PlayerHP>().player1percent += percent;
-                enemyrb = enemy.GetComponent<Rigidbody2D>();
-                playerx = GetComponent<Rigidbody2D>().position.x;
-
-           
-                
-                
-                if(transform.position.x>= enemy.transform.position.x)
+                if(enemy.GetComponent<PlayerMovement>().shielded)
                 {
-                    enemyrb.AddForce(new Vector2(-baserecoil* enemy.GetComponent<PlayerHP>().player1percent, 0));
-                    
+                    enemy.GetComponent<PlayerMovement>().shield -= tiltshielddamage;
                 }
                 else
                 {
-                    enemyrb.AddForce(new Vector2(baserecoil* enemy.GetComponent<PlayerHP>().player1percent, 0));
-                }
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
+                    enemy.GetComponent<PlayerHP>().player1percent += tiltpercent;
+                    enemyrb = enemy.GetComponent<Rigidbody2D>();
+                    playerx = GetComponent<Rigidbody2D>().position.x;
 
+                    if (transform.position.x >= enemy.transform.position.x)
+                    {
+                        enemyrb.AddForce(new Vector2(-baserecoil * enemy.GetComponent<PlayerHP>().player1percent, 0));
+
+                    }
+                    else
+                    {
+                        enemyrb.AddForce(new Vector2(baserecoil * enemy.GetComponent<PlayerHP>().player1percent, 0));
+                    }
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
+                }
 
             }
             

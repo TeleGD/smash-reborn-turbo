@@ -21,7 +21,7 @@ public class playerpercent1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        percent = GameObject.Find("player1").GetComponent<PlayerHP>().player1percent;
+        percent = GameObject.FindWithTag("Player1").GetComponent<PlayerHP>().player1percent;
         TextUI.text = percent.ToString();
     }
 }

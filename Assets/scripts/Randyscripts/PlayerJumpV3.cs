@@ -73,13 +73,13 @@ public class PlayerJumpV3 : MonoBehaviour
 
         HandleLayers();
 
-        horizontal = GameObject.Find("player1").GetComponent<PlayerMovement>().horizontal;
+        horizontal = GetComponent<PlayerMovement>().horizontal;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
         Checkground();
 
         //normal jump
 
-        if (pressedjump && grounded)
+        if (pressedjump && grounded && !GetComponent<PlayerMovement>().shielded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             myanim.SetTrigger("jump");

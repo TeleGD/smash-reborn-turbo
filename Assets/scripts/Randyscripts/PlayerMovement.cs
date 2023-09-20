@@ -33,6 +33,18 @@ public class PlayerMovement : MonoBehaviour
     public float horizontal; // 1,-1,0
     public float vertical;
 
+    [Header("shield variables")]
+    private bool grounded;
+    public bool shielded; //indique si le bouclier est actif
+    public int shieldmax; //correspond au bouclier maximal
+    public int shield; //correspond à la valeur du bouclier
+    public int shielddimrate; //correspond à la diminution passive du shield lorsqu'il est actif
+    public int shieldrecharge; //correspond à la vitesse de rechargement du bouclier
+    public int shieldbreakCD; //correspond au temps pendant lequel le bouclier est inactif si il est cassé
+    public int shieldbreakcnter; //compteur du shieldbreak
+
+    public Shieldbar shieldbar;
+
 
     private void Awake()
     {
@@ -52,13 +64,49 @@ public class PlayerMovement : MonoBehaviour
         //Define the gamobjects found on the player
         rb2D = GetComponent<Rigidbody2D>();
         myanimator = GetComponent<Animator>();
+        shield = shieldmax;
+        shieldbar.SetMaxshield(shieldmax);
     }
 
     // Handles input of the physics
     private void Update()
     {
-            //check if key pressed
-            if (valueleft == 1 & valueright == 0)
+
+        shieldbar.Setshield(shield);
+
+        grounded = GetComponent<PlayerJumpV3>().grounded;
+
+        if (!grounded)
+        {
+            myanimator.SetBool("shield", false);
+        }
+
+        if(shieldbreakcnter > 0)
+        {
+            shieldbreakcnter--;
+        }
+
+        if (!shielded && shieldbreakcnter <= 0 && shield < shieldmax)
+        {
+            shield += shieldrecharge;
+        }
+
+        if (shielded && shield > 0)
+        {
+            shield -= shielddimrate;
+        }
+
+        if (shielded && shield <= 0)
+        {
+            shield = 0;
+            shieldbreakcnter = shieldbreakCD;
+            shielded = false;
+            myanimator.SetBool("shield", false);
+        }
+
+
+        //check if key pressed
+        if (valueleft == 1 & valueright == 0)
             {
                 horizontal = -1;
             }
@@ -81,34 +129,39 @@ public class PlayerMovement : MonoBehaviour
     {
         //move player
        
-       if (GetComponent<PlayerJumpV3>().allowjump)
+        if(!shielded)
         {
-            if (Mathf.Abs(rb2D.velocity.x) <= maxspeed)
-                {
-                rb2D.AddForce(new Vector2(horizontal * speed,0));
-            }
-            if ((horizontal ==0 && Mathf.Abs(rb2D.velocity.x) > 0.01) || (horizontal>0 && rb2D.velocity.x<0) ||( horizontal<0 && rb2D.velocity.x>0))
+            if (GetComponent<PlayerJumpV3>().allowjump)
             {
-                if (rb2D.velocity.x > 0)
+                if (Mathf.Abs(rb2D.velocity.x) <= maxspeed)
                 {
-                    rb2D.AddForce(new Vector2(-slowdownspeed,0));
+                    rb2D.AddForce(new Vector2(horizontal * speed, 0));
                 }
-                else
+                if ((horizontal == 0 && Mathf.Abs(rb2D.velocity.x) > 0.01) || (horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
                 {
-                    rb2D.AddForce(new Vector2(slowdownspeed,0));
+                    if (rb2D.velocity.x > 0)
+                    {
+                        rb2D.AddForce(new Vector2(-slowdownspeed, 0));
+                    }
+                    else
+                    {
+                        rb2D.AddForce(new Vector2(slowdownspeed, 0));
+                    }
                 }
-            }
-           
-            Flip(horizontal);
-            myanimator.SetFloat("speed", Mathf.Abs(horizontal));
-        }
-        else
-        {
-            if (GetComponent<PlayerJumpV3>().grounded && horizontal != 0)
-            {
+
                 Flip(horizontal);
+                myanimator.SetFloat("speed", Mathf.Abs(horizontal));
+            }
+            else
+            {
+                if (GetComponent<PlayerJumpV3>().grounded && horizontal != 0)
+                {
+                    Flip(horizontal);
+                }
             }
         }
+
+       
        
     }
     //flipping function
@@ -124,7 +177,22 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+
+    void OnShield()
+    {
+        if (grounded && shieldbreakcnter <= 0)
+        {
+            shielded = true;
+            myanimator.SetBool("shield", true);
+
+        }
+
+    }
+
     
+
+
+
     void OnEnable()
     {
         controls.gameplay.Enable();

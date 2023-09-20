@@ -57,12 +57,12 @@ public class EnemyHP : MonoBehaviour
         tempHP = enemyhp;
         if (rb2D.position.y <= -3)
         {
-            if (GetComponent<EnemyHP>().enemyhp > 1)
+            if (enemyhp > 1)
             {
-                GetComponent<EnemyHP>().enemyhp -= 1;
+                enemyhp -= 1;
                 transform.position = new Vector2(startx, starty);
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                GetComponent<EnemyHP>().enemyperc = 0;
+                rb2D.velocity = new Vector2(0, 0);
+                enemyperc = 0;
 
             }
             else

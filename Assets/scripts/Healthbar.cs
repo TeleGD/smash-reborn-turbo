@@ -7,7 +7,6 @@ public class Healthbar : MonoBehaviour
 {
 
     public Slider sliderHP;
-    public Slider sliderNRG;
 
 
     public void SetMaxhealth(float maxhealth)

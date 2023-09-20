@@ -39,14 +39,14 @@ public class PlayerHP : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
        
-        if (GetComponent<Rigidbody2D>().position.x>=7 || GetComponent<Rigidbody2D>().position.y <= -3 || GetComponent<Rigidbody2D>().position.y >= 4 || GetComponent<Rigidbody2D>().position.x <= -3)
+        if (rb.position.x>=7 || rb.position.y <= -3 || GetComponent<Rigidbody2D>().position.y >= 4 || GetComponent<Rigidbody2D>().position.x <= -3)
         {
             if(Eldonhp>1) 
             {
                 Eldonhp= Eldonhp - 1;
                 transform.position = new Vector2(1,1);
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
-                GetComponent<PlayerHP>().player1percent = 0;
+                rb.velocity = new Vector2(0,0);
+                player1percent = 0;
 
             }
             else

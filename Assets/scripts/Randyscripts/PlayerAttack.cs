@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,10 +29,10 @@ public class PlayerAttack : MonoBehaviour
     public int percent;
     public int attackdelay; //number of frames between attacks
     public int delaycounter;
+    public int tiltshielddamage;
 
 
     [Header("recoil variables")]
-    private int size;
     private Rigidbody2D enemyrb;
     private float playerx;
     public float baserecoil;
@@ -47,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
 
     void OnAttack()
     {
-        if (delaycounter==0)
+        if (delaycounter==0 && !GetComponent<PlayerMovement>().shielded)
         {
             fctTiltAttack();
             delaycounter = attackdelay;
@@ -77,26 +78,30 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player2")
+            if (enemy.tag != "Player1")
             {
-                enemy.GetComponent<EnemyHP>().enemyperc += percent;
-                enemyrb = enemy.GetComponent<Rigidbody2D>();
-                playerx = GetComponent<Rigidbody2D>().position.x;
-
-           
-                
-                
-                if(transform.position.x>= enemy.transform.position.x)
+                if(enemy.GetComponent<EnMovement>().shielded)
                 {
-                    enemyrb.AddForce(new Vector2(-baserecoil* enemy.GetComponent<EnemyHP>().enemyperc, 0));
-                    
+                    enemy.GetComponent<EnMovement>().shield -= tiltshielddamage;
                 }
                 else
                 {
-                    enemyrb.AddForce(new Vector2(baserecoil* enemy.GetComponent<EnemyHP>().enemyperc, 0));
-                }
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
+                    enemy.GetComponent<EnemyHP>().enemyperc += percent;
+                    enemyrb = enemy.GetComponent<Rigidbody2D>();
+                    playerx = GetComponent<Rigidbody2D>().position.x;
 
+
+                    if (transform.position.x >= enemy.transform.position.x)
+                    {
+                        enemyrb.AddForce(new Vector2(-baserecoil * enemy.GetComponent<EnemyHP>().enemyperc, 0));
+
+                    }
+                    else
+                    {
+                        enemyrb.AddForce(new Vector2(baserecoil * enemy.GetComponent<EnemyHP>().enemyperc, 0));
+                    }
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
+                }
 
             }
             

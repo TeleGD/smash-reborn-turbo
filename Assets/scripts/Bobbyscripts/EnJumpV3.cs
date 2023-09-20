@@ -70,13 +70,13 @@ public class EnJumpV3 : MonoBehaviour
     {
         HandleLayers();
 
-        horizontal = GameObject.Find("player1").GetComponent<PlayerMovement>().horizontal;
+        horizontal = GetComponent<EnMovement>().horizontal;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
         Checkground();
 
         //normal jump
 
-        if (pressedjump && grounded)
+        if (pressedjump && grounded && !GetComponent<EnMovement>().shielded)
         {
             myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);

@@ -134,6 +134,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""shield"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec5dbcc9-1b12-4598-828d-17b4e6239215"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""shield1"",
+                    ""type"": ""Button"",
+                    ""id"": ""a937e790-229e-4f72-9074-c1ea45617f9d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -400,6 +418,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""jump1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bc0164d-65ed-407a-b77f-80db08176e62"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""shield"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8535f87a-1268-41d0-8368-0b792bfee88b"",
+                    ""path"": ""<Keyboard>/quote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""shield1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -420,6 +460,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_gameplay_moveleft1 = m_gameplay.FindAction("moveleft1", throwIfNotFound: true);
         m_gameplay_moveright = m_gameplay.FindAction("moveright", throwIfNotFound: true);
         m_gameplay_moveright1 = m_gameplay.FindAction("moveright1", throwIfNotFound: true);
+        m_gameplay_shield = m_gameplay.FindAction("shield", throwIfNotFound: true);
+        m_gameplay_shield1 = m_gameplay.FindAction("shield1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -491,6 +533,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_gameplay_moveleft1;
     private readonly InputAction m_gameplay_moveright;
     private readonly InputAction m_gameplay_moveright1;
+    private readonly InputAction m_gameplay_shield;
+    private readonly InputAction m_gameplay_shield1;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -507,6 +551,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @moveleft1 => m_Wrapper.m_gameplay_moveleft1;
         public InputAction @moveright => m_Wrapper.m_gameplay_moveright;
         public InputAction @moveright1 => m_Wrapper.m_gameplay_moveright1;
+        public InputAction @shield => m_Wrapper.m_gameplay_shield;
+        public InputAction @shield1 => m_Wrapper.m_gameplay_shield1;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -552,6 +598,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @moveright1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveright1;
                 @moveright1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveright1;
                 @moveright1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveright1;
+                @shield.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShield;
+                @shield.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShield;
+                @shield.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShield;
+                @shield1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShield1;
+                @shield1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShield1;
+                @shield1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShield1;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -592,6 +644,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @moveright1.started += instance.OnMoveright1;
                 @moveright1.performed += instance.OnMoveright1;
                 @moveright1.canceled += instance.OnMoveright1;
+                @shield.started += instance.OnShield;
+                @shield.performed += instance.OnShield;
+                @shield.canceled += instance.OnShield;
+                @shield1.started += instance.OnShield1;
+                @shield1.performed += instance.OnShield1;
+                @shield1.canceled += instance.OnShield1;
             }
         }
     }
@@ -610,5 +668,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnMoveleft1(InputAction.CallbackContext context);
         void OnMoveright(InputAction.CallbackContext context);
         void OnMoveright1(InputAction.CallbackContext context);
+        void OnShield(InputAction.CallbackContext context);
+        void OnShield1(InputAction.CallbackContext context);
     }
 }
