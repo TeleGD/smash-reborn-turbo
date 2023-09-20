@@ -45,6 +45,10 @@ public class EnMovement : MonoBehaviour
     public int shieldbreakcnter; //compteur du shieldbreak
 
     public Shieldbar shieldbar;
+    public float shieldcancel;
+
+
+
 
     private void Awake()
     {
@@ -56,7 +60,8 @@ public class EnMovement : MonoBehaviour
         controls.gameplay.moveright1.canceled += ctx => valueright = 0;
         controls.gameplay.down1.performed += ctx => vertical = 1;
         controls.gameplay.down1.canceled += ctx => vertical = 0;
-
+        controls.gameplay.shield1.canceled += ctx => shieldcancel = 0;
+        controls.gameplay.shield1.performed+= ctx => shieldcancel = 1;
     }
 
     private void Start()
@@ -71,6 +76,12 @@ public class EnMovement : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
+
+        if(shieldcancel==0 && shielded)
+        {
+           shielded = false;
+            myanimator.SetBool("shield", false);
+        }
 
         shieldbar.Setshield(shield);
 
@@ -175,6 +186,8 @@ public class EnMovement : MonoBehaviour
 
         }
     }
+
+    
 
     void OnShield1()
     {

@@ -2387,11 +2387,12 @@ MonoBehaviour:
   shielded: 0
   shieldmax: 600
   shield: 0
-  shielddimrate: 10
-  shieldrecharge: 10
+  shielddimrate: 25
+  shieldrecharge: 5
   shieldbreakCD: 300
   shieldbreakcnter: 0
   shieldbar: {fileID: 646155277}
+  shieldcancel: 0
 --- !u!114 &912949980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5259,11 +5260,11 @@ MonoBehaviour:
   horizontal: 0
   vertical: 0
   shielded: 0
-  shieldmax: 5000
+  shieldmax: 600
   shield: 0
-  shielddimrate: 10
-  shieldrecharge: 10
-  shieldbreakCD: 10
+  shielddimrate: 25
+  shieldrecharge: 5
+  shieldbreakCD: 300
   shieldbreakcnter: 0
   shieldbar: {fileID: 890761104}
 --- !u!61 &1415235885
@@ -5403,7 +5404,7 @@ MonoBehaviour:
   percent: 15
   attackdelay: 15
   delaycounter: 0
-  tiltshielddamage: 0
+  tiltshielddamage: 250
   baserecoil: 5
   grounded: 0
 --- !u!114 &1415235890
