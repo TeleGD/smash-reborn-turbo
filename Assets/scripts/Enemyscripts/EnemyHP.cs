@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyHP : MonoBehaviour
 {
 
 
-    //damage and size (1=small 2=med 3=big)
-    [Header("damage and size (1:small 2:med 3 big")]
-    public int enemydamage;
-    public int size;
+  
 
     //HP variables
     [Header("HP variables")]
@@ -17,28 +15,17 @@ public class EnemyHP : MonoBehaviour
     public int enemymaxhp;
     private int tempHP;
     public bool rez = false;
+    public Healthbar healthbar;
 
-    //Energy variables
-    [Header("Energy variables")]
-    public int enemyNRG;
-    public int enemymaxNRG;
-    private int NRGcounter;
-    public int NRGdelay;
-    private int NRGrecharge;
-    public int NRGrechargerate;
-    private bool stopenergyregen;
-    public bool execution;
 
-    //stun variables
-    public bool cannotmove;
-    public int hitstundelay;
-    private int hitstuncounter;
+
     private Animator enemyanim;
 
-
+    public float startx;
+    public float starty;
 
     //Healthbar
-    public Healthbar healthbar;
+    
 
     private Rigidbody2D rb2D;
 
@@ -51,12 +38,8 @@ public class EnemyHP : MonoBehaviour
     {
         //setting enemy's max heatlth and energy
         enemyhp = enemymaxhp;
-        enemyNRG = enemymaxNRG;
         healthbar.SetMaxhealth(enemymaxhp);
-        cannotmove = GetComponent<EnemyAI>().cannotmove;
         enemyanim = GetComponent<Animator>();
-        execution = false;
-        enemyanim.SetBool("Stun", false);
         rb2D = transform.GetComponent<Rigidbody2D>();
 
     }
@@ -64,31 +47,27 @@ public class EnemyHP : MonoBehaviour
     void Update()
     {
 
-        //GameObject.Find("enpercent").GetComponent < enpercent >().percent = enemyperc;
-
-        GetComponent<EnemyAI>().cannotmove=cannotmove;
 
 
 
         //update of the healthbar
         healthbar.SetHealth(enemyhp);
 
-        //death of the enemy
-
-        if (enemyhp <= 0)
-        {
-            GetComponentInChildren<Canvas>().enabled = false;
-            GetComponent<Collider2D>().enabled=false;
-            GetComponent<SpriteRenderer>().enabled = false;
-            GetComponent<SpriteRenderer>().enabled = false;
-        }
-        if (rez)
-        {
-
-            transform.position = new Vector2(GetComponent<EnemyAI>().startx, GetComponent<EnemyAI>().starty);
-            GetComponent<Rigidbody2D>().velocity=new Vector2(0,0);
-            rez = false;
-        }
+        
         tempHP = enemyhp;
+        if (rb2D.position.y <= -3)
+        {
+            if (GetComponent<EnemyHP>().enemyhp > 1)
+            {
+                GetComponent<EnemyHP>().enemyhp -= 1;
+                GameObject.Find("Petitslime1").transform.position = new Vector2(startx, starty);
+                GetComponent<EnemyHP>().enemyperc = 0;
+
+            }
+            else
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+        }
     }
 }

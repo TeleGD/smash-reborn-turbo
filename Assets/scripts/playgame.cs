@@ -9,7 +9,7 @@ public class playgame : MonoBehaviour
     PlayerControls controls;
     public void Playgame()
     {
-        SceneManager.LoadScene("BreedingGrounds");
+        SceneManager.LoadScene("Map1");
     }
     public void Quitgame()
     {

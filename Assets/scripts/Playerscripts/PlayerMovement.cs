@@ -16,11 +16,7 @@ public class PlayerMovement : MonoBehaviour
     //safezone variables
     private float startx;
     private float starty;
-    public float safedetectrange;
-    [SerializeField] private LayerMask whatissafe;
     [SerializeField] private Transform groundcheck;
-    public GameObject[] deadenemy;
-    public bool issafe;
 
     //necessary for anim and physics
     private Rigidbody2D rb2D;
@@ -61,8 +57,6 @@ public class PlayerMovement : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
-        if (!GameObject.Find("player1").GetComponent<PlayerJumpV3>().stuckinwall)
-        {
             //check if key pressed
             if (valueleft == 1 & valueright == 0)
             {
@@ -80,18 +74,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 horizontal = 0;
             }
-            //vertical = Input.GetAxis("Vertical");
-        }
 
     }
     //Handles running of the physics
     private void FixedUpdate()
     {
         //move player
-       // if (GameObject.Find("player").GetComponent<PlayerJumpV2>().allowjump && !GameObject.Find("player").GetComponent<PlayerJumpV2>().wallslidingleft && !GameObject.Find("player").GetComponent<PlayerJumpV2>().wallslidingright && GameObject.Find("player").GetComponent<PlayerJumpV2>().movecounter<=0)
-       if (GameObject.Find("player1").GetComponent<PlayerJumpV3>().allowjump && !GetComponent<PlayerJumpV3>().stuckinwall)
+       
+       if (GetComponent<PlayerJumpV3>().allowjump)
         {
-            //rb2D.velocity = new Vector2(horizontal * speed, rb2D.velocity.y);
             if (Mathf.Abs(rb2D.velocity.x) <= maxspeed)
                 {
                 rb2D.AddForce(new Vector2(horizontal * speed,0));
@@ -113,18 +104,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // if (!GameObject.Find("player").GetComponent<PlayerJumpV2>().grounded && horizontal!=0)
-            if (!GameObject.Find("player1").GetComponent<PlayerJumpV3>().grounded && horizontal != 0 && !GetComponent<PlayerJumpV3>().stuckinwall)
+            if (GetComponent<PlayerJumpV3>().grounded && horizontal != 0)
             {
                 Flip(horizontal);
             }
         }
-        issafe = Physics2D.OverlapCircle(groundcheck.position, safedetectrange, whatissafe);
-        //if (GameObject.Find("player").GetComponent<PlayerJumpV2>().grounded & Physics2D.OverlapCircle(groundcheck.position, safedetectrange, whatissafe) & vertical==1)
-        if (GameObject.Find("player1").GetComponent<PlayerJumpV3>().grounded && Physics2D.OverlapCircle(groundcheck.position, safedetectrange, whatissafe) && vertical == 1)
-        {
-            safezone();
-        }
+       
     }
     //flipping function
     private void Flip(float horizontal)
@@ -139,27 +124,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    void safezone()
-    {
-        deadenemy = GameObject.FindGameObjectsWithTag("enemy");
-        foreach (GameObject enemy in deadenemy)
-        {
-            if (enemy.tag == "enemy")
-            {
-                enemy.GetComponent<EnemyHP>().enemyhp = enemy.GetComponent<EnemyHP>().enemymaxhp;
-                enemy.GetComponent<EnemyHP>().enemyNRG = enemy.GetComponent<EnemyHP>().enemymaxNRG;
-                enemy.GetComponentInChildren<Canvas>().enabled = true;
-                enemy.GetComponent<Collider2D>().enabled = true;
-                enemy.GetComponent<SpriteRenderer>().enabled = true;
-                enemy.GetComponent<EnemyHP>().enabled = true;
-                enemy.GetComponent<EnemyHP>().rez = true;
-                enemy.GetComponent<EnemyAI>().targetted = false;
-                enemy.GetComponent<EnemyHP>().execution = false;
-                enemy.GetComponent<Animator>().SetBool("Stun", false);
-            }
-        }
-        GameObject.Find("player1").GetComponent<PlayerHP>().Eldonhp = GameObject.Find("player1").GetComponent<PlayerHP>().Eldonmaxhp;
-    }
+    
     void OnEnable()
     {
         controls.gameplay.Enable();

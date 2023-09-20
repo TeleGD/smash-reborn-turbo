@@ -16,11 +16,7 @@ public class EnMovement : MonoBehaviour
     //safezone variables
     private float startx;
     private float starty;
-    public float safedetectrange;
-    [SerializeField] private LayerMask whatissafe;
     [SerializeField] private Transform groundcheck;
-    public GameObject[] deadenemy;
-    public bool issafe;
 
     //necessary for anim and physics
     private Rigidbody2D rb2D;
@@ -63,9 +59,6 @@ public class EnMovement : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
-        if (!GetComponent<EnJumpV3>().stuckinwall)
-        {
-            //check if key pressed
             if (valueleft == 1 & valueright == 0)
             {
                 horizontal = -1;
@@ -82,18 +75,14 @@ public class EnMovement : MonoBehaviour
             {
                 horizontal = 0;
             }
-            //vertical = Input.GetAxis("Vertical");
-        }
 
     }
     //Handles running of the physics
     private void FixedUpdate()
     {
         //move player
-       // if (GameObject.Find("player").GetComponent<PlayerJumpV2>().allowjump && !GameObject.Find("player").GetComponent<PlayerJumpV2>().wallslidingleft && !GameObject.Find("player").GetComponent<PlayerJumpV2>().wallslidingright && GameObject.Find("player").GetComponent<PlayerJumpV2>().movecounter<=0)
-       if (GetComponent<EnJumpV3>().allowjump && !GetComponent<EnJumpV3>().stuckinwall)
+       if (GetComponent<EnJumpV3>().allowjump)
         {
-            //rb2D.velocity = new Vector2(horizontal * speed, rb2D.velocity.y);
             if (Mathf.Abs(rb2D.velocity.x) <= maxspeed)
                 {
                 rb2D.AddForce(new Vector2(horizontal * speed,0));
@@ -115,8 +104,7 @@ public class EnMovement : MonoBehaviour
         }
         else
         {
-            // if (!GameObject.Find("player").GetComponent<PlayerJumpV2>().grounded && horizontal!=0)
-            if (!GetComponent<EnJumpV3>().grounded && horizontal != 0 && !GetComponent<PlayerJumpV3>().stuckinwall)
+            if (!GetComponent<EnJumpV3>().grounded && horizontal != 0)
             {
                 Flip(horizontal);
             }
