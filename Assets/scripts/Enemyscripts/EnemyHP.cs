@@ -60,7 +60,8 @@ public class EnemyHP : MonoBehaviour
             if (GetComponent<EnemyHP>().enemyhp > 1)
             {
                 GetComponent<EnemyHP>().enemyhp -= 1;
-                GameObject.Find("Petitslime1").transform.position = new Vector2(startx, starty);
+                transform.position = new Vector2(startx, starty);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 GetComponent<EnemyHP>().enemyperc = 0;
 
             }

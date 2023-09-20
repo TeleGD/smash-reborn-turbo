@@ -45,6 +45,7 @@ public class PlayerHP : MonoBehaviour
             {
                 Eldonhp= Eldonhp - 1;
                 transform.position = new Vector2(1,1);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
                 GetComponent<PlayerHP>().player1percent = 0;
 
             }
