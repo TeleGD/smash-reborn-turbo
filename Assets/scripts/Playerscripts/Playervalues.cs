@@ -20,6 +20,7 @@ public class Playervalues : MonoBehaviour
         EldonHP = 5;
         EldonmaxNRG = 100;
         EldonNRG = 100;
+        Application.targetFrameRate = 60;
         DontDestroyOnLoad(this);
     }
 

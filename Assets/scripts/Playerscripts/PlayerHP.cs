@@ -9,7 +9,6 @@ public class PlayerHP : MonoBehaviour
     public float Eldonhp;
     public float Eldonmaxhp;
     public int player1percent;
-    [SerializeField] private LayerMask whatisspike;
     [SerializeField] private Transform groundcheck;
     private Rigidbody2D rb;
 
