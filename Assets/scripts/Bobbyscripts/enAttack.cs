@@ -75,8 +75,9 @@ public class enAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag != "Player2")
+            if (enemy.tag == "Player1")
             {
+
                 if(enemy.GetComponent<PlayerMovement>().shielded)
                 {
                     enemy.GetComponent<PlayerMovement>().shield -= tiltshielddamage;

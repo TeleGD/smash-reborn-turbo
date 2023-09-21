@@ -2387,7 +2387,7 @@ MonoBehaviour:
   shielded: 0
   shieldmax: 600
   shield: 0
-  shielddimrate: 25
+  shielddimrate: 10
   shieldrecharge: 5
   shieldbreakCD: 300
   shieldbreakcnter: 0
@@ -2438,10 +2438,10 @@ MonoBehaviour:
   Attack: {fileID: 0}
   tiltattackpoint: {fileID: 2060496075}
   tiltrange: 0.3
-  tiltpercent: 0
-  tiltattackdelay: 0
+  tiltpercent: 10
+  tiltattackdelay: 10
   tiltdelaycounter: 0
-  tiltshielddamage: 0
+  tiltshielddamage: 250
   baserecoil: 6
   grounded: 0
 --- !u!1 &913976650
@@ -5262,11 +5262,12 @@ MonoBehaviour:
   shielded: 0
   shieldmax: 600
   shield: 0
-  shielddimrate: 25
+  shielddimrate: 10
   shieldrecharge: 5
   shieldbreakCD: 300
   shieldbreakcnter: 0
   shieldbar: {fileID: 890761104}
+  shieldcancel: 0
 --- !u!61 &1415235885
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8036,7 +8037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060496074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.342, y: -0.091, z: 0}
+  m_LocalPosition: {x: -0.457, y: -0.156, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

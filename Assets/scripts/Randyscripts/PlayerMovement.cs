@@ -57,8 +57,8 @@ public class PlayerMovement : MonoBehaviour
         controls.gameplay.moveright.canceled += ctx => valueright = 0;
         controls.gameplay.down.performed += ctx => vertical = 1;
         controls.gameplay.down.canceled += ctx => vertical = 0;
-        controls.gameplay.shield1.canceled += ctx => shieldcancel = 0;
-        controls.gameplay.shield1.performed += ctx => shieldcancel = 1;
+        controls.gameplay.shield.canceled += ctx => shieldcancel = 0;
+        controls.gameplay.shield.performed += ctx => shieldcancel = 1;
 
     }
 
