@@ -11,16 +11,15 @@ public class EnemyHP : MonoBehaviour
 
     //HP variables
     [Header("HP variables")]
-    public int enemyhp;
+    public int enemyhp; 
     public int enemymaxhp;
-    private int tempHP;
-    public bool rez = false;
     public Healthbar healthbar;
 
 
 
     private Animator enemyanim;
 
+    //coordonners de respawn
     public float startx;
     public float starty;
 
@@ -29,14 +28,14 @@ public class EnemyHP : MonoBehaviour
 
     private Rigidbody2D rb2D;
 
-
+    //entier qui correspond aux pourcent du personnager
     public int enemyperc;
 
 
 
     void Start()
     {
-        //setting enemy's max heatlth and energy
+        //initialisation des PVs, de la barre de vie, de l'animator et du RigidBody2D.
         enemyhp = enemymaxhp;
         healthbar.SetMaxhealth(enemymaxhp);
         enemyanim = GetComponent<Animator>();
@@ -53,9 +52,8 @@ public class EnemyHP : MonoBehaviour
         //update of the healthbar
         healthbar.SetHealth(enemyhp);
 
-        
-        tempHP = enemyhp;
-        if (rb2D.position.y <= -3)
+        //diminution de HP et défaite si ejection
+        if (rb2D.position.x >= 7 || rb2D.position.y <= -3 || rb2D.position.y >= 4 || rb2D.position.x <= -3)
         {
             if (enemyhp > 1)
             {

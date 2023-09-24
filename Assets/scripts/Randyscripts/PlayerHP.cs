@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHP : MonoBehaviour
 {
-    public float Eldonhp;
-    public float Eldonmaxhp;
+    public float playerhp;
+    public float playermaxhp;
     public int player1percent;
     [SerializeField] private Transform groundcheck;
     private Rigidbody2D rb;
@@ -19,10 +19,9 @@ public class PlayerHP : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Eldonhp = Playervalues.EldonHP;
-        Eldonmaxhp = Playervalues.EldonmaxHP;
-        healthbar.SetMaxhealth(Eldonmaxhp);
+        healthbar.SetMaxhealth(playermaxhp);
         rb = GetComponent<Rigidbody2D>();
+        playerhp = playermaxhp;
     }
 
     // Update is called once per frame
@@ -32,18 +31,18 @@ public class PlayerHP : MonoBehaviour
     {
        
 
-        healthbar.SetHealth(Eldonhp);
+        healthbar.SetHealth(playerhp);
 
-        if (Eldonhp <= 0)
+        if (playerhp <= 0)
         {
             SceneManager.LoadScene("MainMenu");
         }
        
         if (rb.position.x>=7 || rb.position.y <= -3 || GetComponent<Rigidbody2D>().position.y >= 4 || GetComponent<Rigidbody2D>().position.x <= -3)
         {
-            if(Eldonhp>1) 
+            if(playerhp>1) 
             {
-                Eldonhp= Eldonhp - 1;
+                playerhp= playerhp - 1;
                 transform.position = new Vector2(1,1);
                 rb.velocity = new Vector2(0,0);
                 player1percent = 0;

@@ -17,30 +17,31 @@ public class EnJumpV3 : MonoBehaviour
     public float range;
 
     [Header("Jump details")]
-    public float jumpForce;
-    public float jumptime;
-    public float jumpcounter;
-    public bool allowjump;
+    public float jumpForce; //intensité du saut
+    public float jumptime; //durée du saut
+    public float jumpcounter; //compteur qui compte la durée du saut
+    public bool allowjump; //bool qui gère quand le saut est possible
 
     [Header("DoubleJump details")]
-    public bool allowdoublejump;
-    public bool touchedground;
-    public float dbjumpForce;
-    public float dbjumptime;
-    public float dbjumpcounter;
-    public float dbjumpdelay;
-    public float dbjumpdelaycounter;
-    public bool jumplache;
+    public bool allowdoublejump; //bool qui gère quand le double saut est possible
+    public bool touchedground; //bool qui gère si le sol à été touché après un double saut
+    public float dbjumpForce; //intensité du double saut
+    public float dbjumptime; //durée du double saut
+    public float dbjumpcounter; //compteur qui compte la durée du double saut
+    public float dbjumpdelay; //durée minimale entre un saut et un double saut
+    public float dbjumpdelaycounter; //compteur qui compte la durée minimale entre un saut et un double saut
+    public bool jumplache; //bool qui détermine si le bouton de saut est pressé ou pas
 
 
     [Header("Ground details")]
+    //ensemble de variables qui servent à détecter le sol
     [SerializeField] private Transform groundcheck;
     [SerializeField] private float radOcircle;
     [SerializeField] private float hauteurgi;
     [SerializeField] private float largeurgi;
     [SerializeField] private LayerMask whatisground;
 
-    public bool grounded;
+    public bool grounded; //bool qui dit si le perso est au sol ou pas
 
     [Header("Components")]
     private Rigidbody2D rb;
@@ -52,12 +53,15 @@ public class EnJumpV3 : MonoBehaviour
 
     private void Awake()
     {
+        //assigne les différents input possible à des variables
         controls = new PlayerControls();
 
         controls.gameplay.jump1.performed += ctx => pressedjump = true;
         controls.gameplay.jump1.canceled += ctx => pressedjump = false;
         controls.gameplay.down1.performed += ctx => presseddown = true;
         controls.gameplay.down1.canceled += ctx => presseddown = false;
+
+        //initialisation de variables
         rb = GetComponent<Rigidbody2D>();
         jumpcounter = jumptime;
         dbjumpdelaycounter = dbjumpdelay;
@@ -70,30 +74,30 @@ public class EnJumpV3 : MonoBehaviour
     {
         HandleLayers();
 
-        horizontal = GetComponent<EnMovement>().horizontal;
-        grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
+        horizontal = GetComponent<EnMovement>().horizontal; //récupère la variable du script enmovement
+        grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground); 
         Checkground();
 
         //normal jump
 
-        if (pressedjump && grounded && !GetComponent<EnMovement>().shielded)
+        if (pressedjump && grounded && !GetComponent<EnMovement>().shielded) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
         {
             myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-           myanim.SetBool("falling", true);
+           myanim.SetBool("falling", true); //le bool de chute est toujours actif quand le perso est en l'air.
         }
             
 
-        if (jumpcounter <= 0)
+        if (jumpcounter <= 0) //check si le saut est terminé
         {
-            dbjumpdelaycounter -= Time.deltaTime;
-            if (dbjumpdelaycounter <= 0)
+            dbjumpdelaycounter -= Time.deltaTime; //diminue le compteur de délai de double jump
+            if (dbjumpdelaycounter <= 0) //si le compteur est nul, alors le double jump devient possible
             {
                 allowdoublejump = true;
             }
 
         }
-        if (!pressedjump && !grounded)
+        if (!pressedjump && !grounded) //check si le bouton de saut est relaché alors que le perso ne touche pas le sol. Permet d'éviter que le double saut se fasse tout seul si le joueur garde le bouton de saut appuyé.
         {
             jumplache = true;
             jumpcounter = 0;
@@ -109,16 +113,15 @@ public class EnJumpV3 : MonoBehaviour
         //double jump
 
 
-        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache)
+        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache) //vérifie que toutes les requirements pour lancer un double saut sont vérifiés
         {
             myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, dbjumpForce);
             myanim.SetBool("falling", true);
-            UnityEngine.Debug.Log("doublejump1");
             touchedground = false;
         }
 
-        if (!grounded && pressedjump && dbjumpcounter > 0 && allowdoublejump && jumplache)
+        if (!grounded && pressedjump && dbjumpcounter > 0 && allowdoublejump && jumplache) //continue de gagner de la hauteur si le bouton de saut est maintenu.
         {
             UnityEngine.Debug.Log("doublejump2");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -141,6 +144,7 @@ public class EnJumpV3 : MonoBehaviour
 
 
     void Checkground()
+        //vérifie si le perso est sur le sol et change toutes les variables qui doivent l'être
     {
         if (grounded)
         {
@@ -162,6 +166,7 @@ public class EnJumpV3 : MonoBehaviour
     }
 
     private void HandleLayers()
+        //permet à l'animateur de changer entre la layer correspondant à l'air et celle correspondant au sol
     {
         if (!grounded)
         {
@@ -172,6 +177,8 @@ public class EnJumpV3 : MonoBehaviour
             myanim.SetLayerWeight(1, 0);
         }
     }
+
+    //gère les contrôles
     void OnEnable()
     {
         controls.gameplay.Enable();
