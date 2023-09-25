@@ -153,7 +153,7 @@ public class enAttack : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies) //boucle for
             {
-                if (enemy.tag == "Player1") //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2.
+                if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
                 {
 
                     if (enemy.GetComponent<PlayerMovement>().shielded) //fait des shield damage si le shield est actif
@@ -200,7 +200,7 @@ public class enAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player1")
+            if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0)
             {
 
                 if (enemy.GetComponent<PlayerMovement>().shielded)
@@ -247,7 +247,7 @@ public class enAttack : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies)
             {
-                if (enemy.tag == "Player1")
+                if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0)
                 {
 
                     if (enemy.GetComponent<PlayerMovement>().shielded)
@@ -288,7 +288,7 @@ public class enAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player1")
+            if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0)
             {
 
                 if (enemy.GetComponent<PlayerMovement>().shielded)

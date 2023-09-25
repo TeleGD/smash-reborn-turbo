@@ -78,7 +78,7 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player2")
+            if (enemy.tag == "Player2" && enemy.GetComponent<EnemyHP>().iframes == 0)
             {
                 if(enemy.GetComponent<EnMovement>().shielded)
                 {

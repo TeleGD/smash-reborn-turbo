@@ -36,11 +36,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("shield variables")]
     private bool grounded;
     public bool shielded; //indique si le bouclier est actif
-    public int shieldmax; //correspond au bouclier maximal
+    private int shieldmax; //correspond au bouclier maximal
     public int shield; //correspond à la valeur du bouclier
-    public int shielddimrate; //correspond à la diminution passive du shield lorsqu'il est actif
-    public int shieldrecharge; //correspond à la vitesse de rechargement du bouclier
-    public int shieldbreakCD; //correspond au temps pendant lequel le bouclier est inactif si il est cassé
+    private int shielddimrate; //correspond à la diminution passive du shield lorsqu'il est actif
+    private int shieldrecharge; //correspond à la vitesse de rechargement du bouclier
+    private int shieldbreakCD; //correspond au temps pendant lequel le bouclier est inactif si il est cassé
     public int shieldbreakcnter; //compteur du shieldbreak
 
     public Shieldbar shieldbar;
@@ -59,6 +59,11 @@ public class PlayerMovement : MonoBehaviour
         controls.gameplay.down.canceled += ctx => vertical = 0;
         controls.gameplay.shield.canceled += ctx => shieldcancel = 0;
         controls.gameplay.shield.performed += ctx => shieldcancel = 1;
+
+        shieldmax = GameObject.Find("Global values").GetComponent<Globalvalues>().shieldmax;
+        shielddimrate = GameObject.Find("Global values").GetComponent<Globalvalues>().shielddimrate;
+        shieldrecharge = GameObject.Find("Global values").GetComponent<Globalvalues>().shieldrecharge;
+        shieldbreakCD = GameObject.Find("Global values").GetComponent<Globalvalues>().shieldbreakCD;
 
     }
 

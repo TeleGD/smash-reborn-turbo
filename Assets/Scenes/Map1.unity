@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 2394440}
   - component: {fileID: 2394439}
   m_Layer: 0
-  m_Name: Player values
+  m_Name: Global values
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,6 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5981ed213a04bb2ad7521bed2363d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xstartp1: 0
+  ystartp1: 0.1
+  xstartp2: 4
+  ystartp2: 0
+  shieldmax: 600
+  shielddimrate: 10
+  shieldrecharge: 5
+  shieldbreakCD: 300
+  playermaxhp: 5
+  respawniframes: 120
 --- !u!4 &2394440
 Transform:
   m_ObjectHideFlags: 0
@@ -2211,7 +2221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912949970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.9, y: 0.08, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: -0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2261,11 +2271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyhp: 0
-  enemymaxhp: 5
   healthbar: {fileID: 1455610430}
-  startx: 0
-  starty: 0
   enemyperc: 0
+  iframes: 0
 --- !u!95 &912949977
 Animator:
   serializedVersion: 4
@@ -2344,11 +2352,7 @@ MonoBehaviour:
   horizontal: 0
   vertical: 0
   shielded: 0
-  shieldmax: 600
   shield: 0
-  shielddimrate: 10
-  shieldrecharge: 5
-  shieldbreakCD: 300
   shieldbreakcnter: 0
   shieldbar: {fileID: 646155277}
   shieldcancel: 0
@@ -5251,7 +5255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415235879}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17, y: 0.23, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5275,11 +5279,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerhp: 0
-  playermaxhp: 5
   player1percent: 0
   groundcheck: {fileID: 913976651}
   radOcircle: 0.06
   healthbar: {fileID: 1940829397}
+  iframes: 0
 --- !u!114 &1415235882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5312,11 +5316,7 @@ MonoBehaviour:
   horizontal: 0
   vertical: 0
   shielded: 0
-  shieldmax: 600
   shield: 0
-  shielddimrate: 10
-  shieldrecharge: 5
-  shieldbreakCD: 300
   shieldbreakcnter: 0
   shieldbar: {fileID: 890761104}
   shieldcancel: 0
