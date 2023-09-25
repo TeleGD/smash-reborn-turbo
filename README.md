@@ -14,8 +14,8 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 
 - Gauche : `[Q]`
 - Droite : `[D]`
+- Bas : `[S]` (inutile pour l'instant pour J1)
 - Sauter : `[V]`
-- Descendre : Pas encore ça
 - Sprint : Nope
 - Attaquer : `[C]`
 - Bouclier : `[F]`
@@ -24,8 +24,8 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 
 - Gauche : `[K]`
 - Droite : `[M]`
+- Bas : `[L]`
 - Sauter : `[Right Shift]`
-- Descendre : Toujours pas
 - Sprint : `[NopeNope]`
 - Attaquer : `[!]`
 - Bouclier : `[ù]`
@@ -43,6 +43,7 @@ Commencer par faire les animations, de préférence en pixel art, avec le person
 Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Idle
 - Course
+- Baissé
 - Chute
 - Saut
 - Tilt
@@ -71,3 +72,11 @@ Pour faire une attaque multi-hit ou qui a un comportement qui évolue au fil des
 Pour faire une attaque avec plusieurs hitbox, ce qui permet que la hitbox finales soit plus précise qu'une sphère ou qu'un oval, ajouter des transform nomattackpoint (ex: tiltattackpoint). Il ne suffira alors que de modifier les boucles for dans les fonctions d'attaques pour qu'elles détectent les Collider2D dans toutes les hitbox et boom c'est dans la poche. Il est également possible de séparer les hitbox de cette manière, ce qui rend un tipper possible.
 
 Plusieurs archétypes d'attaques n'ont pas encore été implémentées et je n'y ai pas réflechi à comment les faire, donc si vous voulez faire des projectiles ou des attaques permettant de grab, amusez-vous bien. Si je suis deter, j'ajouterai des attaques de ce type à mon Bobby pour qu'il devienne un vrai petit `Kazuya Mishima`et que la base soit faire pour vous. En attendant, faites-le vous même ! Askip on est jamais mieux servi que de ctte façon là.
+
+## Crédits
+
+Projet entamé par Arnaud "Riki" KRAFFT, trésorier de TéléGameDesign 2023/2024
+
+Autres participants:
+-Maxime "Lyvent" Soldatov, président de TéléGameDesign 2023/2024 (ben oui il a créé le projet, hein)
+-personna d'autre pour l'instant, les enfants !

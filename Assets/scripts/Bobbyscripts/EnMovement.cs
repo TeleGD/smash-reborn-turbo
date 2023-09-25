@@ -47,6 +47,18 @@ public class EnMovement : MonoBehaviour
     public Shieldbar shieldbar;
     public float shieldcancel;
 
+    [Header("crouch variables")]
+    public bool crouched; //bool servant à savoir si le perso est baissé ou pas
+    //servent à déterminer la taille et la position de la hitbox une fois baissé
+    public float crouchedhbx;
+    public float crouchedhby;
+    public float crouchedhboffsety;
+    //servent à déterminer la taille de la hitbox une fois debout
+    public float standinghbx;
+    public float standinghby;
+    public float standinghboffsety;
+
+
 
 
 
@@ -87,8 +99,22 @@ public class EnMovement : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
+        if (vertical==1 && grounded && !shielded)
+        {
+            myanimator.SetBool("crouch", true);
+            crouched = true;
+            GetComponent<BoxCollider2D>().size = new Vector2(crouchedhbx, crouchedhby); //change la taille de la hitbox du perso lorsqu'il est baissé
+            GetComponent<BoxCollider2D>().offset = new Vector2(GetComponent<BoxCollider2D>().offset.x, crouchedhboffsety); //change la position de la hitbox du perso lorsqu'il est baissé
+        }
+        else //rétablit la hitbox du perso si il n'est pas baissé
+        {
+            myanimator.SetBool("crouch", false);
+            crouched = false;
+            GetComponent<BoxCollider2D>().size = new Vector2(standinghbx, standinghby);
+            GetComponent<BoxCollider2D>().offset = new Vector2(GetComponent<BoxCollider2D>().offset.x, standinghboffsety);
+        }
 
-        if(shieldcancel==0 && shielded) //annule le bouclier si le bouton est relaché
+        if (shieldcancel==0 && shielded) //annule le bouclier si le bouton est relaché
         {
            shielded = false;
             myanimator.SetBool("shield", false);
@@ -149,21 +175,21 @@ public class EnMovement : MonoBehaviour
     {
         //Section des mouvements
 
-        if(!shielded) //on ne saute pas si le bouclier est actif
+        if(!shielded) //on ne bouge pas si le bouclier est actif
         {
-            if (GetComponent<EnJumpV3>().allowjump) //allowjump est une variable qui détermine si il est possible de se mouvoir dans les airs.
+            if (GetComponent<EnJumpV3>().allowjump && !crouched) //allowjump est une variable qui détermine si il est possible de se mouvoir dans les airs. Si on est baissé, on ne peut pas bouger
             {
-                if (Mathf.Abs(rb2D.velocity.x) <= maxspeed) //check si la vitesse est inférieure à la vitesse max et dans ce cas gère les ralentissement
+                if (Mathf.Abs(rb2D.velocity.x) <= maxspeed) //check si la vitesse est inférieure à la vitesse max et on accélère. 
                 {
                     rb2D.AddForce(new Vector2(horizontal * speed, 0));
                 }
-                if ((horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
+                if (horizontal==0 || (horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
                 {
-                    if (rb2D.velocity.x > 0)
+                    if (rb2D.velocity.x > 0.1)
                     {
                         rb2D.AddForce(new Vector2(-slowdownspeed, 0));
                     }
-                    else
+                    else if(rb2D.velocity.x < -0.1)
                     {
                         rb2D.AddForce(new Vector2(slowdownspeed, 0));
                     }
@@ -174,7 +200,7 @@ public class EnMovement : MonoBehaviour
             }
             else
             {
-                if (!grounded && horizontal != 0)
+                if (!grounded && horizontal != 0 && !crouched)
                 {
                     Flip(horizontal); //retourne le personnage si besoin est.
                 }

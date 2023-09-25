@@ -2221,7 +2221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912949970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 3.988, y: 0.033, z: 0}
   m_LocalScale: {x: -0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2245,7 +2245,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
+  m_Offset: {x: 0, y: -0.28}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2256,7 +2256,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.7}
+  m_Size: {x: 0.9, y: 0.3}
   m_EdgeRadius: 0
 --- !u!114 &912949975
 MonoBehaviour:
@@ -2347,7 +2347,7 @@ MonoBehaviour:
   facingRight: 1
   speed: 8
   maxspeed: 3
-  slowdownspeed: 13
+  slowdownspeed: 6
   valueright: 0
   horizontal: 0
   vertical: 0
@@ -2356,6 +2356,13 @@ MonoBehaviour:
   shieldbreakcnter: 0
   shieldbar: {fileID: 646155277}
   shieldcancel: 0
+  crouched: 0
+  crouchedhbx: 0.9
+  crouchedhby: 0.3
+  crouchedhboffsety: -0.28
+  standinghbx: 0.9
+  standinghby: 0.7
+  standinghboffsety: -0.09
 --- !u!114 &912949980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5313,7 +5320,7 @@ MonoBehaviour:
   facingRight: 1
   speed: 6
   maxspeed: 3
-  slowdownspeed: 13
+  slowdownspeed: 6
   horizontal: 0
   vertical: 0
   shielded: 0

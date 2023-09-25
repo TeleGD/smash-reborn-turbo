@@ -151,13 +151,13 @@ public class PlayerMovement : MonoBehaviour
                 {
                     rb2D.AddForce(new Vector2(horizontal * speed, 0));
                 }
-                if ( (horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
+                if (horizontal == 0 || (horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
                 {
-                    if (rb2D.velocity.x > 0)
+                    if (rb2D.velocity.x > 0.1)
                     {
                         rb2D.AddForce(new Vector2(-slowdownspeed, 0));
                     }
-                    else
+                    else if (rb2D.velocity.x < -0.1)
                     {
                         rb2D.AddForce(new Vector2(slowdownspeed, 0));
                     }
