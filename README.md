@@ -78,5 +78,5 @@ Plusieurs archétypes d'attaques n'ont pas encore été implémentées et je n'y
 Projet entamé par Arnaud "Riki" KRAFFT, trésorier de TéléGameDesign 2023/2024
 
 Autres participants:
--Maxime "Lyvent" Soldatov, président de TéléGameDesign 2023/2024 (ben oui il a créé le projet, hein)
--personna d'autre pour l'instant, les enfants !
+- Maxime "Lyvent" Soldatov, président de TéléGameDesign 2023/2024 (ben oui il a créé le projet, hein)
+- personne d'autre pour l'instant, les enfants !
