@@ -157,7 +157,7 @@ public class EnMovement : MonoBehaviour
                 {
                     rb2D.AddForce(new Vector2(horizontal * speed, 0));
                 }
-                if ((horizontal == 0 && Mathf.Abs(rb2D.velocity.x) > 0.05) || (horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
+                if ((horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
                 {
                     if (rb2D.velocity.x > 0)
                     {

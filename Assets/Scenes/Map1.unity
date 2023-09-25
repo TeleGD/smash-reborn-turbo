@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xstartp1: 0
-  ystartp1: 0.1
+  ystartp1: 0.3
   xstartp2: 4
   ystartp2: 0
   shieldmax: 600
@@ -2417,6 +2417,7 @@ MonoBehaviour:
   nairlength: 30
   nairlengthcounter: 0
   nairbaserecoil: 150
+  cible: {fileID: 0}
   grounded: 0
 --- !u!1 &913976650
 GameObject:
@@ -5255,7 +5256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415235879}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.089, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5310,9 +5311,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundcheck: {fileID: 913976651}
   facingRight: 1
-  speed: 12
-  maxspeed: 10
-  slowdownspeed: 10
+  speed: 6
+  maxspeed: 3
+  slowdownspeed: 13
   horizontal: 0
   vertical: 0
   shielded: 0

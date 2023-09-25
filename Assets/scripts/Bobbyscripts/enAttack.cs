@@ -55,6 +55,8 @@ public class enAttack : MonoBehaviour
     public int nairlengthcounter;
     public float nairbaserecoil;
 
+    [Header("collider touché")]
+    public Collider2D cible; //sert à garder en mémoire la dernière cible touchée lors d'une attaque non multi-hit. Cela permet de ne pas toucher deux fois avec la même attaque.
 
     [Header("recoil variables")]
     private Rigidbody2D enemyrb;
@@ -105,11 +107,20 @@ public class enAttack : MonoBehaviour
     
         if (tiltdelaycounter>0) //CD du tilt
         {
+
             tiltdelaycounter -= 1;
         }
         if (tiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
         {
-            Lingeringtilt();
+            if(tiltlengthcounter==1) 
+            {
+                Lingeringtilt();
+                cible = null; //on réinitialise cible à la fin de l'attaque
+            }
+            else
+            {
+                Lingeringtilt();
+            }
         }
 
 
@@ -155,6 +166,7 @@ public class enAttack : MonoBehaviour
             {
                 if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
                 {
+                    cible = enemy;
 
                     if (enemy.GetComponent<PlayerMovement>().shielded) //fait des shield damage si le shield est actif
                     {
@@ -196,37 +208,45 @@ public class enAttack : MonoBehaviour
     {
         tiltlengthcounter -= 1;
         //get enemies in range
-        Collider2D[] hitenemies = Physics2D.OverlapCircleAll(tiltattackpoint.position, tiltrange);
 
-        foreach (Collider2D enemy in hitenemies)
+        if(tiltlengthcounter%2==0)
         {
-            if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0)
+
+            Collider2D[] hitenemies = Physics2D.OverlapCircleAll(tiltattackpoint.position, tiltrange);
+
+            foreach (Collider2D enemy in hitenemies)
             {
-
-                if (enemy.GetComponent<PlayerMovement>().shielded)
+                if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
-                    enemy.GetComponent<PlayerMovement>().shield -= tiltshielddamage;
-                }
-                else
-                {
-                    enemy.GetComponent<PlayerHP>().player1percent += tiltpercent;
-                    enemyrb = enemy.GetComponent<Rigidbody2D>();
 
-                    if (transform.position.x >= enemy.transform.position.x)
+                    cible = enemy;
+
+                    if (enemy.GetComponent<PlayerMovement>().shielded)
                     {
-                        enemyrb.AddForce(new Vector2(-tiltbaserecoil * enemy.GetComponent<PlayerHP>().player1percent, 0));
-
+                        enemy.GetComponent<PlayerMovement>().shield -= tiltshielddamage;
                     }
                     else
                     {
-                        enemyrb.AddForce(new Vector2(tiltbaserecoil * enemy.GetComponent<PlayerHP>().player1percent, 0));
+                        enemy.GetComponent<PlayerHP>().player1percent += tiltpercent;
+                        enemyrb = enemy.GetComponent<Rigidbody2D>();
+
+                        if (transform.position.x >= enemy.transform.position.x)
+                        {
+                            enemyrb.AddForce(new Vector2(-tiltbaserecoil * enemy.GetComponent<PlayerHP>().player1percent, 0));
+
+                        }
+                        else
+                        {
+                            enemyrb.AddForce(new Vector2(tiltbaserecoil * enemy.GetComponent<PlayerHP>().player1percent, 0));
+                        }
+                        GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
                     }
-                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
+
                 }
 
             }
-
         }
+
     }
 
    
