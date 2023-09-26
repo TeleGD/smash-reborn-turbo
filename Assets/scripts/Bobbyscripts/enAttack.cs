@@ -12,26 +12,29 @@ public class enAttack : MonoBehaviour
     public PlayerInput Attack;
 
     private Animator enanim;
-  
 
 
-    
-    
+
+
+
 
 
     //variables d'attaques:
     //elles doivent être de la forme:nomtype. Par exemple, pour tiltpercent, le nom de l'attaque est tilt et le type est percent.
 
-    //voici une liste et une description de chaque type:
+    //voici une liste et une description de chaque type (il n'est pas nécessaire de tous les avoirs. ça dépend de l'action):
 
     //attackpoint: la transform qui correspondra à la hitbox de l'attaque. Si l'attaque doit avoir plusieurs hitbox, il faudra plusieurs transform
     //range: rayon de la sphère qu'est la hitbox
+    //hbx: largeur du rectangle si la hitbox est un rectange
+    //hby: hauteur du rectangle si la hitbox est un rectange
     //percent: les pourcents infligés par l'attaque
     //attackdelay: nombre de frame de CD après l'attaque
     //delaytcounter: compteur lié à attackdelay
     //shielddamage: points de boucliers enlevés sil'attaque touche le bouclier
     //length: durée pendant laquelle l'attaque est active (en frame)
     //lengthcounter: compteur lié à length.
+    //startframe: première frame à laquelle les dégats sont faits.
     //baserecoil: recul de base de l'attaque. Les pourcents de la cible seront multiplié par cette valeur pour donner la force d'éjection finale.
     [Header("Tiltattack variables")]
     public Transform tiltattackpoint;
@@ -55,6 +58,19 @@ public class enAttack : MonoBehaviour
     public int nairlengthcounter;
     public float nairbaserecoil;
 
+    [Header("Dtiltattack variables")]
+    public Transform dtiltattackpoint;
+    public float dtilhbx;
+    public float dtilhby;
+    public int dtiltpercent;
+    public int dtiltattackdelay;
+    public int dtiltdelaycounter;
+    public int dtiltshielddamage;
+    public int dtiltlength;
+    public int dtiltlengthcounter;
+    public int dtiltstartframe;
+    public float dtiltbaserecoil;
+
     [Header("collider touché")]
     public Collider2D cible; //sert à garder en mémoire la dernière cible touchée lors d'une attaque non multi-hit. Cela permet de ne pas toucher deux fois avec la même attaque.
 
@@ -74,10 +90,15 @@ public class enAttack : MonoBehaviour
     {
         if (grounded) //check si le perso est sur le sol
         {
-            if (tiltdelaycounter == 0 && !GetComponent<EnMovement>().shielded) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
+            if (tiltdelaycounter == 0 && !GetComponent<EnMovement>().shielded && !GetComponent<EnMovement>().crouched) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
             {
                 TiltAttack();
                 tiltdelaycounter = tiltattackdelay;
+            }
+            else if(dtiltdelaycounter == 0 && !GetComponent<EnMovement>().shielded && GetComponent<EnMovement>().crouched)
+            {
+                DTiltAttack();
+                dtiltdelaycounter = dtiltattackdelay;
             }
         }
         else //se déclenche si le perso n'est pas au sol
@@ -110,6 +131,9 @@ public class enAttack : MonoBehaviour
 
             tiltdelaycounter -= 1;
         }
+
+        
+
         if (tiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
         {
             if(tiltlengthcounter==1) 
@@ -120,6 +144,19 @@ public class enAttack : MonoBehaviour
             else
             {
                 Lingeringtilt();
+            }
+        }
+
+        if (dtiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
+        {
+            if (dtiltlengthcounter == 1)
+            {
+                Lingeringdtilt();
+                cible = null; //on réinitialise cible à la fin de l'attaque
+            }
+            else
+            {
+                Lingeringdtilt();
             }
         }
 
@@ -135,6 +172,13 @@ public class enAttack : MonoBehaviour
             lingeringnair();
 
         }
+
+        if (dtiltdelaycounter > 0) //CD du dtilt
+        {
+
+            dtiltdelaycounter -= 1;
+        }
+
 
     }
 
@@ -337,11 +381,74 @@ public class enAttack : MonoBehaviour
         }
     }
 
+
+    void DTiltAttack()
+    {
+
+        if (dtiltlengthcounter == 0)
+        {
+
+            dtiltlengthcounter = dtiltlength;
+
+            //attack animation
+            enanim.SetTrigger("attack");
+
+        }
+
+
+    }
+
+
+
+    void Lingeringdtilt()
+    {
+       dtiltlengthcounter -= 1;
+        //get enemies in range
+
+        if (tiltlengthcounter <= dtiltlength-dtiltstartframe)
+        {
+
+            Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(dtiltattackpoint.position.x - dtilhbx / 2, dtiltattackpoint.position.y + dtilhby / 2), new Vector2(dtiltattackpoint.position.x + dtilhbx / 2, dtiltattackpoint.position.y - dtilhby / 2));
+
+            foreach (Collider2D enemy in hitenemies)
+            {
+                if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                {
+
+                    cible = enemy;
+
+                    if (enemy.GetComponent<PlayerMovement>().shielded)
+                    {
+                        enemy.GetComponent<PlayerMovement>().shield -= dtiltshielddamage;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<PlayerHP>().player1percent += dtiltpercent;
+                        enemyrb = enemy.GetComponent<Rigidbody2D>();
+                        enemyrb.AddForce(new Vector2(0, 400 + dtiltbaserecoil * enemy.GetComponent<PlayerHP>().player1percent));
+
+                        
+                        GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,0);
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+
+
+
+
+
     private void OnDrawGizmos()
         //permet d'afficher les hitbox d'attaques
     {
         Gizmos.DrawWireSphere(tiltattackpoint.position, tiltrange);
         Gizmos.DrawWireSphere(nairattackpoint.position, nairrange);
+        Gizmos.DrawCube(dtiltattackpoint.position, new Vector2(dtilhbx, dtilhby));
     }
 //    void OnEnable()
   //  {

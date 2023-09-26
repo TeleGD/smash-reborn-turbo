@@ -47,6 +47,7 @@ Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Chute
 - Saut
 - Tilt
+- Down Tilt
 - Neutral Air
 - Bouclier
 
