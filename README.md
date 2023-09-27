@@ -55,6 +55,9 @@ Exporter les animation sous un format où toutes les frames sont sur le même .P
 
 **Implémentation**
 
+*Important !*
+Ne faites pas votre personnage sur Map1 ! Pour être sûr que vous puissiez travailler dessus sans problème, copiez-coller la scène "Workshop: Bobby", renomez la copie et travaillez dessus ! Cela permet que chaque personne puisse travailler sur son perso en même temps et quand même push. Si tout le monde travaille sur la même scène, ça va faire qu'une personne ne pourra pas tester si une autre personne a une erreur !
+
 Le personnage qu'il faut prendre comme "base" est Bobby. Il est conseillé de le copier coller et de remplacer les animations, la taille des hitbox et tout ce qui doit être changé pour en faire votre perso plutôt que de tout recommencer de 0.
 
 Lorsque vous changez les animations, faites attention aux transitions entre animations, aux durées de sorties et aux requirements sinon ça va pas bien marcher.
