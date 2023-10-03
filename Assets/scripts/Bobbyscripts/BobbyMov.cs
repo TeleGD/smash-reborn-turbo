@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 
 
-public class EnMovement : MonoBehaviour
+public class BobbyMov : MonoBehaviour
 {
 
     PlayerControls controls;
@@ -124,7 +124,7 @@ public class EnMovement : MonoBehaviour
 
         shieldbar.Setshield(shield); //update la barre de bouclier
 
-        grounded = GetComponent<EnJumpV3>().grounded; //check si le perso est au sol
+        grounded = GetComponent<BobbyJump>().grounded; //check si le perso est au sol
 
         if(!grounded)
         {
@@ -179,7 +179,7 @@ public class EnMovement : MonoBehaviour
 
         if(!shielded) //on ne bouge pas si le bouclier est actif
         {
-            if (GetComponent<EnJumpV3>().allowjump && !crouched) //allowjump est une variable qui détermine si il est possible de se mouvoir dans les airs. Si on est baissé, on ne peut pas bouger
+            if (GetComponent<BobbyJump>().allowjump && !crouched) //allowjump est une variable qui détermine si il est possible de se mouvoir dans les airs. Si on est baissé, on ne peut pas bouger
             {
                 if (Mathf.Abs(rb2D.velocity.x) <= maxspeed) //check si la vitesse est inférieure à la vitesse max et on accélère. 
                 {

@@ -162,6 +162,8 @@ MonoBehaviour:
   shieldbreakCD: 300
   playermaxhp: 5
   respawniframes: 120
+  player1char: Randy
+  player2char: Bobby
 --- !u!4 &2394440
 Transform:
   m_ObjectHideFlags: 0
@@ -2439,6 +2441,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attack: {fileID: 0}
+  playernumber: 1
+  enemynumber: 2
+  enemytag: 
   tiltattackpoint: {fileID: 2060496075}
   tiltrange: 0.3
   tiltpercent: 10
@@ -5372,11 +5377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e416eae0a9e4c3d88d990bde735ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerhp: 0
-  player1percent: 0
-  groundcheck: {fileID: 913976651}
-  radOcircle: 0.06
+  enemyhp: 0
   healthbar: {fileID: 1940829397}
+  enemyperc: 0
   iframes: 0
 --- !u!114 &1415235882
 MonoBehaviour:

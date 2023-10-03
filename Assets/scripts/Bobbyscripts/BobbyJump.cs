@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 
 
-public class EnJumpV3 : MonoBehaviour
+public class BobbyJump : MonoBehaviour
 {
     PlayerControls controls;
 
@@ -74,13 +74,13 @@ public class EnJumpV3 : MonoBehaviour
     {
         HandleLayers();
 
-        horizontal = GetComponent<EnMovement>().horizontal; //récupère la variable du script enmovement
+        horizontal = GetComponent<BobbyMov>().horizontal; //récupère la variable du script BobbyMov
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground); 
         Checkground();
 
         //normal jump
 
-        if (pressedjump && grounded && !GetComponent<EnMovement>().shielded) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
+        if (pressedjump && grounded && !GetComponent<BobbyMov>().shielded) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
         {
             myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 
 
-public class PlayerMovement : MonoBehaviour
+public class RandyMov : MonoBehaviour
 {
 
     PlayerControls controls;
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
         shieldbar.Setshield(shield);
 
-        grounded = GetComponent<PlayerJumpV3>().grounded;
+        grounded = GetComponent<RandyJump>().grounded;
 
         if (!grounded)
         {
@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
        
         if(!shielded)
         {
-            if (GetComponent<PlayerJumpV3>().allowjump)
+            if (GetComponent<RandyJump>().allowjump)
             {
                 if (Mathf.Abs(rb2D.velocity.x) <= maxspeed)
                 {
@@ -168,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                if (GetComponent<PlayerJumpV3>().grounded && horizontal != 0)
+                if (GetComponent<RandyJump>().grounded && horizontal != 0)
                 {
                     Flip(horizontal);
                 }

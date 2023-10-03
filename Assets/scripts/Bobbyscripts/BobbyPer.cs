@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Diagnostics;
 
-public class enpercent : MonoBehaviour
+public class BobbyPer : MonoBehaviour
 {
 
     public TextMeshProUGUI TextUI;
@@ -21,7 +21,7 @@ public class enpercent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        percent = GameObject.FindWithTag("Player2").GetComponent<EnemyHP>().enemyperc;
+        percent = GameObject.FindWithTag("Player2").GetComponent<BobbyHP>().enemyperc;
         TextUI.text = percent.ToString();
     }
 }

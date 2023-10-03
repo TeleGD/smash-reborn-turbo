@@ -22,6 +22,8 @@ public class Globalvalues : MonoBehaviour
     [Header("player variables")]
     public int playermaxhp; //nombre de vies des joueurs
     public int respawniframes;
+    public string player1char;
+    public string player2char;
 
 
     // Update is called once per frame

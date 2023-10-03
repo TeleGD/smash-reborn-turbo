@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 
 
-public class PlayerJumpV3 : MonoBehaviour
+public class RandyJump : MonoBehaviour
 {
     PlayerControls controls;
 
@@ -73,13 +73,13 @@ public class PlayerJumpV3 : MonoBehaviour
 
         HandleLayers();
 
-        horizontal = GetComponent<PlayerMovement>().horizontal;
+        horizontal = GetComponent<RandyMov>().horizontal;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
         Checkground();
 
         //normal jump
 
-        if (pressedjump && grounded && !GetComponent<PlayerMovement>().shielded)
+        if (pressedjump && grounded && !GetComponent<RandyMov>().shielded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             myanim.SetTrigger("jump");
