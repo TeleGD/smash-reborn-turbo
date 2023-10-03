@@ -91,6 +91,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""up"",
+                    ""type"": ""Button"",
+                    ""id"": ""97f50be6-7b2f-4413-a3b1-ef87eb196b5d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""up1"",
+                    ""type"": ""Button"",
+                    ""id"": ""42dd92b1-64d3-4671-9b2e-b957f4ba5f6a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""down1"",
                     ""type"": ""Button"",
                     ""id"": ""2e918eae-8cc0-439d-add5-e5be03007c6e"",
@@ -440,6 +458,50 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""shield1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d13375f8-c88d-47e6-ba0f-5d659f9c0949"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c2ba309-cb7b-42a9-a41b-efe564b492c0"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d207c9d-9eb4-4358-a446-94eaab5f22d5"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""up1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7018429c-8949-460b-b717-076f99afc0c5"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""up1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -455,6 +517,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_gameplay_modechange = m_gameplay.FindAction("modechange", throwIfNotFound: true);
         m_gameplay_menu = m_gameplay.FindAction("menu", throwIfNotFound: true);
         m_gameplay_down = m_gameplay.FindAction("down", throwIfNotFound: true);
+        m_gameplay_up = m_gameplay.FindAction("up", throwIfNotFound: true);
+        m_gameplay_up1 = m_gameplay.FindAction("up1", throwIfNotFound: true);
         m_gameplay_down1 = m_gameplay.FindAction("down1", throwIfNotFound: true);
         m_gameplay_moveleft = m_gameplay.FindAction("moveleft", throwIfNotFound: true);
         m_gameplay_moveleft1 = m_gameplay.FindAction("moveleft1", throwIfNotFound: true);
@@ -528,6 +592,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_gameplay_modechange;
     private readonly InputAction m_gameplay_menu;
     private readonly InputAction m_gameplay_down;
+    private readonly InputAction m_gameplay_up;
+    private readonly InputAction m_gameplay_up1;
     private readonly InputAction m_gameplay_down1;
     private readonly InputAction m_gameplay_moveleft;
     private readonly InputAction m_gameplay_moveleft1;
@@ -546,6 +612,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @modechange => m_Wrapper.m_gameplay_modechange;
         public InputAction @menu => m_Wrapper.m_gameplay_menu;
         public InputAction @down => m_Wrapper.m_gameplay_down;
+        public InputAction @up => m_Wrapper.m_gameplay_up;
+        public InputAction @up1 => m_Wrapper.m_gameplay_up1;
         public InputAction @down1 => m_Wrapper.m_gameplay_down1;
         public InputAction @moveleft => m_Wrapper.m_gameplay_moveleft;
         public InputAction @moveleft1 => m_Wrapper.m_gameplay_moveleft1;
@@ -583,6 +651,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @down.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDown;
                 @down.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDown;
                 @down.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDown;
+                @up.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUp;
+                @up.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUp;
+                @up.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUp;
+                @up1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUp1;
+                @up1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUp1;
+                @up1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUp1;
                 @down1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDown1;
                 @down1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDown1;
                 @down1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDown1;
@@ -629,6 +703,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @down.started += instance.OnDown;
                 @down.performed += instance.OnDown;
                 @down.canceled += instance.OnDown;
+                @up.started += instance.OnUp;
+                @up.performed += instance.OnUp;
+                @up.canceled += instance.OnUp;
+                @up1.started += instance.OnUp1;
+                @up1.performed += instance.OnUp1;
+                @up1.canceled += instance.OnUp1;
                 @down1.started += instance.OnDown1;
                 @down1.performed += instance.OnDown1;
                 @down1.canceled += instance.OnDown1;
@@ -663,6 +743,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnModechange(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
         void OnDown(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        void OnUp1(InputAction.CallbackContext context);
         void OnDown1(InputAction.CallbackContext context);
         void OnMoveleft(InputAction.CallbackContext context);
         void OnMoveleft1(InputAction.CallbackContext context);

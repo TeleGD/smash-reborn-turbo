@@ -69,6 +69,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "up",
+                    "type": "Button",
+                    "id": "97f50be6-7b2f-4413-a3b1-ef87eb196b5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "up1",
+                    "type": "Button",
+                    "id": "42dd92b1-64d3-4671-9b2e-b957f4ba5f6a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "down1",
                     "type": "Button",
                     "id": "2e918eae-8cc0-439d-add5-e5be03007c6e",
@@ -416,6 +434,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "shield1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d13375f8-c88d-47e6-ba0f-5d659f9c0949",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c2ba309-cb7b-42a9-a41b-efe564b492c0",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d207c9d-9eb4-4358-a446-94eaab5f22d5",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "up1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7018429c-8949-460b-b717-076f99afc0c5",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "up1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

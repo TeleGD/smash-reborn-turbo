@@ -15,6 +15,7 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 - Gauche : `[Q]`
 - Droite : `[D]`
 - Bas : `[S]` (inutile pour l'instant pour J1)
+- Haut : `[Z]` (same, flm de faire ce perso)
 - Sauter : `[V]`
 - Sprint : Nope
 - Attaquer : `[C]`
@@ -25,6 +26,7 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 - Gauche : `[K]`
 - Droite : `[M]`
 - Bas : `[L]`
+- Haut : `[O]`
 - Sauter : `[Right Shift]`
 - Sprint : `[NopeNope]`
 - Attaquer : `[!]`
@@ -48,6 +50,7 @@ Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Saut
 - Tilt
 - Down Tilt
+- Up Tilt
 - Neutral Air
 - Bouclier
 

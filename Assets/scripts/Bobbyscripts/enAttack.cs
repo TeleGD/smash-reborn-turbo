@@ -71,6 +71,19 @@ public class enAttack : MonoBehaviour
     public int dtiltstartframe;
     public float dtiltbaserecoil;
 
+    [Header("Uptiltattack variables")]
+    public Transform uptiltattackpoint;
+    public float uptilhbx;
+    public float uptilhby;
+    public int uptiltpercent;
+    public int uptiltattackdelay;
+    public int uptiltdelaycounter;
+    public int uptiltshielddamage;
+    public int uptiltlength;
+    public int uptiltlengthcounter;
+    public int uptiltstartframe;
+    public float uptiltbaserecoil;
+
     [Header("collider touché")]
     public Collider2D cible; //sert à garder en mémoire la dernière cible touchée lors d'une attaque non multi-hit. Cela permet de ne pas toucher deux fois avec la même attaque.
 
@@ -90,7 +103,7 @@ public class enAttack : MonoBehaviour
     {
         if (grounded) //check si le perso est sur le sol
         {
-            if (tiltdelaycounter == 0 && !GetComponent<EnMovement>().shielded && !GetComponent<EnMovement>().crouched) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
+            if (tiltdelaycounter == 0 && !GetComponent<EnMovement>().shielded && !GetComponent<EnMovement>().crouched && GetComponent<EnMovement>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
             {
                 TiltAttack();
                 tiltdelaycounter = tiltattackdelay;
@@ -99,6 +112,11 @@ public class enAttack : MonoBehaviour
             {
                 DTiltAttack();
                 dtiltdelaycounter = dtiltattackdelay;
+            }
+            else if(uptiltdelaycounter==0 && !GetComponent<EnMovement>().shielded && !GetComponent<EnMovement>().crouched && GetComponent<EnMovement>().vertical==1)
+            {
+                UpTiltAttack();
+                uptiltdelaycounter = uptiltattackdelay;
             }
         }
         else //se déclenche si le perso n'est pas au sol
@@ -125,59 +143,9 @@ public class enAttack : MonoBehaviour
 
         grounded = GetComponent<EnJumpV3>().grounded;
 
+        AttackCD();
     
-        if (tiltdelaycounter>0) //CD du tilt
-        {
-
-            tiltdelaycounter -= 1;
-        }
-
         
-
-        if (tiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
-        {
-            if(tiltlengthcounter==1) 
-            {
-                Lingeringtilt();
-                cible = null; //on réinitialise cible à la fin de l'attaque
-            }
-            else
-            {
-                Lingeringtilt();
-            }
-        }
-
-        if (dtiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
-        {
-            if (dtiltlengthcounter == 1)
-            {
-                Lingeringdtilt();
-                cible = null; //on réinitialise cible à la fin de l'attaque
-            }
-            else
-            {
-                Lingeringdtilt();
-            }
-        }
-
-
-
-
-        if (nairdelaycounter > 0) //CD du nair
-        {
-            nairdelaycounter -= 1;
-        }
-        if (nairlengthcounter > 0) //activation du nair si la hitbox est toujours actives
-        {
-            lingeringnair();
-
-        }
-
-        if (dtiltdelaycounter > 0) //CD du dtilt
-        {
-
-            dtiltdelaycounter -= 1;
-        }
 
 
     }
@@ -405,13 +373,14 @@ public class enAttack : MonoBehaviour
        dtiltlengthcounter -= 1;
         //get enemies in range
 
-        if (tiltlengthcounter <= dtiltlength-dtiltstartframe)
+        if (dtiltlengthcounter <= dtiltlength-dtiltstartframe)
         {
 
             Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(dtiltattackpoint.position.x - dtilhbx / 2, dtiltattackpoint.position.y + dtilhby / 2), new Vector2(dtiltattackpoint.position.x + dtilhbx / 2, dtiltattackpoint.position.y - dtilhby / 2));
 
             foreach (Collider2D enemy in hitenemies)
             {
+                
                 if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
 
@@ -425,7 +394,7 @@ public class enAttack : MonoBehaviour
                     {
                         enemy.GetComponent<PlayerHP>().player1percent += dtiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
-                        enemyrb.AddForce(new Vector2(0, 400 + dtiltbaserecoil * enemy.GetComponent<PlayerHP>().player1percent));
+                        enemyrb.AddForce(new Vector2(0, 400 + uptiltbaserecoil * enemy.GetComponent<PlayerHP>().player1percent));
 
                         
                         GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,0);
@@ -435,6 +404,144 @@ public class enAttack : MonoBehaviour
 
             }
         }
+
+    }
+
+
+    void UpTiltAttack()
+    {
+
+        if (uptiltlengthcounter == 0)
+        {
+
+            uptiltlengthcounter = uptiltlength;
+
+            //attack animation
+            enanim.SetTrigger("uptilt");
+
+        }
+
+
+    }
+
+    void Lingeringuptilt()
+    {
+        uptiltlengthcounter -= 1;
+        //get enemies in range
+
+        if (uptiltlengthcounter <= uptiltlength - uptiltstartframe)
+        {
+
+            Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(uptiltattackpoint.position.x - uptilhbx / 2, uptiltattackpoint.position.y + uptilhby / 2), new Vector2(uptiltattackpoint.position.x + uptilhbx / 2, uptiltattackpoint.position.y - uptilhby / 2));
+
+            foreach (Collider2D enemy in hitenemies)
+            {
+                if (enemy.tag == "Player1" && enemy.GetComponent<PlayerHP>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                {
+
+                    cible = enemy;
+
+                    if (enemy.GetComponent<PlayerMovement>().shielded)
+                    {
+                        enemy.GetComponent<PlayerMovement>().shield -= uptiltshielddamage;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<PlayerHP>().player1percent += uptiltpercent;
+                        enemyrb = enemy.GetComponent<Rigidbody2D>();
+                        enemyrb.AddForce(new Vector2(0, uptiltbaserecoil * enemy.GetComponent<PlayerHP>().player1percent));
+
+
+                        GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+
+
+
+    void AttackCD() //gère les décrémentation des compteur des attaques ainsi que le déclenchement des attaques actives après frame 1
+    {
+        if (tiltdelaycounter > 0) //CD du tilt
+        {
+
+            tiltdelaycounter -= 1;
+        }
+
+
+
+        if (tiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
+        {
+            if (tiltlengthcounter == 1)
+            {
+                Lingeringtilt();
+                cible = null; //on réinitialise cible à la fin de l'attaque
+            }
+            else
+            {
+                Lingeringtilt();
+            }
+        }
+
+        if (dtiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
+        {
+            if (dtiltlengthcounter == 1)
+            {
+                Lingeringdtilt();
+                cible = null; //on réinitialise cible à la fin de l'attaque
+            }
+            else
+            {
+                Lingeringdtilt();
+            }
+        }
+        if (dtiltdelaycounter > 0) //CD du dtilt
+        {
+
+            dtiltdelaycounter -= 1;
+        }
+
+
+
+
+        if (nairdelaycounter > 0) //CD du nair
+        {
+            nairdelaycounter -= 1;
+        }
+        if (nairlengthcounter > 0) //activation du nair si la hitbox est toujours actives
+        {
+            lingeringnair();
+
+        }
+
+
+        if (uptiltdelaycounter > 0) //CD du tilt
+        {
+
+            uptiltdelaycounter -= 1;
+        }
+
+
+
+        if (uptiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
+        {
+            if (uptiltlengthcounter == 1)
+            {
+                Lingeringuptilt();
+                cible = null; //on réinitialise cible à la fin de l'attaque
+            }
+            else
+            {
+                Lingeringuptilt();
+            }
+        }
+
+
 
     }
 
@@ -449,6 +556,7 @@ public class enAttack : MonoBehaviour
         Gizmos.DrawWireSphere(tiltattackpoint.position, tiltrange);
         Gizmos.DrawWireSphere(nairattackpoint.position, nairrange);
         Gizmos.DrawCube(dtiltattackpoint.position, new Vector2(dtilhbx, dtilhby));
+        Gizmos.DrawCube(uptiltattackpoint.position, new Vector2(uptilhbx, uptilhby));
     }
 //    void OnEnable()
   //  {

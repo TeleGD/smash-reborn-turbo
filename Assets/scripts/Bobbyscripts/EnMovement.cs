@@ -72,8 +72,10 @@ public class EnMovement : MonoBehaviour
         controls.gameplay.moveright1.performed += ctx => valueright = 1;
         controls.gameplay.moveleft1.canceled += ctx => valueleft = 0;
         controls.gameplay.moveright1.canceled += ctx => valueright = 0;
-        controls.gameplay.down1.performed += ctx => vertical = 1;
+        controls.gameplay.down1.performed += ctx => vertical = -1;
         controls.gameplay.down1.canceled += ctx => vertical = 0;
+        controls.gameplay.up1.performed += ctx => vertical = 1;
+        controls.gameplay.up1.canceled += ctx => vertical = 0;
         controls.gameplay.shield1.canceled += ctx => shieldcancel = 0;
         controls.gameplay.shield1.performed+= ctx => shieldcancel = 1;
 
@@ -99,7 +101,7 @@ public class EnMovement : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
-        if (vertical==1 && grounded && !shielded)
+        if (vertical==-1 && grounded && !shielded)
         {
             myanimator.SetBool("crouch", true);
             crouched = true;
