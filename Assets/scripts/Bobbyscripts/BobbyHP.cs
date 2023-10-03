@@ -31,7 +31,7 @@ public class BobbyHP : MonoBehaviour
     //entier qui correspond aux pourcent du personnager
     public int enemyperc;
 
-    public int iframes; //compte le nombre d'iframes qu'il reste au personnage après respawn
+    //public int iframes; //compte le nombre d'iframes qu'il reste au personnage après respawn déplacé charavalues
 
 
 
@@ -54,9 +54,9 @@ public class BobbyHP : MonoBehaviour
     {
 
 
-        if(iframes > 0) //si le perso a des iframes, on en enlève.
+        if(GetComponent<charavalues>().iframes > 0) //si le perso a des iframes, on en enlève.
         {
-            iframes-=1;
+            GetComponent<charavalues>().percent -= 1;
         }
 
         //update of the healthbar
@@ -70,7 +70,7 @@ public class BobbyHP : MonoBehaviour
                 enemyhp -= 1;
                 transform.position = new Vector2(startx, starty);
                 rb2D.velocity = new Vector2(0, 0);
-                iframes = GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes;
+                GetComponent<charavalues>().percent = GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes;
                 enemyperc = 0;
 
             }

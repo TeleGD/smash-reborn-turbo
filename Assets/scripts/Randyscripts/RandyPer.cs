@@ -21,7 +21,7 @@ public class RandyPer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        percent = GameObject.FindWithTag("Player1").GetComponent<RandyHP>().player1percent;
+        percent = GameObject.FindWithTag("Player1").GetComponent<charavalues>().percent;
         TextUI.text = percent.ToString();
     }
 }

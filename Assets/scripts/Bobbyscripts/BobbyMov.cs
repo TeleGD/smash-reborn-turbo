@@ -36,9 +36,9 @@ public class BobbyMov : MonoBehaviour
 
     [Header("shield variables")]
     private bool grounded;
-    public bool shielded; //indique si le bouclier est actif
+    //public int shielded: a été déplacé dans Globalvalues pour faciliter l'accès et faciliter l'utilisation de plusieurs persos
     private int shieldmax; //correspond au bouclier maximal
-    public int shield; //correspond à la valeur du bouclier
+    //public int shield; correspond à la valeur du bouclier, passé dans Globalvalues pour les mêmes raisons
     private int shielddimrate; //correspond à la diminution passive du shield lorsqu'il est actif
     private int shieldrecharge; //correspond à la vitesse de rechargement du bouclier
     private int shieldbreakCD; //correspond au temps pendant lequel le bouclier est inactif si il est cassé
@@ -92,7 +92,7 @@ public class BobbyMov : MonoBehaviour
         //Define the gamobjects found on the player
         rb2D = GetComponent<Rigidbody2D>();
         myanimator = GetComponent<Animator>();
-        shield = shieldmax;
+        GetComponent<charavalues>().shield = shieldmax; 
         shieldbar.SetMaxshield(shieldmax);
 
         
@@ -101,7 +101,7 @@ public class BobbyMov : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
-        if (vertical==-1 && grounded && !shielded)
+        if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded)
         {
             myanimator.SetBool("crouch", true);
             crouched = true;
@@ -116,13 +116,13 @@ public class BobbyMov : MonoBehaviour
             GetComponent<BoxCollider2D>().offset = new Vector2(GetComponent<BoxCollider2D>().offset.x, standinghboffsety);
         }
 
-        if (shieldcancel==0 && shielded) //annule le bouclier si le bouton est relaché
+        if (shieldcancel==0 && GetComponent<charavalues>().shielded) //annule le bouclier si le bouton est relaché
         {
-           shielded = false;
+           GetComponent<charavalues>().shielded = false;
             myanimator.SetBool("shield", false);
         }
 
-        shieldbar.Setshield(shield); //update la barre de bouclier
+        shieldbar.Setshield(GetComponent<charavalues>().shield); //update la barre de bouclier
 
         grounded = GetComponent<BobbyJump>().grounded; //check si le perso est au sol
 
@@ -131,20 +131,20 @@ public class BobbyMov : MonoBehaviour
             myanimator.SetBool("shield", false); //annule l'animation du bouclier si le perso n'est pas au sol
         }
 
-        if (grounded && !shielded && shieldbreakcnter<=0 && shield<shieldmax) //si le shield est non actif mais qu'il n'a pas été shieldbreak et si le perso est au sol, le shield se fait recharger
+        if (grounded && !GetComponent<charavalues>().shielded && shieldbreakcnter<=0 && GetComponent<charavalues>().shield < shieldmax) //si le shield est non actif mais qu'il n'a pas été shieldbreak et si le perso est au sol, le shield se fait recharger
         {
-            shield += shieldrecharge;
+            GetComponent<charavalues>().shield += shieldrecharge;
         }
 
-        if (shielded && shield > 0) //diminue le shield si il est activé
+        if (GetComponent<charavalues>().shielded && GetComponent<charavalues>().shield > 0) //diminue le shield si il est activé
         {
-            shield -= shielddimrate;
+            GetComponent<charavalues>().shield -= shielddimrate;
         }
 
-        if (shielded && shield<=0) //déclenche le shieldbreak si le bouclier est actif et qu'il est vidé
+        if (GetComponent<charavalues>().shielded && GetComponent<charavalues>().shield <= 0) //déclenche le shieldbreak si le bouclier est actif et qu'il est vidé
         {
             shieldbreakcnter = shieldbreakCD; //initialisation du compteur qui calcule le CD du shield
-            shielded = false;
+            GetComponent<charavalues>().shielded = false;
             myanimator.SetBool("shield", false);
         }
 
@@ -177,7 +177,7 @@ public class BobbyMov : MonoBehaviour
     {
         //Section des mouvements
 
-        if(!shielded) //on ne bouge pas si le bouclier est actif
+        if(!GetComponent<charavalues>().shielded) //on ne bouge pas si le bouclier est actif
         {
             if (GetComponent<BobbyJump>().allowjump && !crouched) //allowjump est une variable qui détermine si il est possible de se mouvoir dans les airs. Si on est baissé, on ne peut pas bouger
             {
@@ -232,7 +232,7 @@ public class BobbyMov : MonoBehaviour
     {
         if(grounded && shieldbreakcnter<=0)
         {
-            shielded = true;
+            GetComponent<charavalues>().shielded = true;
             myanimator.SetBool("shield", true);
 
         }

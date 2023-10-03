@@ -2166,6 +2166,7 @@ GameObject:
   - component: {fileID: 912949979}
   - component: {fileID: 912949978}
   - component: {fileID: 912949981}
+  - component: {fileID: 912949982}
   m_Layer: 0
   m_Name: Bobby
   m_TagString: Player2
@@ -2308,7 +2309,6 @@ MonoBehaviour:
   enemyhp: 0
   healthbar: {fileID: 1455610430}
   enemyperc: 0
-  iframes: 0
 --- !u!95 &912949977
 Animator:
   serializedVersion: 4
@@ -2386,8 +2386,6 @@ MonoBehaviour:
   valueright: 0
   horizontal: 0
   vertical: 0
-  shielded: 0
-  shield: 0
   shieldbreakcnter: 0
   shieldbar: {fileID: 646155277}
   shieldcancel: 0
@@ -2441,9 +2439,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attack: {fileID: 0}
-  playernumber: 1
-  enemynumber: 2
+  playernumber: 2
+  enemynumber: 1
   enemytag: 
+  enemyname: 
   tiltattackpoint: {fileID: 2060496075}
   tiltrange: 0.3
   tiltpercent: 10
@@ -2486,6 +2485,22 @@ MonoBehaviour:
   uptiltbaserecoil: 10
   cible: {fileID: 0}
   grounded: 0
+--- !u!114 &912949982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912949970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31814645b66a3694a89d39614cfa0874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shielded: 0
+  shield: 0
+  percent: 0
+  iframes: 0
 --- !u!1 &913976650
 GameObject:
   m_ObjectHideFlags: 0
@@ -5339,6 +5354,7 @@ GameObject:
   - component: {fileID: 1415235881}
   - component: {fileID: 1415235889}
   - component: {fileID: 1415235890}
+  - component: {fileID: 1415235893}
   m_Layer: 0
   m_Name: Randy
   m_TagString: Player1
@@ -5377,10 +5393,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e416eae0a9e4c3d88d990bde735ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyhp: 0
+  playerhp: 0
+  player1percent: 0
+  groundcheck: {fileID: 0}
+  radOcircle: 0
   healthbar: {fileID: 1940829397}
-  enemyperc: 0
-  iframes: 0
 --- !u!114 &1415235882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5412,7 +5429,6 @@ MonoBehaviour:
   slowdownspeed: 6
   horizontal: 0
   vertical: 0
-  shielded: 0
   shield: 0
   shieldbreakcnter: 0
   shieldbar: {fileID: 890761104}
@@ -5624,6 +5640,22 @@ MonoBehaviour:
   horizontal: 0
   pressedjump: 0
   presseddown: 0
+--- !u!114 &1415235893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415235879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31814645b66a3694a89d39614cfa0874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shielded: 0
+  shield: 0
+  percent: 0
+  iframes: 0
 --- !u!1 &1455610428
 GameObject:
   m_ObjectHideFlags: 0

@@ -79,7 +79,7 @@ public class RandyJump : MonoBehaviour
 
         //normal jump
 
-        if (pressedjump && grounded && !GetComponent<RandyMov>().shielded)
+        if (pressedjump && grounded && !GetComponent<charavalues>().shielded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             myanim.SetTrigger("jump");

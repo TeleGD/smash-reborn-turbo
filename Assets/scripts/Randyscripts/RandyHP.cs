@@ -19,7 +19,6 @@ public class RandyHP : MonoBehaviour
     public float radOcircle;
     public Healthbar healthbar;
 
-    public int iframes;
 
     // Start is called before the first frame update
     void Start()
@@ -40,9 +39,9 @@ public class RandyHP : MonoBehaviour
     void Update()
     {
 
-        if (iframes > 0) //si le perso a des iframes, on en enlève.
+        if (GetComponent<charavalues>().iframes > 0) //si le perso a des iframes, on en enlève.
         {
-            iframes -= 1;
+            GetComponent<charavalues>().iframes -= 1;
         }
 
         healthbar.SetHealth(playerhp);
@@ -60,7 +59,7 @@ public class RandyHP : MonoBehaviour
                 transform.position = new Vector2(startx,starty);
                 rb.velocity = new Vector2(0,0);
                 player1percent = 0;
-                iframes = GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes;
+                GetComponent<charavalues>().iframes = GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes;
 
             }
             else

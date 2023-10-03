@@ -124,17 +124,17 @@ public class BobbyAtk : MonoBehaviour
     {
         if (grounded) //check si le perso est sur le sol
         {
-            if (tiltdelaycounter == 0 && !GetComponent<BobbyMov>().shielded && !GetComponent<BobbyMov>().crouched && GetComponent<BobbyMov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
+            if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<BobbyMov>().crouched && GetComponent<BobbyMov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
             {
                 TiltAttack();
                 tiltdelaycounter = tiltattackdelay;
             }
-            else if(dtiltdelaycounter == 0 && !GetComponent<BobbyMov>().shielded && GetComponent<BobbyMov>().crouched)
+            else if(dtiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && GetComponent<BobbyMov>().crouched)
             {
                 DTiltAttack();
                 dtiltdelaycounter = dtiltattackdelay;
             }
-            else if(uptiltdelaycounter==0 && !GetComponent<BobbyMov>().shielded && !GetComponent<BobbyMov>().crouched && GetComponent<BobbyMov>().vertical==1)
+            else if(uptiltdelaycounter==0 && !GetComponent<charavalues>().shielded && !GetComponent<BobbyMov>().crouched && GetComponent<BobbyMov>().vertical==1)
             {
                 UpTiltAttack();
                 uptiltdelaycounter = uptiltattackdelay;
@@ -142,14 +142,14 @@ public class BobbyAtk : MonoBehaviour
         }
         else //se déclenche si le perso n'est pas au sol
         {
-            if(GetComponent<BobbyMov>().valueright==0 && GetComponent<BobbyMov>().valueright == 0 && nairdelaycounter == 0 && !GetComponent<BobbyMov>().shielded) //si le perso peut faire un nair, qu'aucune input de direction n'est activée et que le bouclier est baissé, la fonction correspondant au nair se déclenche et le delai entre deux nairs aussi.
+            if(GetComponent<BobbyMov>().valueright==0 && GetComponent<BobbyMov>().valueright == 0 && nairdelaycounter == 0 && !GetComponent<charavalues>().shielded) //si le perso peut faire un nair, qu'aucune input de direction n'est activée et que le bouclier est baissé, la fonction correspondant au nair se déclenche et le delai entre deux nairs aussi.
             {
                 NairAttack();
                 nairdelaycounter = nairattackdelay;
             }
             else //si les conditions pour faire un nair ne sont pas remplis, comme il n'y a pas encore d'autres attaque aériennes implémentées, un tilt est fait.
             {
-                if(tiltdelaycounter == 0 && !GetComponent<BobbyMov>().shielded)
+                if(tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded)
                 {
                     TiltAttack();
                     tiltdelaycounter = tiltattackdelay;
@@ -197,29 +197,29 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies) //boucle for
             {
-                if (enemy.tag == enemytag && enemy.GetComponent<RandyHP>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
+                if (enemy.tag == enemytag && enemy.GetComponent<RandyHP>().GetComponent<charavalues>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
                 {
                     cible = enemy;
 
-                    if (enemy.GetComponent<RandyMov>().shielded) //fait des shield damage si le shield est actif
+                    if (enemy.GetComponent<charavalues>().shielded) //fait des shield damage si le shield est actif
                     {
-                        enemy.GetComponent<RandyMov>().shield -= tiltshielddamage;
+                        enemy.GetComponent<charavalues>().shield -= tiltshielddamage;
                     }
                     else //fait des pourcents et de l'éjéction sinon
                     {
-                        enemy.GetComponent<RandyHP>().player1percent += tiltpercent; //modifie les pourcents de l'ennemi
+                        enemy.GetComponent<charavalues>().percent += tiltpercent; //modifie les pourcents de l'ennemi
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
 
                         //détermine la direction vers laquelle projeter l'ennemi en fonction de si il est derrière ou devant
                         //il est à noter que cette partie peut être modifiée pour dépendre de horizontale pour que l'attaque projète toujours vers la même direction peu importe comment la cible est frappée
                         if (transform.position.x >= enemy.transform.position.x) 
                         {
-                            enemyrb.AddForce(new Vector2(-tiltbaserecoil * enemy.GetComponent<RandyHP>().player1percent, 0));
+                            enemyrb.AddForce(new Vector2(-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
 
                         }
                         else
                         {
-                            enemyrb.AddForce(new Vector2(tiltbaserecoil * enemy.GetComponent<RandyHP>().player1percent, 0));
+                            enemyrb.AddForce(new Vector2(tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
                         }
                         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
                     }
@@ -249,28 +249,28 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies)
             {
-                if (enemy.tag == "Player1" && enemy.GetComponent<RandyHP>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
 
                     cible = enemy;
 
-                    if (enemy.GetComponent<RandyMov>().shielded)
+                    if (enemy.GetComponent<charavalues>().shielded)
                     {
-                        enemy.GetComponent<RandyMov>().shield -= tiltshielddamage;
+                        enemy.GetComponent<charavalues>().shield -= tiltshielddamage;
                     }
                     else
                     {
-                        enemy.GetComponent<RandyHP>().player1percent += tiltpercent;
+                        enemy.GetComponent<charavalues>().percent += tiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
-                            enemyrb.AddForce(new Vector2(-tiltbaserecoil * enemy.GetComponent<RandyHP>().player1percent, 0));
+                            enemyrb.AddForce(new Vector2(-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
 
                         }
                         else
                         {
-                            enemyrb.AddForce(new Vector2(tiltbaserecoil * enemy.GetComponent<RandyHP>().player1percent, 0));
+                            enemyrb.AddForce(new Vector2(tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
                         }
                         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
                     }
@@ -300,16 +300,16 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies)
             {
-                if (enemy.tag == "Player1" && enemy.GetComponent<RandyHP>().iframes == 0)
+                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0)
                 {
 
-                    if (enemy.GetComponent<RandyMov>().shielded)
+                    if (enemy.GetComponent<charavalues>().shielded)
                     {
-                        enemy.GetComponent<RandyMov>().shield -= nairshielddamage;
+                        enemy.GetComponent<charavalues>().shield -= nairshielddamage;
                     }
                     else
                     {
-                        enemy.GetComponent<RandyHP>().player1percent += nairpercent;
+                        enemy.GetComponent<charavalues>().percent += nairpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
 
                         if (transform.position.x >= enemy.transform.position.x)
@@ -341,16 +341,16 @@ public class BobbyAtk : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player1" && enemy.GetComponent<RandyHP>().iframes == 0)
+            if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0)
             {
 
-                if (enemy.GetComponent<RandyMov>().shielded)
+                if (enemy.GetComponent<charavalues>().shielded)
                 {
-                    enemy.GetComponent<RandyMov>().shield -= nairshielddamage;
+                    enemy.GetComponent<charavalues>().shield -= nairshielddamage;
                 }
                 else
                 {
-                    enemy.GetComponent<RandyHP>().player1percent += nairpercent;
+                    enemy.GetComponent<charavalues>().percent += nairpercent;
                     enemyrb = enemy.GetComponent<Rigidbody2D>();
 
                     if (transform.position.x >= enemy.transform.position.x)
@@ -402,20 +402,20 @@ public class BobbyAtk : MonoBehaviour
             foreach (Collider2D enemy in hitenemies)
             {
                 
-                if (enemy.tag == "Player1" && enemy.GetComponent<RandyHP>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
 
                     cible = enemy;
 
-                    if (enemy.GetComponent<RandyMov>().shielded)
+                    if (enemy.GetComponent<charavalues>().shielded)
                     {
-                        enemy.GetComponent<RandyMov>().shield -= dtiltshielddamage;
+                        enemy.GetComponent<charavalues>().shield -= dtiltshielddamage;
                     }
                     else
                     {
-                        enemy.GetComponent<RandyHP>().player1percent += dtiltpercent;
+                        enemy.GetComponent<charavalues>().percent += dtiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
-                        enemyrb.AddForce(new Vector2(0, 300 + uptiltbaserecoil * enemy.GetComponent<RandyHP>().player1percent));
+                        enemyrb.AddForce(new Vector2(0, 300 + uptiltbaserecoil * enemy.GetComponent<charavalues>().percent));
 
                         
                         GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,0);
@@ -457,20 +457,20 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies)
             {
-                if (enemy.tag == "Player1" && enemy.GetComponent<RandyHP>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
 
                     cible = enemy;
 
-                    if (enemy.GetComponent<RandyMov>().shielded)
+                    if (enemy.GetComponent<charavalues>().shielded)
                     {
-                        enemy.GetComponent<RandyMov>().shield -= uptiltshielddamage;
+                        enemy.GetComponent<charavalues>().shield -= uptiltshielddamage;
                     }
                     else
                     {
-                        enemy.GetComponent<RandyHP>().player1percent += uptiltpercent;
+                        enemy.GetComponent<charavalues>().percent += uptiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
-                        enemyrb.AddForce(new Vector2(0, uptiltbaserecoil * enemy.GetComponent<RandyHP>().player1percent));
+                        enemyrb.AddForce(new Vector2(0, uptiltbaserecoil * enemy.GetComponent<charavalues>().percent));
 
 
                         GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);

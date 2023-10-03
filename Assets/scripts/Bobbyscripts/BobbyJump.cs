@@ -80,7 +80,7 @@ public class BobbyJump : MonoBehaviour
 
         //normal jump
 
-        if (pressedjump && grounded && !GetComponent<BobbyMov>().shielded) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
+        if (pressedjump && grounded && !GetComponent<charavalues>().shielded) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
         {
             myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);

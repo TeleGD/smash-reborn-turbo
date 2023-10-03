@@ -21,7 +21,7 @@ public class BobbyPer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        percent = GameObject.FindWithTag("Player2").GetComponent<BobbyHP>().enemyperc;
+        percent = GameObject.FindWithTag("Player2").GetComponent<charavalues>().percent;
         TextUI.text = percent.ToString();
     }
 }

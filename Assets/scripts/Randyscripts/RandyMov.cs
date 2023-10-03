@@ -35,7 +35,6 @@ public class RandyMov : MonoBehaviour
 
     [Header("shield variables")]
     private bool grounded;
-    public bool shielded; //indique si le bouclier est actif
     private int shieldmax; //correspond au bouclier maximal
     public int shield; //correspond à la valeur du bouclier
     private int shielddimrate; //correspond à la diminution passive du shield lorsqu'il est actif
@@ -72,7 +71,7 @@ public class RandyMov : MonoBehaviour
         //Define the gamobjects found on the player
         rb2D = GetComponent<Rigidbody2D>();
         myanimator = GetComponent<Animator>();
-        shield = shieldmax;
+        GetComponent<charavalues>().shield = shieldmax;
         shieldbar.SetMaxshield(shieldmax);
     }
 
@@ -80,13 +79,13 @@ public class RandyMov : MonoBehaviour
     private void Update()
     {
 
-        if (shieldcancel == 0 && shielded)
+        if (shieldcancel == 0 && GetComponent<charavalues>().shielded)
         {
-            shielded = false;
+            GetComponent<charavalues>().shielded = false;
             myanimator.SetBool("shield", false);
         }
 
-        shieldbar.Setshield(shield);
+        shieldbar.Setshield(GetComponent<charavalues>().shield);
 
         grounded = GetComponent<RandyJump>().grounded;
 
@@ -100,21 +99,21 @@ public class RandyMov : MonoBehaviour
             shieldbreakcnter--;
         }
 
-        if (!shielded && shieldbreakcnter <= 0 && shield < shieldmax)
+        if (!GetComponent<charavalues>().shielded && shieldbreakcnter <= 0 && GetComponent<charavalues>().shield < shieldmax)
         {
-            shield += shieldrecharge;
+            GetComponent<charavalues>().shield += shieldrecharge;
         }
 
-        if (shielded && shield > 0)
+        if (GetComponent<charavalues>().shielded && GetComponent<charavalues>().shield > 0)
         {
-            shield -= shielddimrate;
+            GetComponent<charavalues>().shield -= shielddimrate;
         }
 
-        if (shielded && shield <= 0)
+        if (GetComponent<charavalues>().shielded && GetComponent<charavalues>().shield <= 0)
         {
-            shield = 0;
+            GetComponent<charavalues>().shield = 0;
             shieldbreakcnter = shieldbreakCD;
-            shielded = false;
+            GetComponent<charavalues>().shielded = false;
             myanimator.SetBool("shield", false);
         }
 
@@ -143,7 +142,7 @@ public class RandyMov : MonoBehaviour
     {
         //move player
        
-        if(!shielded)
+        if(!GetComponent<charavalues>().shielded)
         {
             if (GetComponent<RandyJump>().allowjump)
             {
@@ -196,7 +195,7 @@ public class RandyMov : MonoBehaviour
     {
         if (grounded && shieldbreakcnter <= 0)
         {
-            shielded = true;
+            GetComponent<charavalues>().shielded = true;
             myanimator.SetBool("shield", true);
 
         }

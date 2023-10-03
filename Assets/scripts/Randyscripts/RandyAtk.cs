@@ -48,7 +48,7 @@ public class RandyAtk : MonoBehaviour
 
     void OnAttack()
     {
-        if (delaycounter==0 && !GetComponent<RandyMov>().shielded)
+        if (delaycounter==0 && !GetComponent<charavalues>().shielded)
         {
             fctTiltAttack();
             delaycounter = attackdelay;
@@ -78,27 +78,27 @@ public class RandyAtk : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player2" && enemy.GetComponent<BobbyHP>().iframes == 0)
+            if (enemy.tag == "Player2" && enemy.GetComponent<charavalues>().iframes == 0)
             {
-                if(enemy.GetComponent<BobbyMov>().shielded)
+                if(enemy.GetComponent<charavalues>().shielded)
                 {
-                    enemy.GetComponent<BobbyMov>().shield -= tiltshielddamage;
+                    enemy.GetComponent<charavalues>().shield -= tiltshielddamage;
                 }
                 else
                 {
-                    enemy.GetComponent<BobbyHP>().enemyperc += percent;
+                    enemy.GetComponent<charavalues>().percent += percent;
                     enemyrb = enemy.GetComponent<Rigidbody2D>();
                     playerx = GetComponent<Rigidbody2D>().position.x;
 
 
                     if (transform.position.x >= enemy.transform.position.x)
                     {
-                        enemyrb.AddForce(new Vector2(-baserecoil * enemy.GetComponent<BobbyHP>().enemyperc, 0));
+                        enemyrb.AddForce(new Vector2(-baserecoil * enemy.GetComponent<charavalues>().percent, 0));
 
                     }
                     else
                     {
-                        enemyrb.AddForce(new Vector2(baserecoil * enemy.GetComponent<BobbyHP>().enemyperc, 0));
+                        enemyrb.AddForce(new Vector2(baserecoil * enemy.GetComponent<charavalues>().percent, 0));
                     }
                     GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
                 }
