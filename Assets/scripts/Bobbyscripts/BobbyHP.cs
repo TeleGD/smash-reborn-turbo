@@ -31,8 +31,7 @@ public class BobbyHP : MonoBehaviour
     //entier qui correspond aux pourcent du personnager
     public int enemyperc;
 
-    //public int iframes; //compte le nombre d'iframes qu'il reste au personnage après respawn déplacé charavalues
-
+    //public int iframes; //compte le nombre d'iframes qu'il reste au personnage après respawn déplacé charavalues.
 
 
     void Start()

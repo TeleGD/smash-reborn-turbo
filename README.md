@@ -10,7 +10,7 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 
 ## Commandes
 
-**Joueur 1 : Random perso que j'ai trouvé sur le store**
+**Joueur 1 : Randy**
 
 - Gauche : `[Q]`
 - Droite : `[D]`
@@ -37,6 +37,9 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 **Préambule**
 
 Il est conseillé de faire le kit du personnage avant de s'y mettre. Même si Riki peut aider, c'est à toi de programmer le personnage (en t'aidant de ce que j'ai déja fait).
+Attention ! En particulier pour les scripts, utiliser les mêmes bases pour les noms  ainsi que pour les variables qui concernent les attaques est conseillé. Par exemple, pour Bobby, le script d'attaque est BobbyAtk, celui pour Randy est RandyAtk. Il faut le mettre sous la forme NomAtk. De même pour NomMov pour les mouvements, NomPer pour les pourcents, NomJump pour les sauts et de même pour NomHP.
+Il est absolument capitale d'utiliser **le même script charavalues** en le mettant dans le personnage. Ce script est ce qui permet à tous les persos de pouvoir se tabasser entre eux. Il ne doit pas être renommé ou modifié. Il est utilisable tel qu'il est et le modifier risque de casser les autres persos.
+
 
 **Animations**
 
@@ -61,7 +64,7 @@ Exporter les animation sous un format où toutes les frames sont sur le même .P
 *Important !*
 Ne faites pas votre personnage sur Map1 ! Pour être sûr que vous puissiez travailler dessus sans problème, copiez-coller la scène "Workshop: Bobby", renomez la copie et travaillez dessus ! Cela permet que chaque personne puisse travailler sur son perso en même temps et quand même push. Si tout le monde travaille sur la même scène, ça va faire qu'une personne ne pourra pas tester si une autre personne a une erreur !
 
-Le personnage qu'il faut prendre comme "base" est Bobby. Il est conseillé de le copier coller et de remplacer les animations, la taille des hitbox et tout ce qui doit être changé pour en faire votre perso plutôt que de tout recommencer de 0.
+Le personnage qu'il faut prendre comme "base" est Bobby. Il est conseillé de copier coller le GameObject "Bobby" ainsi que le dossier Bobbyscripts et de changer le nom du dossier et des scripts comme décrit plus tôt. Il ne suffit après plus qu'à remplacer les animations, changer les hitbox et bidouiller les scripts pour en faire votre perso plutôt que de tout recommencer de 0.
 
 Lorsque vous changez les animations, faites attention aux transitions entre animations, aux durées de sorties et aux requirements sinon ça va pas bien marcher.
 
@@ -69,11 +72,7 @@ Essaye d'organiser un minimum le projet, c'est à dire mettre les sprites dans u
 
 **Attaques complexes**
 
-J'ai choisi la voie de la facilité et donc Bobby n'a pas (encore) d'attaques très complexes, mais voici une façon de les faire.
-
-Ceci a été vaguement expliqué dans les commentaires du code du script d'attaque de Bobby, mais je le remets ici.
-
-Pour faire une attaque multi-hit ou qui a un comportement qui évolue au fil des frames écoulées (lag, frames d'armure, etc), faire ça dans la fonction LingeringNomattaque (ex: LingeringTilt) et faire des if/elif/else pour chaque frame. L'avancement des frames de l'attaque est de base géré par la variable nomattaquelengthcounter (ex: tiltlengthcounter). Il n'est donc pas très compliqué d'ajuster les dégats ou le comportement de l'attaque à la frame active. Ca va juste être long. Très long. `o7`.
+Les attaques qui fonctionnent réellement ne sont pas simplement que des attaques qui sont actives pendant frame 1 et ensuite plus jamais. Pour avoir des exemples des attaques plus complexes, merci de se référer à certaines attaques particulière du kit de Bobby à savoir son Nair pour les multi-hit et son down tilt ou son up tilt pour une attaque qui n'est pas active frame one et dont la hitbox reste active pendant quelques frames.
 
 
 Pour faire une attaque avec plusieurs hitbox, ce qui permet que la hitbox finales soit plus précise qu'une sphère ou qu'un oval, ajouter des transform nomattackpoint (ex: tiltattackpoint). Il ne suffira alors que de modifier les boucles for dans les fonctions d'attaques pour qu'elles détectent les Collider2D dans toutes les hitbox et boom c'est dans la poche. Il est également possible de séparer les hitbox de cette manière, ce qui rend un tipper possible.
@@ -85,5 +84,5 @@ Plusieurs archétypes d'attaques n'ont pas encore été implémentées et je n'y
 Projet entamé par Arnaud "Riki" KRAFFT, trésorier de TéléGameDesign 2023/2024
 
 Autres participants:
-- Maxime "Lyvent" Soldatov, président de TéléGameDesign 2023/2024 (ben oui il a créé le projet, hein)
+- Maxime "Lyvent" SOLDATOV, président de TéléGameDesign 2023/2024 (ben oui il a créé le projet, hein)
 - personne d'autre pour l'instant, les enfants !

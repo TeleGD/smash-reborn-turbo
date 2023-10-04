@@ -16,11 +16,10 @@ public class BobbyAtk : MonoBehaviour
 
 
 
-    [Header("Character variables")]
+    [Header("Character variables")] //Ces variables sont les variablesqui vont être modifiées lorsque l'ennemi va être attaqué. Elles ont été regroupé dans un script qui sera le seul présent dans tous les personnages.
     public int playernumber;
     public int enemynumber;
     public string enemytag;
-    public string enemyname;
 
 
 
@@ -66,8 +65,6 @@ public class BobbyAtk : MonoBehaviour
     public float nairbaserecoil;
 
 
-
-
     [Header("Dtiltattack variables")]
     public Transform dtiltattackpoint;
     public float dtilhbx;
@@ -105,16 +102,6 @@ public class BobbyAtk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-
-        if(playernumber == 1)
-        {
-            enemyname = GameObject.Find("Global values").GetComponent<Globalvalues>().player2char;
-        }
-        else
-        {
-            enemyname = GameObject.Find("Global values").GetComponent<Globalvalues>().player1char;
-        }
 
         enanim = GetComponent<Animator>(); //initialisation de l'animateur
     }
@@ -177,6 +164,7 @@ public class BobbyAtk : MonoBehaviour
     //la version de base correspond à ce qui se fait directement quand le bouton est pressé.
     //la version lingering correspond à ce qui se passe dans les frames qui suivent.
     //Pour faire des comportement spéciaux tels que des multihits ou du lag avant l'attaque, il suffit de faire des case en fonction du nombre de frame écoulé, c'est à dire à la valeur de la variable lengthcounter.
+    //Il est à noter que la suite fais des actions sur une entité désigné par "enemi" et qui peut être n'importe quel personnage en fonction des combats. Ceci est possible grâce au script charavalues, qui fait le lien entre les différents scripts des différents persos. Il est essentiel sur tous les persos.
     
 
     //Je vais détailler précisément ce qui se passe dans TiltAttack, puis préciser quelques points sur LingeringTilt.
@@ -392,7 +380,7 @@ public class BobbyAtk : MonoBehaviour
     void Lingeringdtilt()
     {
        dtiltlengthcounter -= 1;
-        //get enemies in range
+
 
         if (dtiltlengthcounter <= dtiltlength-dtiltstartframe)
         {
