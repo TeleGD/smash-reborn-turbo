@@ -10,7 +10,7 @@ public class RandyHP : MonoBehaviour
     private float playermaxhp;
     public int player1percent;
     [SerializeField] private Transform groundcheck;
-    private Rigidbody2D rb;
+    private Rigidbody2D rb2D;
 
     private float startx;
     private float starty;
@@ -25,7 +25,7 @@ public class RandyHP : MonoBehaviour
     {
         playermaxhp = GameObject.Find("Global values").GetComponent<Globalvalues>().playermaxhp;
         healthbar.SetMaxhealth(playermaxhp);
-        rb = GetComponent<Rigidbody2D>();
+        rb2D = GetComponent<Rigidbody2D>();
         playerhp = playermaxhp;
 
 
@@ -51,14 +51,14 @@ public class RandyHP : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
        
-        if (rb.position.x>=7 || rb.position.y <= -3 || GetComponent<Rigidbody2D>().position.y >= 4 || GetComponent<Rigidbody2D>().position.x <= -3)
+        if (rb2D.position.x >= GameObject.Find("Global values").GetComponent<Globalvalues>().deathright || rb2D.position.y <= GameObject.Find("Global values").GetComponent<Globalvalues>().deathdown || rb2D.position.y >= GameObject.Find("Global values").GetComponent<Globalvalues>().deathup || rb2D.position.x <= GameObject.Find("Global values").GetComponent<Globalvalues>().deathleft)
         {
             if(playerhp>1) 
             {
                 playerhp= playerhp - 1;
                 transform.position = new Vector2(startx,starty);
-                rb.velocity = new Vector2(0,0);
-                player1percent = 0;
+                rb2D.velocity = new Vector2(0,0);
+                GetComponent<charavalues>().percent = 0;
                 GetComponent<charavalues>().iframes = GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes;
 
             }

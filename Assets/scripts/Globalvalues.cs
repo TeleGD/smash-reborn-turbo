@@ -12,6 +12,12 @@ public class Globalvalues : MonoBehaviour
     public float xstartp2;
     public float ystartp2;
 
+    [Header("death zone")]
+    public float deathleft;
+    public float deathright;
+    public float deathup;
+    public float deathdown;
+
     //variables concernant le shield
     [Header("Shield variables")]
     public int shieldmax; //correspond au bouclier maximal

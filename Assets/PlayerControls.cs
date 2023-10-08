@@ -46,6 +46,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""special"",
+                    ""type"": ""Button"",
+                    ""id"": ""d68e06f1-de0b-4f7c-a832-c294661bfc88"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""special1"",
+                    ""type"": ""Button"",
+                    ""id"": ""abe610b9-d504-4c3b-9d8b-df03aa5c1727"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""jump"",
                     ""type"": ""Button"",
                     ""id"": ""c6786b4f-9eb3-4cd8-8860-65635bc192b7"",
@@ -176,7 +194,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9481b057-cce6-4c45-9641-8e1f568dd4a3"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -330,7 +348,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""bd63b7fe-c6b4-4a1a-8f6f-323fc2fd7b1c"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -502,6 +520,50 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""up1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7df3372-70db-43c4-88b7-8eb4df690644"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c829c86-0d14-4dfa-a8d9-2c9b337c3f57"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2610642b-dfb7-4911-9d53-14b71a162728"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""special1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35bee264-c23e-437d-ba01-745f1082dcb6"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""special1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -512,6 +574,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
         m_gameplay_attack = m_gameplay.FindAction("attack", throwIfNotFound: true);
         m_gameplay_attack1 = m_gameplay.FindAction("attack1", throwIfNotFound: true);
+        m_gameplay_special = m_gameplay.FindAction("special", throwIfNotFound: true);
+        m_gameplay_special1 = m_gameplay.FindAction("special1", throwIfNotFound: true);
         m_gameplay_jump = m_gameplay.FindAction("jump", throwIfNotFound: true);
         m_gameplay_jump1 = m_gameplay.FindAction("jump1", throwIfNotFound: true);
         m_gameplay_modechange = m_gameplay.FindAction("modechange", throwIfNotFound: true);
@@ -587,6 +651,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_gameplay_attack;
     private readonly InputAction m_gameplay_attack1;
+    private readonly InputAction m_gameplay_special;
+    private readonly InputAction m_gameplay_special1;
     private readonly InputAction m_gameplay_jump;
     private readonly InputAction m_gameplay_jump1;
     private readonly InputAction m_gameplay_modechange;
@@ -607,6 +673,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @attack => m_Wrapper.m_gameplay_attack;
         public InputAction @attack1 => m_Wrapper.m_gameplay_attack1;
+        public InputAction @special => m_Wrapper.m_gameplay_special;
+        public InputAction @special1 => m_Wrapper.m_gameplay_special1;
         public InputAction @jump => m_Wrapper.m_gameplay_jump;
         public InputAction @jump1 => m_Wrapper.m_gameplay_jump1;
         public InputAction @modechange => m_Wrapper.m_gameplay_modechange;
@@ -636,6 +704,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @attack1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack1;
                 @attack1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack1;
                 @attack1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack1;
+                @special.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecial;
+                @special.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecial;
+                @special.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecial;
+                @special1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecial1;
+                @special1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecial1;
+                @special1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecial1;
                 @jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
@@ -688,6 +762,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @attack1.started += instance.OnAttack1;
                 @attack1.performed += instance.OnAttack1;
                 @attack1.canceled += instance.OnAttack1;
+                @special.started += instance.OnSpecial;
+                @special.performed += instance.OnSpecial;
+                @special.canceled += instance.OnSpecial;
+                @special1.started += instance.OnSpecial1;
+                @special1.performed += instance.OnSpecial1;
+                @special1.canceled += instance.OnSpecial1;
                 @jump.started += instance.OnJump;
                 @jump.performed += instance.OnJump;
                 @jump.canceled += instance.OnJump;
@@ -738,6 +818,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnAttack(InputAction.CallbackContext context);
         void OnAttack1(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
+        void OnSpecial1(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnJump1(InputAction.CallbackContext context);
         void OnModechange(InputAction.CallbackContext context);

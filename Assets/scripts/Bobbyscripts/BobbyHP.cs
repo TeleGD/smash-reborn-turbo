@@ -55,22 +55,22 @@ public class BobbyHP : MonoBehaviour
 
         if(GetComponent<charavalues>().iframes > 0) //si le perso a des iframes, on en enlève.
         {
-            GetComponent<charavalues>().percent -= 1;
+            GetComponent<charavalues>().iframes -= 1;
         }
 
         //update of the healthbar
         healthbar.SetHealth(enemyhp);
 
         //diminution de HP et défaite si ejection
-        if (rb2D.position.x >= 7 || rb2D.position.y <= -3 || rb2D.position.y >= 4 || rb2D.position.x <= -3)
+        if (rb2D.position.x >= GameObject.Find("Global values").GetComponent<Globalvalues>().deathright || rb2D.position.y <= GameObject.Find("Global values").GetComponent<Globalvalues>().deathdown || rb2D.position.y >= GameObject.Find("Global values").GetComponent<Globalvalues>().deathup || rb2D.position.x <= GameObject.Find("Global values").GetComponent<Globalvalues>().deathleft)
         {
             if (enemyhp > 1)
             {
                 enemyhp -= 1;
                 transform.position = new Vector2(startx, starty);
                 rb2D.velocity = new Vector2(0, 0);
-                GetComponent<charavalues>().percent = GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes;
-                enemyperc = 0;
+                GetComponent<charavalues>().iframes = GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes;
+                GetComponent<charavalues>().percent = 0;
 
             }
             else

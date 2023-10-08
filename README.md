@@ -19,6 +19,7 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 - Sauter : `[V]`
 - Sprint : Nope
 - Attaquer : `[C]`
+- Attaque Speciale : `[B]` (il faut vraiment que je finisse pas faire Randy parce que là ça commence à devenir grave)
 - Bouclier : `[F]`
 
 **Joueur 2 : Bobby S. Lime**
@@ -30,6 +31,7 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 - Sauter : `[Right Shift]`
 - Sprint : `[NopeNope]`
 - Attaquer : `[!]`
+- Attaque Speciale : `[Enter]`
 - Bouclier : `[ù]`
 
 ## Instructions pour ajouter un personnage
@@ -66,7 +68,7 @@ Ne faites pas votre personnage sur Map1 ! Pour être sûr que vous puissiez trav
 
 Le personnage qu'il faut prendre comme "base" est Bobby. Il est conseillé de copier coller le GameObject "Bobby" ainsi que le dossier Bobbyscripts et de changer le nom du dossier et des scripts comme décrit plus tôt. Il ne suffit après plus qu'à remplacer les animations, changer les hitbox et bidouiller les scripts pour en faire votre perso plutôt que de tout recommencer de 0.
 
-Lorsque vous changez les animations, faites attention aux transitions entre animations, aux durées de sorties et aux requirements sinon ça va pas bien marcher.
+Lorsque vous changez les animations, faites attention aux transitions entre animations, aux durées de sorties et aux requirements sinon ça va pas bien marcher. Pour des animations qui ont une animation de windup avant la vrai animation, regarder le up b de Bobby. Dans ce cas précis, il faut utiliser un bool plutôt qu'un trigger pour l'animator.
 
 Essaye d'organiser un minimum le projet, c'est à dire mettre les sprites dans un dossier au nom du personnage dans le dossier My sprites et de faire la même chose avec le dossier scripts.
 

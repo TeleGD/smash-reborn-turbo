@@ -16,10 +16,13 @@ public class BobbyAtk : MonoBehaviour
 
 
 
-    [Header("Character variables")] //Ces variables sont les variablesqui vont être modifiées lorsque l'ennemi va être attaqué. Elles ont été regroupé dans un script qui sera le seul présent dans tous les personnages.
+    [Header("Character variables")] //Ces variables sont les variablesqui vont être modifiées lorsque l'ennemi va être attaqué. Les trois premières ont été regroupé dans un script qui sera le seul présent dans tous les personnages.
     public int playernumber;
     public int enemynumber;
     public string enemytag;
+    public int tempperc=0; //cette variable et la suivante permettent de déterminer quand le personnage a été touché par une attaque.afin de réinit les upB.
+    public int prevtempperc=0;
+    public bool justhit; //Booléen qui devient true si à une frame, les pourcents ont changé par rapport à la dernière frame, ce qui signifie qu'ils ont été touché par une attaque.
 
 
 
@@ -42,6 +45,9 @@ public class BobbyAtk : MonoBehaviour
     //lengthcounter: compteur lié à length.
     //startframe: première frame à laquelle les dégats sont faits.
     //baserecoil: recul de base de l'attaque. Les pourcents de la cible seront multiplié par cette valeur pour donner la force d'éjection finale.
+    //selfeject: ejection du perso qui lance l'attaque (par exemple pour une charge ou un upB)
+    //used: bool qui sert à déterminer si l'attaque a déja été utilisée, typiquement pour les attaques spéciales
+
     [Header("Tiltattack variables")]
     public Transform tiltattackpoint;
     public float tiltrange;
@@ -63,6 +69,19 @@ public class BobbyAtk : MonoBehaviour
     public int nairlength;
     public int nairlengthcounter;
     public float nairbaserecoil;
+
+    [Header("UpBattack variables")]
+    public Transform upbattackpoint;
+    public float upbrange;
+    public int upbpercent;
+    public int upbattackdelay;
+    public int upbdelaycounter;
+    public int upbshielddamage;
+    public int upblength;
+    public int upblengthcounter;
+    public float upbbaserecoil;
+    public float upbselfeject;
+    public bool upbused;
 
 
     [Header("Dtiltattack variables")]
@@ -146,16 +165,47 @@ public class BobbyAtk : MonoBehaviour
         
     }
 
+    void OnSpecial1()
+    {
+        if(GetComponent<BobbyMov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
+        {
+            upbAttack();
+            upbdelaycounter = upbattackdelay;
+        }
+    }
+
     void Update()
     {
+        
 
         grounded = GetComponent<BobbyJump>().grounded;
 
-        AttackCD();
-    
-        
+        if(grounded)
+        {
+            if(upblengthcounter==0)
+            {
+                upbused = false;
+                enanim.SetBool("upb", false);
+            }
+
+        }
+
+        tempperc=GetComponent<charavalues>().percent;
+
+        if (tempperc!=prevtempperc) //active justhit si les les pourcents ont changés, donc si l'ennemi a été touché.
+        {
+            justhit = true;
+        }
 
 
+        AttackCD(); //gère les cooldown des move ainsi que les moves qui durent dans le temps
+
+        if (justhit) //désactive justhit
+        {
+            justhit = false;
+        }
+
+        prevtempperc = tempperc;
     }
 
 
@@ -185,7 +235,7 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies) //boucle for
             {
-                if (enemy.tag == enemytag && enemy.GetComponent<RandyHP>().GetComponent<charavalues>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
+                if (enemy.tag == "Player1" && enemy.GetComponent<RandyHP>().GetComponent<charavalues>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
                 {
                     cible = enemy;
 
@@ -359,6 +409,103 @@ public class BobbyAtk : MonoBehaviour
     }
 
 
+
+    void upbAttack()
+    {
+
+        if (upblengthcounter == 0)
+        {
+
+            upbused = true;
+
+            upblengthcounter = upblength;
+
+            //attack animation
+            enanim.SetBool("upb",true);
+
+            //get enemies in range
+            Collider2D[] hitenemies = Physics2D.OverlapCircleAll(upbattackpoint.position, upbrange);
+
+            foreach (Collider2D enemy in hitenemies)
+            {
+
+                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && cible !=enemy)
+                {
+                    cible = enemy;
+
+                    if (enemy.GetComponent<charavalues>().shielded)
+                    {
+                        enemy.GetComponent<charavalues>().shield -= upbshielddamage;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<charavalues>().percent += upbpercent;
+                        enemyrb = enemy.GetComponent<Rigidbody2D>();
+
+                        if (transform.position.x >= enemy.transform.position.x)
+                        {
+                            enemyrb.AddForce(new Vector2(-upbbaserecoil, 0)); //ici, l'éjection de l'attaque est fixe, car les pourcents de la cible ne rentrent pas en jeu.
+
+                        }
+                        else
+                        {
+                            enemyrb.AddForce(new Vector2(upbbaserecoil, 0));
+                        }
+                        enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
+                    }
+
+                }
+
+            }
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0,upbselfeject); //fait aller le perso vers le haut (ben oui c'est un upb)
+        }
+
+
+    }
+
+    void lingeringupb()
+    {
+        upblengthcounter -= 1;
+
+        //get enemies in range
+        Collider2D[] hitenemies = Physics2D.OverlapCircleAll(upbattackpoint.position, upbrange);
+
+        foreach (Collider2D enemy in hitenemies)
+        {
+            if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && cible != enemy)
+            {
+
+                cible = enemy;
+
+                if (enemy.GetComponent<charavalues>().shielded)
+                {
+                    enemy.GetComponent<charavalues>().shield -= upbshielddamage;
+                }
+                else
+                {
+                    enemy.GetComponent<charavalues>().percent += upbpercent;
+                    enemyrb = enemy.GetComponent<Rigidbody2D>();
+
+                    if (transform.position.x >= enemy.transform.position.x)
+                    {
+                        enemyrb.AddForce(new Vector2(-upbbaserecoil, 0));
+
+                    }
+                    else
+                    {
+                        enemyrb.AddForce(new Vector2(upbbaserecoil, 0));
+                    }
+                    enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
+                }
+
+            }
+
+        }
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, upbselfeject); //fait aller le perso vers le haut (ben oui c'est un upb)
+
+    }
+
+
     void DTiltAttack()
     {
 
@@ -482,7 +629,24 @@ public class BobbyAtk : MonoBehaviour
             tiltdelaycounter -= 1;
         }
 
+        if (justhit) //si le perso a été touché, on termine toutes les animations en cours
+        {
+            tiltlengthcounter = 0;
 
+            dtiltlengthcounter = 0;
+
+            uptiltlengthcounter = 0;
+
+            nairlengthcounter = 0;
+
+            upblengthcounter = 0;
+            upbused = false;
+            enanim.SetBool("upb", false);
+
+            cible = null;
+            
+
+        }
 
         if (tiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
         {
@@ -524,7 +688,28 @@ public class BobbyAtk : MonoBehaviour
         }
         if (nairlengthcounter > 0) //activation du nair si la hitbox est toujours actives
         {
+
             lingeringnair();
+
+
+        }
+
+        if (upbdelaycounter > 0) //CD du upb
+        {
+            upbdelaycounter -= 1;
+        }
+        if (upblengthcounter > 0) //activation du upb si la hitbox est toujours actives
+        {
+            if(upblengthcounter == 1)
+            {
+                lingeringupb();
+                cible = null; //on réinitialise cible à la fin de l'attaque
+                enanim.SetBool("upb", false);
+            }
+            else
+            {
+                lingeringupb();
+            }
 
         }
 
@@ -560,10 +745,11 @@ public class BobbyAtk : MonoBehaviour
 
 
     private void OnDrawGizmos()
-        //permet d'afficher les hitbox d'attaques
+        //permet d'afficher les hitbox d'attaques. Décommenter pour les afficher
     {
         Gizmos.DrawWireSphere(tiltattackpoint.position, tiltrange);
         Gizmos.DrawWireSphere(nairattackpoint.position, nairrange);
+        Gizmos.DrawWireSphere(upbattackpoint.position, upbrange);
         Gizmos.DrawCube(dtiltattackpoint.position, new Vector2(dtilhbx, dtilhby));
         Gizmos.DrawCube(uptiltattackpoint.position, new Vector2(uptilhbx, uptilhby));
     }

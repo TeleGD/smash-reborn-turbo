@@ -152,10 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5981ed213a04bb2ad7521bed2363d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xstartp1: 0
-  ystartp1: 0.3
-  xstartp2: 4
-  ystartp2: 0
+  xstartp1: 2
+  ystartp1: 2
+  xstartp2: 2
+  ystartp2: 2
+  deathleft: -5
+  deathright: 10
+  deathup: 7
+  deathdown: -5
   shieldmax: 600
   shielddimrate: 10
   shieldrecharge: 5
@@ -616,6 +620,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84dc1a7ff9b5845b99027d0ee5ad89c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &80772101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 80772102}
+  m_Layer: 0
+  m_Name: upbattackpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &80772102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80772101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.147, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 912949973}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &146437466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,9 +2195,9 @@ GameObject:
   - component: {fileID: 912949972}
   - component: {fileID: 912949971}
   - component: {fileID: 912949974}
-  - component: {fileID: 912949975}
   - component: {fileID: 912949977}
   - component: {fileID: 912949980}
+  - component: {fileID: 912949975}
   - component: {fileID: 912949979}
   - component: {fileID: 912949978}
   - component: {fileID: 912949981}
@@ -2265,6 +2300,7 @@ Transform:
   - {fileID: 939497463}
   - {fileID: 960681106}
   - {fileID: 24163192}
+  - {fileID: 80772102}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2442,7 +2478,9 @@ MonoBehaviour:
   playernumber: 2
   enemynumber: 1
   enemytag: 
-  enemyname: 
+  tempperc: 0
+  prevtempperc: 0
+  justhit: 0
   tiltattackpoint: {fileID: 2060496075}
   tiltrange: 0.3
   tiltpercent: 10
@@ -2461,6 +2499,17 @@ MonoBehaviour:
   nairlength: 30
   nairlengthcounter: 0
   nairbaserecoil: 150
+  upbattackpoint: {fileID: 80772102}
+  upbrange: 0.35
+  upbpercent: 15
+  upbattackdelay: 6
+  upbdelaycounter: 0
+  upbshielddamage: 100
+  upblength: 35
+  upblengthcounter: 0
+  upbbaserecoil: 20
+  upbselfeject: 5
+  upbused: 0
   dtiltattackpoint: {fileID: 960681106}
   dtilhbx: 0.3
   dtilhby: 0.1
@@ -3886,7 +3935,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2dcdb138aa9c11a4b8403b489f804e7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
