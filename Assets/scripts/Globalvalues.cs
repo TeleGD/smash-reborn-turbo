@@ -31,12 +31,49 @@ public class Globalvalues : MonoBehaviour
     public string player1char;
     public string player2char;
 
+    public bool playable;
+
 
     // Update is called once per frame
     void Awake()
     {
         
         Application.targetFrameRate = 60;
+
+        if (playable)
+        {
+            player2char = GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char;
+            player1char = GameObject.Find("Optionvalues").GetComponent<optionvalues>().p1char;
+
+            if (GameObject.Find("Optionvalues").GetComponent<optionvalues>().p1char == "Bobby")
+            {
+                UnityEngine.Debug.Log("bobby1");
+                GameObject.Find("Randy1").SetActive(false);
+
+            }
+            if (GameObject.Find("Optionvalues").GetComponent<optionvalues>().p1char == "Randy")
+            {
+                UnityEngine.Debug.Log("randy1");
+                
+                GameObject.Find("Bobby1").SetActive(false);
+
+            }
+            if (GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char == "Bobby")
+            {
+                UnityEngine.Debug.Log("bobby2");
+                GameObject.Find("Randy2").SetActive(false);
+
+            }
+            if (GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char == "Randy")
+            {
+                UnityEngine.Debug.Log("randy2");
+                GameObject.Find("Bobby2").SetActive(false);
+            }
+        }
+        
+
+
+
         DontDestroyOnLoad(this);
     }
 

@@ -9,12 +9,45 @@ public class playgame : MonoBehaviour
     PlayerControls controls;
     public void Playgame()
     {
-        SceneManager.LoadScene("Map1");
+        SceneManager.LoadScene("Chaselect1");
+    }
+
+    public void Mainmenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
     public void Quitgame()
     {
         Debug.Log("Ciao");
         Application.Quit();
+    }
+
+    public void Bobby()
+    {
+        if (SceneManager.GetActiveScene().name=="Chaselect1")
+        {
+            GameObject.Find("Optionvalues").GetComponent<optionvalues>().p1char="Bobby";
+            SceneManager.LoadScene("Chaselect2");
+        }
+        if (SceneManager.GetActiveScene().name == "Chaselect2")
+        {
+            GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char = "Bobby";
+            SceneManager.LoadScene("Map1");
+        }
+    }
+
+    public void Randy()
+    {
+        if (SceneManager.GetActiveScene().name == "Chaselect1")
+        {
+            GameObject.Find("Optionvalues").GetComponent<optionvalues>().p1char = "Randy";
+            SceneManager.LoadScene("Chaselect2");
+        }
+        if (SceneManager.GetActiveScene().name == "Chaselect2")
+        {
+            GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char = "Randy";
+            SceneManager.LoadScene("Map1");
+        }
     }
 
     public void continuegame()

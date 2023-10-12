@@ -21,7 +21,14 @@ public class BobbyPer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        percent = GameObject.FindWithTag("Player2").GetComponent<charavalues>().percent;
+        if (GameObject.Find("Optionvalues").GetComponent<optionvalues>().p1char == "Bobby")
+        {
+            percent = GameObject.FindWithTag("Player1").GetComponent<charavalues>().percent;
+        }
+        if (GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char == "Bobby")
+        {
+            percent = GameObject.FindWithTag("Player2").GetComponent<charavalues>().percent;
+        }
         TextUI.text = percent.ToString();
     }
 }

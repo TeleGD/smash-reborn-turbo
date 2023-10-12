@@ -6,6 +6,8 @@ public class optionvalues : MonoBehaviour
 {
     public static float musicvol;
     public static float soundvol;
+    public string p1char;
+    public string p2char;
 
 
     void Awake()
