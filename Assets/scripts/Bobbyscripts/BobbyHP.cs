@@ -44,8 +44,18 @@ public class BobbyHP : MonoBehaviour
         rb2D = transform.GetComponent<Rigidbody2D>();
 
         //coordonnées de respawn
-        startx = GameObject.Find("Global values").GetComponent<Globalvalues>().xstartp2;
-        starty = GameObject.Find("Global values").GetComponent<Globalvalues>().ystartp2;
+        if(this.CompareTag("Player1"))
+        {
+            startx = GameObject.Find("Global values").GetComponent<Globalvalues>().xstartp1;
+            starty = GameObject.Find("Global values").GetComponent<Globalvalues>().ystartp1;
+        }
+        else
+        {
+            startx = GameObject.Find("Global values").GetComponent<Globalvalues>().xstartp2;
+            starty = GameObject.Find("Global values").GetComponent<Globalvalues>().ystartp2;
+        }
+
+
 
     }
 
