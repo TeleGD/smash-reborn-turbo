@@ -3749,7 +3749,7 @@ GameObject:
   - component: {fileID: 943134768}
   m_Layer: 5
   m_Name: P2per
-  m_TagString: Untagged
+  m_TagString: P2per
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3880,7 +3880,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 943134763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5bdcba7e8d2926439df1c0802da3643, type: 3}
+  m_Script: {fileID: 11500000, guid: 3abb18396ff31334ca78f64931185686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TextUI: {fileID: 943134766}
@@ -8478,7 +8478,7 @@ GameObject:
   - component: {fileID: 1710646379}
   m_Layer: 5
   m_Name: P1per
-  m_TagString: Untagged
+  m_TagString: P1per
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8609,7 +8609,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1710646374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f1486b6ef6b3c4c80abcd3b054398c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3abb18396ff31334ca78f64931185686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TextUI: {fileID: 1710646377}

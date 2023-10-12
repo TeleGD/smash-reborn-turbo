@@ -8,6 +8,8 @@ TagManager:
   - Player2
   - Player1
   - playmap
+  - P2per
+  - P1per
   layers:
   - Default
   - TransparentFX

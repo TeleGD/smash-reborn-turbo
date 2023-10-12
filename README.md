@@ -57,6 +57,7 @@ Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Down Tilt
 - Up Tilt
 - Neutral Air
+- Up Special
 - Bouclier
 
 Exporter les animation sous un format où toutes les frames sont sur le même .PNG
