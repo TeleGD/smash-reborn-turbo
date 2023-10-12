@@ -23,6 +23,8 @@ public class BobbyAtk : MonoBehaviour
     public int tempperc=0; //cette variable et la suivante permettent de déterminer quand le personnage a été touché par une attaque.afin de réinit les upB.
     public int prevtempperc=0;
     public bool justhit; //Booléen qui devient true si à une frame, les pourcents ont changé par rapport à la dernière frame, ce qui signifie qu'ils ont été touché par une attaque.
+    private int atkinput; //détecte si le bouton d'attaque est pressé
+    private int speinput; //détecte si le bouton d'attaque spéciale est pressé
 
 
 
@@ -123,10 +125,44 @@ public class BobbyAtk : MonoBehaviour
     {
 
         enanim = GetComponent<Animator>(); //initialisation de l'animateur
+
+        
+
     }
 
+    void OnAttack()
+    {
+        if(this.CompareTag("Player1"))
+        {
+            atkinput = 1;
+        }
+    }
 
-    void OnAttack1() //se déclenche si le bouton d'attaque est pressé
+    void OnAttack1()
+    {
+        if (this.CompareTag("Player2"))
+        {
+            atkinput = 1;
+        }
+    }
+
+    void OnSpecial()
+    {
+        if (this.CompareTag("Player1"))
+        {
+            speinput = 1;
+        }
+    }
+
+    void OnSpecial1()
+    {
+        if (this.CompareTag("Player2"))
+        {
+            speinput = 1;
+        }
+    }
+
+    void InputAttack() //se déclenche si le bouton d'attaque est pressé
     {
         if (grounded) //check si le perso est sur le sol
         {
@@ -165,7 +201,7 @@ public class BobbyAtk : MonoBehaviour
         
     }
 
-    void OnSpecial1()
+    void InputSpecial()
     {
         if(GetComponent<BobbyMov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
         {
@@ -176,7 +212,22 @@ public class BobbyAtk : MonoBehaviour
 
     void Update()
     {
+
+        if (atkinput==1)
+        {
+            InputAttack();
+            atkinput = 0;
+        }
+
+        if (speinput==1)
+        {
+            InputSpecial();
+            speinput = 0;
+        }
+
+
         
+
 
         grounded = GetComponent<BobbyJump>().grounded;
 
@@ -235,7 +286,7 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies) //boucle for
             {
-                if (enemy.tag == "Player1" && enemy.GetComponent<RandyHP>().GetComponent<charavalues>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
+                if (((this.CompareTag("Player2")&& enemy.tag == "Player1")|| (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
                 {
                     cible = enemy;
 
@@ -287,7 +338,7 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies)
             {
-                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
 
                     cible = enemy;
@@ -338,7 +389,7 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies)
             {
-                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0)
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0)
                 {
 
                     if (enemy.GetComponent<charavalues>().shielded)
@@ -379,7 +430,7 @@ public class BobbyAtk : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0)
+            if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0)
             {
 
                 if (enemy.GetComponent<charavalues>().shielded)
@@ -429,7 +480,7 @@ public class BobbyAtk : MonoBehaviour
             foreach (Collider2D enemy in hitenemies)
             {
 
-                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && cible !=enemy)
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && cible !=enemy)
                 {
                     cible = enemy;
 
@@ -472,7 +523,7 @@ public class BobbyAtk : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && cible != enemy)
+            if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && cible != enemy)
             {
 
                 cible = enemy;
@@ -537,7 +588,7 @@ public class BobbyAtk : MonoBehaviour
             foreach (Collider2D enemy in hitenemies)
             {
                 
-                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
 
                     cible = enemy;
@@ -592,7 +643,7 @@ public class BobbyAtk : MonoBehaviour
 
             foreach (Collider2D enemy in hitenemies)
             {
-                if (enemy.tag == "Player1" && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
 
                     cible = enemy;

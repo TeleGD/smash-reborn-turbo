@@ -68,16 +68,34 @@ public class BobbyMov : MonoBehaviour
 
         controls = new PlayerControls();
 
-        controls.gameplay.moveleft1.performed += ctx => valueleft = 1;
-        controls.gameplay.moveright1.performed += ctx => valueright = 1;
-        controls.gameplay.moveleft1.canceled += ctx => valueleft = 0;
-        controls.gameplay.moveright1.canceled += ctx => valueright = 0;
-        controls.gameplay.down1.performed += ctx => vertical = -1;
-        controls.gameplay.down1.canceled += ctx => vertical = 0;
-        controls.gameplay.up1.performed += ctx => vertical = 1;
-        controls.gameplay.up1.canceled += ctx => vertical = 0;
-        controls.gameplay.shield1.canceled += ctx => shieldcancel = 0;
-        controls.gameplay.shield1.performed+= ctx => shieldcancel = 1;
+        if (this.CompareTag("Player1"))
+        {
+            controls.gameplay.moveleft.performed += ctx => valueleft = 1;
+            controls.gameplay.moveright.performed += ctx => valueright = 1;
+            controls.gameplay.moveleft.canceled += ctx => valueleft = 0;
+            controls.gameplay.moveright.canceled += ctx => valueright = 0;
+            controls.gameplay.down.performed += ctx => vertical = -1;
+            controls.gameplay.down.canceled += ctx => vertical = 0;
+            controls.gameplay.up.performed += ctx => vertical = 1;
+            controls.gameplay.up.canceled += ctx => vertical = 0;
+            controls.gameplay.shield.canceled += ctx => shieldcancel = 0;
+            controls.gameplay.shield.performed += ctx => shieldcancel = 1;
+        }
+        else
+        {
+            controls.gameplay.moveleft1.performed += ctx => valueleft = 1;
+            controls.gameplay.moveright1.performed += ctx => valueright = 1;
+            controls.gameplay.moveleft1.canceled += ctx => valueleft = 0;
+            controls.gameplay.moveright1.canceled += ctx => valueright = 0;
+            controls.gameplay.down1.performed += ctx => vertical = -1;
+            controls.gameplay.down1.canceled += ctx => vertical = 0;
+            controls.gameplay.up1.performed += ctx => vertical = 1;
+            controls.gameplay.up1.canceled += ctx => vertical = 0;
+            controls.gameplay.shield1.canceled += ctx => shieldcancel = 0;
+            controls.gameplay.shield1.performed += ctx => shieldcancel = 1;
+        }
+
+        
 
         shieldmax = GameObject.Find("Global values").GetComponent<Globalvalues>().shieldmax;
         shielddimrate = GameObject.Find("Global values").GetComponent<Globalvalues>().shielddimrate;

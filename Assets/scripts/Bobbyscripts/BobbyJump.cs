@@ -56,10 +56,20 @@ public class BobbyJump : MonoBehaviour
         //assigne les différents input possible à des variables
         controls = new PlayerControls();
 
-        controls.gameplay.jump1.performed += ctx => pressedjump = true;
-        controls.gameplay.jump1.canceled += ctx => pressedjump = false;
-        controls.gameplay.down1.performed += ctx => presseddown = true;
-        controls.gameplay.down1.canceled += ctx => presseddown = false;
+        if (this.CompareTag("Player1"))
+        {
+            controls.gameplay.jump.performed += ctx => pressedjump = true;
+            controls.gameplay.jump.canceled += ctx => pressedjump = false;
+            controls.gameplay.down.performed += ctx => presseddown = true;
+            controls.gameplay.down.canceled += ctx => presseddown = false;
+        }
+        else if(this.CompareTag("Player2"))
+        {
+            controls.gameplay.jump1.performed += ctx => pressedjump = true;
+            controls.gameplay.jump1.canceled += ctx => pressedjump = false;
+            controls.gameplay.down1.performed += ctx => presseddown = true;
+            controls.gameplay.down1.canceled += ctx => presseddown = false;
+        }
 
         //initialisation de variables
         rb = GetComponent<Rigidbody2D>();
