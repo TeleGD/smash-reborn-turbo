@@ -1021,7 +1021,7 @@ MonoBehaviour:
   player1percent: 0
   groundcheck: {fileID: 0}
   radOcircle: 0
-  healthbar: {fileID: 1940829397}
+  healthbar: {fileID: 1455610430}
 --- !u!114 &170043928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,7 +1092,7 @@ MonoBehaviour:
   vertical: 0
   shield: 0
   shieldbreakcnter: 0
-  shieldbar: {fileID: 890761104}
+  shieldbar: {fileID: 646155277}
   shieldcancel: 0
 --- !u!61 &170043931
 BoxCollider2D:
@@ -2206,7 +2206,7 @@ MonoBehaviour:
   horizontal: 0
   vertical: 0
   shieldbreakcnter: 0
-  shieldbar: {fileID: 646155277}
+  shieldbar: {fileID: 890761104}
   shieldcancel: 0
   crouched: 0
   crouchedhbx: 0.9
@@ -2228,7 +2228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyhp: 0
-  healthbar: {fileID: 1455610430}
+  healthbar: {fileID: 1940829397}
   enemyperc: 0
 --- !u!114 &721399187
 MonoBehaviour:

@@ -119,6 +119,14 @@ public class BobbyMov : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
+
+        if (shieldcancel == 1)
+        {
+            ShieldInput();
+        }
+
+
+
         if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded)
         {
             myanimator.SetBool("crouch", true);
@@ -246,7 +254,7 @@ public class BobbyMov : MonoBehaviour
 
 
     //fonction qui se déclenche lorsqu'on appuye sur le bouton de shield
-    void OnShield1()
+    void ShieldInput()
     {
         if(grounded && shieldbreakcnter<=0)
         {
