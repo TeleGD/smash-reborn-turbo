@@ -39,7 +39,7 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 **Préambule**
 
 Il est conseillé de faire le kit du personnage avant de s'y mettre. Même si Riki peut aider, c'est à toi de programmer le personnage (en t'aidant de ce que j'ai déja fait).
-Attention ! En particulier pour les scripts, utiliser les mêmes bases pour les noms  ainsi que pour les variables qui concernent les attaques est conseillé. Par exemple, pour Bobby, le script d'attaque est BobbyAtk, celui pour Randy est RandyAtk. Il faut le mettre sous la forme NomAtk. De même pour NomMov pour les mouvements, NomPer pour les pourcents, NomJump pour les sauts et de même pour NomHP.
+Attention ! En particulier pour les scripts, utiliser les mêmes bases pour les noms  ainsi que pour les variables qui concernent les attaques est conseillé. Par exemple, pour Bobby, le script d'attaque est BobbyAtk, celui pour Randy est RandyAtk. Il faut le mettre sous la forme NomAtk. De même pour NomMov pour les mouvements et finalement NomJump pour les sauts.
 Il est absolument capitale d'utiliser **le même script charavalues** en le mettant dans le personnage. Ce script est ce qui permet à tous les persos de pouvoir se tabasser entre eux. Il ne doit pas être renommé ou modifié. Il est utilisable tel qu'il est et le modifier risque de casser les autres persos.
 
 
