@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chaselect2.unity
     guid: 3df5aa0e1a9374449adaef9880271f56
+  - enabled: 1
+    path: Assets/Scenes/loadingscreens/charaselect-to-game.unity
+    guid: c48608de1d0fb0d48a3301a7325fa479
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7088eb46604eb469db2a291b093b5f2a, type: 2}

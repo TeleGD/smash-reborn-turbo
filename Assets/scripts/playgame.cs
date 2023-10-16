@@ -32,7 +32,7 @@ public class playgame : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Chaselect2")
         {
             GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char = "Bobby";
-            SceneManager.LoadScene("Map1");
+            SceneManager.LoadScene("charaselect-to-game");
         }
     }
 
@@ -46,7 +46,7 @@ public class playgame : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Chaselect2")
         {
             GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char = "Randy";
-            SceneManager.LoadScene("Map1");
+            SceneManager.LoadScene("charaselect-to-game");
         }
     }
 
