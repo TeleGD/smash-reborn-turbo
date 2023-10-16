@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 
 
-public class BobbyMov : MonoBehaviour
+public class Charamov : MonoBehaviour
 {
 
     PlayerControls controls;
@@ -16,7 +16,6 @@ public class BobbyMov : MonoBehaviour
     //safezone variables
     private float startx;
     private float starty;
-    [SerializeField] private Transform groundcheck;
 
     //necessary for anim and physics
     private Rigidbody2D rb2D;
@@ -35,7 +34,6 @@ public class BobbyMov : MonoBehaviour
 
 
     [Header("shield variables")]
-    private bool grounded;
     //public int shielded: a été déplacé dans Globalvalues pour faciliter l'accès et faciliter l'utilisation de plusieurs persos
     private int shieldmax; //correspond au bouclier maximal
     //public int shield; correspond à la valeur du bouclier, passé dans Globalvalues pour les mêmes raisons
@@ -57,6 +55,16 @@ public class BobbyMov : MonoBehaviour
     public float standinghbx;
     public float standinghby;
     public float standinghboffsety;
+
+    [Header("Ground details")]
+    //ensemble de variables qui servent à détecter le sol
+    [SerializeField] private Transform groundcheck;
+    [SerializeField] private float radOcircle;
+    [SerializeField] private float hauteurgi;
+    [SerializeField] private float largeurgi;
+    [SerializeField] private LayerMask whatisground;
+    public bool grounded;
+
 
 
 
@@ -120,6 +128,9 @@ public class BobbyMov : MonoBehaviour
     private void Update()
     {
 
+        grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
+
+
         if (shieldcancel == 1)
         {
             ShieldInput();
@@ -150,7 +161,6 @@ public class BobbyMov : MonoBehaviour
 
         shieldbar.Setshield(GetComponent<charavalues>().shield); //update la barre de bouclier
 
-        grounded = GetComponent<BobbyJump>().grounded; //check si le perso est au sol
 
         if(!grounded)
         {
@@ -205,7 +215,7 @@ public class BobbyMov : MonoBehaviour
 
         if(!GetComponent<charavalues>().shielded) //on ne bouge pas si le bouclier est actif
         {
-            if (GetComponent<BobbyJump>().allowjump && !crouched) //allowjump est une variable qui détermine si il est possible de se mouvoir dans les airs. Si on est baissé, on ne peut pas bouger
+            if (!crouched) //Si on est baissé, on ne peut pas bouger
             {
                 if (Mathf.Abs(rb2D.velocity.x) <= maxspeed) //check si la vitesse est inférieure à la vitesse max et on accélère. 
                 {

@@ -47,6 +47,7 @@ public class BobbyAtk : MonoBehaviour
     //lengthcounter: compteur lié à length.
     //startframe: première frame à laquelle les dégats sont faits.
     //baserecoil: recul de base de l'attaque. Les pourcents de la cible seront multiplié par cette valeur pour donner la force d'éjection finale.
+    //fixedrecoil: recul fixe de l'attaque. Cette variable existe pour faire une ejection fixe indépendante des pourcents de la cible
     //selfeject: ejection du perso qui lance l'attaque (par exemple pour une charge ou un upB)
     //used: bool qui sert à déterminer si l'attaque a déja été utilisée, typiquement pour les attaques spéciales
 
@@ -98,6 +99,7 @@ public class BobbyAtk : MonoBehaviour
     public int dtiltlengthcounter;
     public int dtiltstartframe;
     public float dtiltbaserecoil;
+    public float dtiltfixedrecoil;
 
     [Header("Uptiltattack variables")]
     public Transform uptiltattackpoint;
@@ -166,17 +168,17 @@ public class BobbyAtk : MonoBehaviour
     {
         if (grounded) //check si le perso est sur le sol
         {
-            if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<BobbyMov>().crouched && GetComponent<BobbyMov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
+            if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
             {
                 TiltAttack();
                 tiltdelaycounter = tiltattackdelay;
             }
-            else if(dtiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && GetComponent<BobbyMov>().crouched)
+            else if(dtiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && GetComponent<Charamov>().crouched)
             {
                 DTiltAttack();
                 dtiltdelaycounter = dtiltattackdelay;
             }
-            else if(uptiltdelaycounter==0 && !GetComponent<charavalues>().shielded && !GetComponent<BobbyMov>().crouched && GetComponent<BobbyMov>().vertical==1)
+            else if(uptiltdelaycounter==0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical==1)
             {
                 UpTiltAttack();
                 uptiltdelaycounter = uptiltattackdelay;
@@ -184,7 +186,7 @@ public class BobbyAtk : MonoBehaviour
         }
         else //se déclenche si le perso n'est pas au sol
         {
-            if(GetComponent<BobbyMov>().valueright==0 && GetComponent<BobbyMov>().valueright == 0 && nairdelaycounter == 0 && !GetComponent<charavalues>().shielded) //si le perso peut faire un nair, qu'aucune input de direction n'est activée et que le bouclier est baissé, la fonction correspondant au nair se déclenche et le delai entre deux nairs aussi.
+            if(GetComponent<Charamov>().valueright==0 && GetComponent<Charamov>().valueright == 0 && nairdelaycounter == 0 && !GetComponent<charavalues>().shielded) //si le perso peut faire un nair, qu'aucune input de direction n'est activée et que le bouclier est baissé, la fonction correspondant au nair se déclenche et le delai entre deux nairs aussi.
             {
                 NairAttack();
                 nairdelaycounter = nairattackdelay;
@@ -203,7 +205,7 @@ public class BobbyAtk : MonoBehaviour
 
     void InputSpecial()
     {
-        if(GetComponent<BobbyMov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
+        if(GetComponent<Charamov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
         {
             upbAttack();
             upbdelaycounter = upbattackdelay;
@@ -601,7 +603,7 @@ public class BobbyAtk : MonoBehaviour
                     {
                         enemy.GetComponent<charavalues>().percent += dtiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
-                        enemyrb.AddForce(new Vector2(0, 300 + uptiltbaserecoil * enemy.GetComponent<charavalues>().percent));
+                        enemyrb.AddForce(new Vector2(0, dtiltfixedrecoil + dtiltbaserecoil * enemy.GetComponent<charavalues>().percent)); //ici fixedrecoil est additionné à baserecoil pour faire une attaque qui ejectera toujours environ à la même hauter, mais tout de même un tout petit peu augmenté par les pourcents.
 
                         
                         GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,0);

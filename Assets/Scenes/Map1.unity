@@ -2037,7 +2037,7 @@ GameObject:
   - component: {fileID: 721399189}
   - component: {fileID: 721399188}
   - component: {fileID: 721399187}
-  - component: {fileID: 721399185}
+  - component: {fileID: 721399193}
   - component: {fileID: 721399184}
   - component: {fileID: 721399183}
   - component: {fileID: 721399182}
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   nairshielddamage: 250
   nairlength: 30
   nairlengthcounter: 0
-  nairbaserecoil: 150
+  nairbaserecoil: 100
   upbattackpoint: {fileID: 1283664434}
   upbrange: 0.35
   upbpercent: 15
@@ -2123,6 +2123,7 @@ MonoBehaviour:
   dtiltlengthcounter: 0
   dtiltstartframe: 10
   dtiltbaserecoil: 2
+  dtiltfixedrecoil: 300
   uptiltattackpoint: {fileID: 269825502}
   uptilhbx: 0.6
   uptilhby: 0.8
@@ -2173,36 +2174,6 @@ MonoBehaviour:
   horizontal: 0
   pressedjump: 0
   presseddown: 0
---- !u!114 &721399185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721399181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63a3c28e50f1c1745b346714f01ebeac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundcheck: {fileID: 2146272741}
-  facingRight: 1
-  speed: 8
-  maxspeed: 3
-  slowdownspeed: 6
-  valueright: 0
-  horizontal: 0
-  vertical: 0
-  shieldbreakcnter: 0
-  shieldbar: {fileID: 890761104}
-  shieldcancel: 0
-  crouched: 0
-  crouchedhbx: 0.9
-  crouchedhby: 0.3
-  crouchedhboffsety: -0.28
-  standinghbx: 0.9
-  standinghby: 0.7
-  standinghboffsety: -0.09
 --- !u!114 &721399187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2374,6 +2345,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &721399193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721399181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217f23c4225b2f24baa8a33c232f5cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facingRight: 1
+  speed: 8
+  maxspeed: 3
+  slowdownspeed: 6
+  valueright: 0
+  horizontal: 0
+  vertical: 0
+  shieldbreakcnter: 0
+  shieldbar: {fileID: 890761104}
+  shieldcancel: 0
+  crouched: 0
+  crouchedhbx: 0.9
+  crouchedhby: 0.3
+  crouchedhboffsety: -0.28
+  standinghbx: 0.9
+  standinghby: 0.7
+  standinghboffsety: -0.09
+  groundcheck: {fileID: 2146272741}
+  radOcircle: 0.06
+  hauteurgi: 0.06
+  largeurgi: 0.57
+  whatisground:
+    serializedVersion: 2
+    m_Bits: 64
+  grounded: 0
 --- !u!1 &847649309
 GameObject:
   m_ObjectHideFlags: 0
@@ -3045,7 +3053,7 @@ GameObject:
   - component: {fileID: 912949974}
   - component: {fileID: 912949977}
   - component: {fileID: 912949980}
-  - component: {fileID: 912949979}
+  - component: {fileID: 912949983}
   - component: {fileID: 912949978}
   - component: {fileID: 912949981}
   - component: {fileID: 912949982}
@@ -3234,36 +3242,6 @@ MonoBehaviour:
   horizontal: 0
   pressedjump: 0
   presseddown: 0
---- !u!114 &912949979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912949970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63a3c28e50f1c1745b346714f01ebeac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundcheck: {fileID: 1225970001}
-  facingRight: 1
-  speed: 8
-  maxspeed: 3
-  slowdownspeed: 6
-  valueright: 0
-  horizontal: 0
-  vertical: 0
-  shieldbreakcnter: 0
-  shieldbar: {fileID: 646155277}
-  shieldcancel: 0
-  crouched: 0
-  crouchedhbx: 0.9
-  crouchedhby: 0.3
-  crouchedhboffsety: -0.28
-  standinghbx: 0.9
-  standinghby: 0.7
-  standinghboffsety: -0.09
 --- !u!114 &912949980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3330,7 +3308,7 @@ MonoBehaviour:
   nairshielddamage: 250
   nairlength: 30
   nairlengthcounter: 0
-  nairbaserecoil: 150
+  nairbaserecoil: 100
   upbattackpoint: {fileID: 80772102}
   upbrange: 0.35
   upbpercent: 15
@@ -3353,6 +3331,7 @@ MonoBehaviour:
   dtiltlengthcounter: 0
   dtiltstartframe: 10
   dtiltbaserecoil: 2
+  dtiltfixedrecoil: 300
   uptiltattackpoint: {fileID: 24163192}
   uptilhbx: 0.6
   uptilhby: 0.8
@@ -3382,6 +3361,43 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+--- !u!114 &912949983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912949970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217f23c4225b2f24baa8a33c232f5cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facingRight: 1
+  speed: 8
+  maxspeed: 3
+  slowdownspeed: 6
+  valueright: 0
+  horizontal: 0
+  vertical: 0
+  shieldbreakcnter: 0
+  shieldbar: {fileID: 646155277}
+  shieldcancel: 0
+  crouched: 0
+  crouchedhbx: 0.9
+  crouchedhby: 0.3
+  crouchedhboffsety: -0.28
+  standinghbx: 0.9
+  standinghby: 0.7
+  standinghboffsety: -0.09
+  groundcheck: {fileID: 1225970001}
+  radOcircle: 0.06
+  hauteurgi: 0.06
+  largeurgi: 0.57
+  whatisground:
+    serializedVersion: 2
+    m_Bits: 64
+  grounded: 0
 --- !u!1 &913976650
 GameObject:
   m_ObjectHideFlags: 0

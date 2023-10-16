@@ -15,7 +15,10 @@ public class charavalues : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (iframes > 0)
+        {
+            iframes -= 1;
+        }
        
     }
 }

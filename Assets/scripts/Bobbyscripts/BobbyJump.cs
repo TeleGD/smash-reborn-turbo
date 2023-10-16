@@ -84,8 +84,8 @@ public class BobbyJump : MonoBehaviour
     {
         HandleLayers();
 
-        horizontal = GetComponent<BobbyMov>().horizontal; //récupère la variable du script BobbyMov
-        grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground); 
+        horizontal = GetComponent<Charamov>().horizontal; //récupère la variable du script Charamov
+        grounded = GetComponent<Charamov>().grounded;  
         Checkground();
 
         //normal jump
