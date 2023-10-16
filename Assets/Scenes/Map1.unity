@@ -168,6 +168,13 @@ MonoBehaviour:
   respawniframes: 120
   player1char: Randy
   player2char: Bobby
+  rb2D: {fileID: 0}
+  p1HP: 0
+  p1maxHP: 0
+  p2HP: 0
+  p2maxHP: 0
+  P1healthbar: {fileID: 1940829397}
+  P2healthbar: {fileID: 1455610430}
   playable: 1
 --- !u!4 &2394440
 Transform:
@@ -927,7 +934,6 @@ GameObject:
   - component: {fileID: 170043930}
   - component: {fileID: 170043929}
   - component: {fileID: 170043928}
-  - component: {fileID: 170043927}
   - component: {fileID: 170043926}
   - component: {fileID: 170043925}
   - component: {fileID: 170043924}
@@ -1005,23 +1011,6 @@ MonoBehaviour:
   tiltshielddamage: 250
   baserecoil: 5
   grounded: 0
---- !u!114 &170043927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170043923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81e416eae0a9e4c3d88d990bde735ecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerhp: 0
-  player1percent: 0
-  groundcheck: {fileID: 0}
-  radOcircle: 0
-  healthbar: {fileID: 1455610430}
 --- !u!114 &170043928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2048,7 +2037,6 @@ GameObject:
   - component: {fileID: 721399189}
   - component: {fileID: 721399188}
   - component: {fileID: 721399187}
-  - component: {fileID: 721399186}
   - component: {fileID: 721399185}
   - component: {fileID: 721399184}
   - component: {fileID: 721399183}
@@ -2215,21 +2203,6 @@ MonoBehaviour:
   standinghbx: 0.9
   standinghby: 0.7
   standinghboffsety: -0.09
---- !u!114 &721399186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721399181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97b83644e7dbf42f798addce02f6dfa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyhp: 0
-  healthbar: {fileID: 1940829397}
-  enemyperc: 0
 --- !u!114 &721399187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3072,7 +3045,6 @@ GameObject:
   - component: {fileID: 912949974}
   - component: {fileID: 912949977}
   - component: {fileID: 912949980}
-  - component: {fileID: 912949975}
   - component: {fileID: 912949979}
   - component: {fileID: 912949978}
   - component: {fileID: 912949981}
@@ -3205,21 +3177,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.3}
   m_EdgeRadius: 0
---- !u!114 &912949975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912949970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97b83644e7dbf42f798addce02f6dfa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyhp: 0
-  healthbar: {fileID: 1455610430}
-  enemyperc: 0
 --- !u!95 &912949977
 Animator:
   serializedVersion: 4
@@ -6337,7 +6294,6 @@ GameObject:
   - component: {fileID: 1415235884}
   - component: {fileID: 1415235892}
   - component: {fileID: 1415235882}
-  - component: {fileID: 1415235881}
   - component: {fileID: 1415235889}
   - component: {fileID: 1415235890}
   - component: {fileID: 1415235893}
@@ -6367,23 +6323,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1415235881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415235879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81e416eae0a9e4c3d88d990bde735ecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerhp: 0
-  player1percent: 0
-  groundcheck: {fileID: 0}
-  radOcircle: 0
-  healthbar: {fileID: 1940829397}
 --- !u!114 &1415235882
 MonoBehaviour:
   m_ObjectHideFlags: 0

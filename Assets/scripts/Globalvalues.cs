@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class Globalvalues : MonoBehaviour
 {
@@ -30,6 +31,18 @@ public class Globalvalues : MonoBehaviour
     public int respawniframes;
     public string player1char;
     public string player2char;
+    public Rigidbody2D rb2D;
+
+
+    [Header("Health variables")]
+    public int p1HP;
+    public int p1maxHP;
+    public int p2HP;
+    public int p2maxHP;
+    public Healthbar P1healthbar;
+    public Healthbar P2healthbar;
+
+
 
     public bool playable;
 
@@ -70,15 +83,86 @@ public class Globalvalues : MonoBehaviour
                 GameObject.Find("Bobby2").SetActive(false);
             }
         }
+
+    }
+
+
+
+    void Start()
+    {
+        p1maxHP = playermaxhp;
+        p2maxHP = playermaxhp;
+        p1HP = playermaxhp;
+        p2HP = playermaxhp;
+        P1healthbar.SetMaxhealth(p1maxHP);
+        P2healthbar.SetMaxhealth(p2maxHP);
+    }
+
+
+
+    void Update()
+    {
+
+        Collider2D[] findplayers = Physics2D.OverlapCircleAll(new Vector2(0, 0), 100000); //va chercher tous les collider2D présent sur la scène
+
+        foreach (Collider2D player in findplayers) //boucle for
+        {
+            if (player.tag == "Player1")
+            {
+                rb2D = player.GetComponent<Rigidbody2D>();
+
+                if (rb2D.position.x >= deathright || rb2D.position.y <= deathdown || rb2D.position.y >= deathup || rb2D.position.x <= deathleft)
+                {
+                    if (p1HP > 1)
+                    {
+                        p1HP -= 1;
+                        player.transform.position = new Vector2(2, 2);
+                        rb2D.velocity = new Vector2(0, 0);
+                        player.GetComponent<charavalues>().iframes = respawniframes;
+                        player.GetComponent<charavalues>().percent = 0;
+
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene("MainMenu");
+                    }
+                }
+                P1healthbar.SetHealth(p1HP);
+            }
+            else if (player.tag == "Player2")
+            {
+                rb2D = player.GetComponent<Rigidbody2D>();
+
+                if (rb2D.position.x >= deathright || rb2D.position.y <= deathdown || rb2D.position.y >= deathup || rb2D.position.x <= deathleft)
+                {
+                    if (p2HP > 1)
+                    {
+                        p2HP -= 1;
+                        player.transform.position = new Vector2(2, 2);
+                        rb2D.velocity = new Vector2(0, 0);
+                        player.GetComponent<charavalues>().iframes = respawniframes;
+                        player.GetComponent<charavalues>().percent = 0;
+
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene("MainMenu");
+                    }
+                }
+                P2healthbar.SetHealth(p2HP);
+            }
+
+        }
+
+
+        
         
 
 
-
-        DontDestroyOnLoad(this);
     }
 
 
 
 
-   
+
 }
