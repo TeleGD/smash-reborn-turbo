@@ -48,17 +48,33 @@ public class RandyAtk : MonoBehaviour
 
     void OnAttack()
     {
-        if (delaycounter==0 && !GetComponent<charavalues>().shielded)
+        if (this.CompareTag("Player1"))
         {
-            fctTiltAttack();
-            delaycounter = attackdelay;
+            if (delaycounter == 0 && !GetComponent<charavalues>().shielded)
+            {
+                fctTiltAttack();
+                delaycounter = attackdelay;
+            }
         }
     }
+
+    void OnAttack1()
+    {
+        if (this.CompareTag("Player2"))
+        {
+            if (delaycounter == 0 && !GetComponent<charavalues>().shielded)
+            {
+                fctTiltAttack();
+                delaycounter = attackdelay;
+            }
+        }
+    }
+
 
     void Update()
     {
 
-        grounded = GetComponent<RandyJump>().grounded;
+        grounded = GetComponent<Charamov>().grounded;
         //attack cooldown
         if (delaycounter>0)
         {
@@ -78,7 +94,7 @@ public class RandyAtk : MonoBehaviour
 
         foreach (Collider2D enemy in hitenemies)
         {
-            if (enemy.tag == "Player2" && enemy.GetComponent<charavalues>().iframes == 0)
+            if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0)
             {
                 if(enemy.GetComponent<charavalues>().shielded)
                 {

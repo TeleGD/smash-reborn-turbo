@@ -73,7 +73,7 @@ public class RandyJump : MonoBehaviour
 
         HandleLayers();
 
-        horizontal = GetComponent<RandyMov>().horizontal;
+        horizontal = GetComponent<Charamov>().horizontal;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
         Checkground();
 
