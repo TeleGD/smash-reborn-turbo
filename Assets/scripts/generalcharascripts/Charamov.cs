@@ -31,6 +31,7 @@ public class Charamov : MonoBehaviour
     private float valueleft;
     public float horizontal; // 1,-1,0
     public float vertical;
+    private float quickfallspeed; //va aller chercher la vitesse de quickfall dans globalvalues
 
 
     [Header("shield variables")]
@@ -109,6 +110,7 @@ public class Charamov : MonoBehaviour
         shielddimrate = GameObject.Find("Global values").GetComponent<Globalvalues>().shielddimrate;
         shieldrecharge = GameObject.Find("Global values").GetComponent<Globalvalues>().shieldrecharge;
         shieldbreakCD = GameObject.Find("Global values").GetComponent<Globalvalues>().shieldbreakCD;
+        quickfallspeed = GameObject.Find("Global values").GetComponent<Globalvalues>().quickfallspeed;
     }
 
     private void Start()
@@ -136,6 +138,11 @@ public class Charamov : MonoBehaviour
             ShieldInput();
         }
 
+
+        if(!grounded && vertical==-1 && rb2D.velocity.y<0) //correspond au quickfall. On check que la vitesseen y est négative, car ça veut dire qu'on est déja en train de tomber.
+        {
+            rb2D.velocity = new Vector2(rb2D.velocity.x,-quickfallspeed) ;
+        }
 
 
         if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded)

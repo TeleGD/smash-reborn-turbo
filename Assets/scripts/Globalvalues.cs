@@ -32,6 +32,7 @@ public class Globalvalues : MonoBehaviour
     public string player1char;
     public string player2char;
     public Rigidbody2D rb2D;
+    public float quickfallspeed;
 
 
     [Header("Health variables")]
