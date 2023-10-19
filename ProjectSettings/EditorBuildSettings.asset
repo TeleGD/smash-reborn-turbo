@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: bd29952cdc933469d87047439b982fa6
   - enabled: 1
-    path: Assets/Scenes/Map1.unity
-    guid: 1222fd270e8df47de9d21c970f7a2a26
-  - enabled: 1
     path: Assets/Scenes/Chaselect1.unity
     guid: 612ab6204ad67924db919759bc041386
   - enabled: 1
@@ -20,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/loadingscreens/charaselect-to-game.unity
     guid: c48608de1d0fb0d48a3301a7325fa479
+  - enabled: 1
+    path: Assets/Scenes/Map1.unity
+    guid: fb0ba884bde6d0841bb202283f19c51f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7088eb46604eb469db2a291b093b5f2a, type: 2}

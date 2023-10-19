@@ -43,10 +43,19 @@ public class BobbyJump : MonoBehaviour
 
     public bool grounded; //bool qui dit si le perso est au sol ou pas
 
+    [Header("Platform")]
+    public bool platformed;
+    [SerializeField] private float plathbx;
+    [SerializeField] private float plathby;
+    public int platdowntime;
+    public int platdowncnt;
+    [SerializeField] private LayerMask whatisplatform;
+
     [Header("Components")]
     private Rigidbody2D rb;
     private Animator myanim;
     public float horizontal;
+
 
     public bool pressedjump = false;
     public bool presseddown = false;
@@ -82,7 +91,33 @@ public class BobbyJump : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
+        if(platdowncnt>0)
+        {
+            platdowncnt -= 1;
+
+        }
+
         HandleLayers();
+
+
+        platformed = Physics2D.OverlapArea(new Vector2(groundcheck.position.x - (plathbx / 2), groundcheck.position.y + plathby / 2), new Vector2(groundcheck.position.x + plathbx / 2, groundcheck.position.y - plathby / 2),whatisplatform);
+
+        if (platformed && !presseddown && !pressedjump && platdowncnt==0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+           rb.gravityScale = 0;
+        }
+        else if(presseddown && platformed)
+        {
+            platdowncnt = platdowntime;
+            platformed = false;
+        }
+        if (!platformed)
+        {
+            rb.gravityScale = 1;
+        }
+
 
         horizontal = GetComponent<Charamov>().horizontal; //récupère la variable du script Charamov
         grounded = GetComponent<Charamov>().grounded;  
@@ -156,6 +191,12 @@ public class BobbyJump : MonoBehaviour
     void Checkground()
         //vérifie si le perso est sur le sol et change toutes les variables qui doivent l'être
     {
+
+        if(platformed)
+        {
+            grounded = true;
+        }
+
         if (grounded)
         {
             jumplache = false;
@@ -173,6 +214,7 @@ public class BobbyJump : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawCube(groundcheck.position, new Vector2(largeurgi, hauteurgi));
+        Gizmos.DrawCube(groundcheck.position, new Vector2(plathbx, plathby));
     }
 
     private void HandleLayers()
