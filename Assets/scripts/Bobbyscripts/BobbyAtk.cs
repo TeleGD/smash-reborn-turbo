@@ -51,15 +51,19 @@ public class BobbyAtk : MonoBehaviour
     //selfeject: ejection du perso qui lance l'attaque (par exemple pour une charge ou un upB)
     //used: bool qui sert à déterminer si l'attaque a déja été utilisée, typiquement pour les attaques spéciales
 
+    //Il est à noter que ces variables peuvent être misent en privé ou en public. Comme aucun autre script ne les utilise, les mettre en public n'est techniquement pas utile.
+    //Cependant, lors des phases de débeugage, il est conseillé de les mettre soit en public soit d'ajouter [SerializeField] devant private pour que les variables apparaissent dans l'éditeur.
+    //Perso je les mettrai pas juste en private, sauf éventuellement les counter
+
     [Header("Tiltattack variables")]
     public Transform tiltattackpoint;
     public float tiltrange;
     public int tiltpercent;
     public int tiltattackdelay; 
-    public int tiltdelaycounter;
+    private int tiltdelaycounter;
     public int tiltshielddamage;
     public int tiltlength;
-    public int tiltlengthcounter;
+    private int tiltlengthcounter;
     public float tiltbaserecoil;
 
     [Header("Nairattack variables")]
@@ -67,10 +71,10 @@ public class BobbyAtk : MonoBehaviour
     public float nairrange;
     public int nairpercent;
     public int nairattackdelay; 
-    public int nairdelaycounter;
+    private int nairdelaycounter;
     public int nairshielddamage;
     public int nairlength;
-    public int nairlengthcounter;
+    private int nairlengthcounter;
     public float nairbaserecoil;
 
     [Header("UpBattack variables")]
@@ -78,10 +82,10 @@ public class BobbyAtk : MonoBehaviour
     public float upbrange;
     public int upbpercent;
     public int upbattackdelay;
-    public int upbdelaycounter;
+    private int upbdelaycounter;
     public int upbshielddamage;
     public int upblength;
-    public int upblengthcounter;
+    private int upblengthcounter;
     public float upbbaserecoil;
     public float upbselfeject;
     public bool upbused;
@@ -93,10 +97,10 @@ public class BobbyAtk : MonoBehaviour
     public float dtilhby;
     public int dtiltpercent;
     public int dtiltattackdelay;
-    public int dtiltdelaycounter;
+    private int dtiltdelaycounter;
     public int dtiltshielddamage;
     public int dtiltlength;
-    public int dtiltlengthcounter;
+    private int dtiltlengthcounter;
     public int dtiltstartframe;
     public float dtiltbaserecoil;
     public float dtiltfixedrecoil;
@@ -107,10 +111,10 @@ public class BobbyAtk : MonoBehaviour
     public float uptilhby;
     public int uptiltpercent;
     public int uptiltattackdelay;
-    public int uptiltdelaycounter;
+    private int uptiltdelaycounter;
     public int uptiltshielddamage;
     public int uptiltlength;
-    public int uptiltlengthcounter;
+    private int uptiltlengthcounter;
     public int uptiltstartframe;
     public float uptiltbaserecoil;
 

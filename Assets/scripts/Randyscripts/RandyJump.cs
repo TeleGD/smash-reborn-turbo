@@ -20,7 +20,7 @@ public class RandyJump : MonoBehaviour
     [Header("Jump details")]
     public float jumpForce;
     public float jumptime;
-    public float jumpcounter;
+    private float jumpcounter;
     public bool allowjump;
 
     [Header("DoubleJump details")]
@@ -28,7 +28,7 @@ public class RandyJump : MonoBehaviour
     public bool touchedground;
     public float dbjumpForce;
     public float dbjumptime;
-    public float dbjumpcounter;
+    private float dbjumpcounter;
     public float dbjumpdelay;
     public float dbjumpdelaycounter;
     public bool jumplache;
@@ -170,13 +170,11 @@ public class RandyJump : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, dbjumpForce);
             myanim.SetTrigger("jump");
-            UnityEngine.Debug.Log("doublejump1");
             touchedground = false;
         }
 
         if (!grounded && pressedjump && dbjumpcounter > 0 && allowdoublejump && jumplache)
         {
-            UnityEngine.Debug.Log("doublejump2");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             dbjumpcounter -= Time.deltaTime;
             myanim.SetTrigger("jump");

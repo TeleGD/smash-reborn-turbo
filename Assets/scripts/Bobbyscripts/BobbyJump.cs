@@ -19,7 +19,7 @@ public class BobbyJump : MonoBehaviour
     [Header("Jump details")]
     public float jumpForce; //intensité du saut
     public float jumptime; //durée du saut
-    public float jumpcounter; //compteur qui compte la durée du saut
+    private float jumpcounter; //compteur qui compte la durée du saut
     public bool allowjump; //bool qui gère quand le saut est possible
 
     [Header("DoubleJump details")]
@@ -27,9 +27,9 @@ public class BobbyJump : MonoBehaviour
     public bool touchedground; //bool qui gère si le sol à été touché après un double saut
     public float dbjumpForce; //intensité du double saut
     public float dbjumptime; //durée du double saut
-    public float dbjumpcounter; //compteur qui compte la durée du double saut
+    private float dbjumpcounter; //compteur qui compte la durée du double saut
     public float dbjumpdelay; //durée minimale entre un saut et un double saut
-    public float dbjumpdelaycounter; //compteur qui compte la durée minimale entre un saut et un double saut
+    private float dbjumpdelaycounter; //compteur qui compte la durée minimale entre un saut et un double saut
     public bool jumplache; //bool qui détermine si le bouton de saut est pressé ou pas
 
 

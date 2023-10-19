@@ -41,7 +41,7 @@ public class Charamov : MonoBehaviour
     private int shielddimrate; //correspond à la diminution passive du shield lorsqu'il est actif
     private int shieldrecharge; //correspond à la vitesse de rechargement du bouclier
     private int shieldbreakCD; //correspond au temps pendant lequel le bouclier est inactif si il est cassé
-    public int shieldbreakcnter; //compteur du shieldbreak
+    private int shieldbreakcnter; //compteur du shieldbreak
 
     public Shieldbar shieldbar;
     public float shieldcancel;
