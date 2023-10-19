@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -40,6 +41,13 @@ public class RandyJump : MonoBehaviour
     [SerializeField] private float largeurgi;
     [SerializeField] private LayerMask whatisground;
 
+    [Header("Platform")]
+    public bool platformed;
+    [SerializeField] private float plathbx;
+    [SerializeField] private float plathby;
+    public int platdowntime;
+    public int platdowncnt;
+    [SerializeField] private LayerMask whatisplatform;
 
     public bool grounded;
 
@@ -56,10 +64,26 @@ public class RandyJump : MonoBehaviour
     {
         controls = new PlayerControls();
 
-        controls.gameplay.jump.performed += ctx => pressedjump = true;
-        controls.gameplay.jump.canceled += ctx => pressedjump = false;
-        controls.gameplay.down.performed += ctx => presseddown = true;
-        controls.gameplay.down.canceled += ctx => presseddown = false;
+
+
+
+        if (this.CompareTag("Player1"))
+        {
+            controls.gameplay.jump.performed += ctx => pressedjump = true;
+            controls.gameplay.jump.canceled += ctx => pressedjump = false;
+            controls.gameplay.down.performed += ctx => presseddown = true;
+            controls.gameplay.down.canceled += ctx => presseddown = false;
+        }
+        else if (this.CompareTag("Player2"))
+        {
+            controls.gameplay.jump1.performed += ctx => pressedjump = true;
+            controls.gameplay.jump1.canceled += ctx => pressedjump = false;
+            controls.gameplay.down1.performed += ctx => presseddown = true;
+            controls.gameplay.down1.canceled += ctx => presseddown = false;
+        }
+
+
+
         rb = GetComponent<Rigidbody2D>();
         jumpcounter = jumptime;
         dbjumpdelaycounter = dbjumpdelay;
@@ -71,7 +95,37 @@ public class RandyJump : MonoBehaviour
     private void FixedUpdate()
     {
 
+        if (platdowncnt > 0)
+        {
+            platdowncnt -= 1;
+
+        }
+
         HandleLayers();
+
+
+        platformed = Physics2D.OverlapArea(new Vector2(groundcheck.position.x - (plathbx / 2), groundcheck.position.y + plathby / 2), new Vector2(groundcheck.position.x + plathbx / 2, groundcheck.position.y - plathby / 2), whatisplatform);
+
+        if (platformed && !presseddown && !pressedjump && platdowncnt == 0)
+        {
+            if (horizontal == 0)
+            {
+                rb.velocity = new Vector2(0, 0);
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
+        }
+        else if (presseddown && platformed)
+        {
+            platdowncnt = platdowntime;
+            platformed = false;
+        }
+        if (!platformed)
+        {
+            rb.gravityScale = 1;
+        }
 
         horizontal = GetComponent<Charamov>().horizontal;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
@@ -139,6 +193,10 @@ public class RandyJump : MonoBehaviour
 
     void Checkground()
     {
+        if (platformed)
+        {
+            grounded= true;
+        }
         if (grounded)
         {
             jumplache = false;

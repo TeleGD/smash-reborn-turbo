@@ -14,8 +14,8 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 
 - Gauche : `[Q]`
 - Droite : `[D]`
-- Bas : `[S]` (inutile pour l'instant pour J1)
-- Haut : `[Z]` (same, flm de faire ce perso)
+- Bas : `[S]`
+- Haut : `[Z]` (bon maintenant le bas est utile mais toujous pas le haut, flm de faire ce perso)
 - Sauter : `[V]`
 - Sprint : Nope
 - Attaquer : `[C]`
@@ -33,6 +33,13 @@ La suite tant attendue de *Smash Reborn* est là pour sa version ultime !
 - Attaquer : `[!]`
 - Attaque Speciale : `[Enter]`
 - Bouclier : `[ù]`
+
+Bas permet de descendre des plate formes ou de se baisser.
+Les attaques implémentées sont:
+Au sol: Forward Tilt (attaque et direction), Up Tilt (attaque et haut), Down Tilt (attaque et bas)
+Dans les air: Neutral Air (attaque sans direction)
+Spécial: Up Special (attaque spéciale et haut)
+Les attaques spéciales sont utilisables sur le sol et dans les airs.
 
 ## Instructions pour ajouter un personnage
 

@@ -105,7 +105,14 @@ public class BobbyJump : MonoBehaviour
 
         if (platformed && !presseddown && !pressedjump && platdowncnt==0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            if (horizontal == 0)
+            {
+                rb.velocity=new Vector2(0,0);
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
            rb.gravityScale = 0;
         }
         else if(presseddown && platformed)

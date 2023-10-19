@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackpoint: {fileID: 15295183}
   range: 0
-  jumpForce: 11
+  jumpForce: 7
   jumptime: 0.26
   jumpcounter: 0
   allowjump: 0
@@ -1057,6 +1057,14 @@ MonoBehaviour:
   whatisground:
     serializedVersion: 2
     m_Bits: 64
+  platformed: 0
+  plathbx: 0.2
+  plathby: 0.2
+  platdowntime: 60
+  platdowncnt: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 256
   grounded: 0
   horizontal: 0
   pressedjump: 0
@@ -1102,7 +1110,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 1
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1862,12 +1870,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577212610}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.313, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalPosition: {x: 16.565, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1243723007}
-  m_RootOrder: 6
+  m_Father: {fileID: 1213186129}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &577212612
 BoxCollider2D:
@@ -3347,7 +3355,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -3509,9 +3517,9 @@ MonoBehaviour:
     m_Bits: 64
   grounded: 0
   platformed: 0
-  plathbx: 0
-  plathby: 0
-  platdowntime: 0
+  plathbx: 0.6
+  plathby: 0.2
+  platdowntime: 60
   platdowncnt: 0
   whatisplatform:
     serializedVersion: 2
@@ -4589,7 +4597,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 577212611}
   m_Father: {fileID: 1243723007}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6140,7 +6149,6 @@ Transform:
   - {fileID: 1622177370}
   - {fileID: 1842140655}
   - {fileID: 1213186129}
-  - {fileID: 577212611}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6617,7 +6625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackpoint: {fileID: 1048189810}
   range: 0
-  jumpForce: 11
+  jumpForce: 7
   jumptime: 0.26
   jumpcounter: 0
   allowjump: 0
@@ -6636,6 +6644,14 @@ MonoBehaviour:
   whatisground:
     serializedVersion: 2
     m_Bits: 64
+  platformed: 0
+  plathbx: 0.2
+  plathby: 0.2
+  platdowntime: 60
+  platdowncnt: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 256
   grounded: 0
   horizontal: 0
   pressedjump: 0
@@ -6681,7 +6697,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 1
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
