@@ -10,7 +10,7 @@ public class charavalues : MonoBehaviour
     public int shield;
     public int percent;
     public int iframes;
-
+    public bool upb;
 
     // Update is called once per frame
     void Update()

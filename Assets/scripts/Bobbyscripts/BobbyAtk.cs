@@ -472,6 +472,7 @@ public class BobbyAtk : MonoBehaviour
 
         if (upblengthcounter == 0)
         {
+            GetComponent<charavalues>().upb = true;
 
             upbused = true;
 
@@ -762,6 +763,7 @@ public class BobbyAtk : MonoBehaviour
                 lingeringupb();
                 cible = null; //on réinitialise cible à la fin de l'attaque
                 enanim.SetBool("upb", false);
+                GetComponent<charavalues>().upb = false;
             }
             else
             {

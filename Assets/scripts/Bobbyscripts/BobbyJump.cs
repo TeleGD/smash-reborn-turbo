@@ -103,7 +103,7 @@ public class BobbyJump : MonoBehaviour
 
         platformed = Physics2D.OverlapArea(new Vector2(groundcheck.position.x - (plathbx / 2), groundcheck.position.y + plathby / 2), new Vector2(groundcheck.position.x + plathbx / 2, groundcheck.position.y - plathby / 2),whatisplatform);
 
-        if (platformed && !presseddown && !pressedjump && platdowncnt==0)
+        if (platformed && !presseddown && !pressedjump && platdowncnt==0 && !GetComponent<charavalues>().upb)
         {
             if (horizontal == 0)
             {
