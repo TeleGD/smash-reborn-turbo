@@ -961,6 +961,11 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+  upb: 0
+  "touch\xE9": 0
+  blinkcnt: 0
+  SR: {fileID: 0}
+  deblink: 0
 --- !u!114 &170043925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2361,6 +2366,11 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+  upb: 0
+  "touch\xE9": 0
+  blinkcnt: 0
+  SR: {fileID: 0}
+  deblink: 0
 --- !u!114 &721399183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2387,6 +2397,7 @@ MonoBehaviour:
   tiltshielddamage: 250
   tiltlength: 0
   tiltbaserecoil: 5
+  tiltfixedrecoil: 100
   nairattackpoint: {fileID: 457663978}
   nairrange: 0.45
   nairpercent: 1
@@ -2401,6 +2412,7 @@ MonoBehaviour:
   upbshielddamage: 100
   upblength: 35
   upbbaserecoil: 20
+  upbfixedrecoil: 100
   upbselfeject: 5
   upbused: 0
   dtiltattackpoint: {fileID: 1075031242}
@@ -3563,6 +3575,7 @@ MonoBehaviour:
   tiltshielddamage: 250
   tiltlength: 0
   tiltbaserecoil: 5
+  tiltfixedrecoil: 100
   nairattackpoint: {fileID: 939497463}
   nairrange: 0.45
   nairpercent: 1
@@ -3577,6 +3590,7 @@ MonoBehaviour:
   upbshielddamage: 100
   upblength: 35
   upbbaserecoil: 20
+  upbfixedrecoil: 100
   upbselfeject: 5
   upbused: 0
   dtiltattackpoint: {fileID: 960681106}
@@ -3616,6 +3630,11 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+  upb: 0
+  "touch\xE9": 0
+  blinkcnt: 0
+  SR: {fileID: 0}
+  deblink: 0
 --- !u!114 &912949983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6516,6 +6535,11 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+  upb: 0
+  "touch\xE9": 0
+  blinkcnt: 0
+  SR: {fileID: 0}
+  deblink: 0
 --- !u!114 &1588210695
 MonoBehaviour:
   m_ObjectHideFlags: 0

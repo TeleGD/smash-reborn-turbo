@@ -961,6 +961,11 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+  upb: 0
+  "touch\xE9": 0
+  blinkcnt: 0
+  SR: {fileID: 0}
+  deblink: 0
 --- !u!114 &170043925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,13 +1045,11 @@ MonoBehaviour:
   range: 0
   jumpForce: 11
   jumptime: 0.26
-  jumpcounter: 0
   allowjump: 0
   allowdoublejump: 0
   touchedground: 0
   dbjumpForce: 11
   dbjumptime: 0.13
-  dbjumpcounter: 0
   dbjumpdelay: 0.01
   dbjumpdelaycounter: 0
   jumplache: 0
@@ -1057,6 +1060,14 @@ MonoBehaviour:
   whatisground:
     serializedVersion: 2
     m_Bits: 64
+  platformed: 0
+  plathbx: 0
+  plathby: 0
+  platdowntime: 0
+  platdowncnt: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 0
   grounded: 0
   horizontal: 0
   pressedjump: 0
@@ -1218,7 +1229,6 @@ MonoBehaviour:
   valueright: 0
   horizontal: 0
   vertical: 0
-  shieldbreakcnter: 0
   shieldbar: {fileID: 646155277}
   shieldcancel: 0
   crouched: 0
@@ -2356,6 +2366,11 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+  upb: 0
+  "touch\xE9": 0
+  blinkcnt: 0
+  SR: {fileID: 0}
+  deblink: 0
 --- !u!114 &721399183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2379,29 +2394,25 @@ MonoBehaviour:
   tiltrange: 0.3
   tiltpercent: 10
   tiltattackdelay: 15
-  tiltdelaycounter: 0
   tiltshielddamage: 250
   tiltlength: 0
-  tiltlengthcounter: 0
   tiltbaserecoil: 5
+  tiltfixedrecoil: 100
   nairattackpoint: {fileID: 457663978}
   nairrange: 0.45
   nairpercent: 1
   nairattackdelay: 5
-  nairdelaycounter: 0
   nairshielddamage: 250
   nairlength: 30
-  nairlengthcounter: 0
   nairbaserecoil: 100
   upbattackpoint: {fileID: 1283664434}
   upbrange: 0.35
   upbpercent: 15
   upbattackdelay: 6
-  upbdelaycounter: 0
   upbshielddamage: 100
   upblength: 35
-  upblengthcounter: 0
   upbbaserecoil: 20
+  upbfixedrecoil: 100
   upbselfeject: 5
   upbused: 0
   dtiltattackpoint: {fileID: 1075031242}
@@ -2409,10 +2420,8 @@ MonoBehaviour:
   dtilhby: 0.1
   dtiltpercent: 10
   dtiltattackdelay: 15
-  dtiltdelaycounter: 0
   dtiltshielddamage: 100
   dtiltlength: 40
-  dtiltlengthcounter: 0
   dtiltstartframe: 10
   dtiltbaserecoil: 2
   dtiltfixedrecoil: 300
@@ -2421,10 +2430,8 @@ MonoBehaviour:
   uptilhby: 0.8
   uptiltpercent: 10
   uptiltattackdelay: 15
-  uptiltdelaycounter: 0
   uptiltshielddamage: 100
   uptiltlength: 30
-  uptiltlengthcounter: 0
   uptiltstartframe: 5
   uptiltbaserecoil: 10
   cible: {fileID: 0}
@@ -2445,15 +2452,12 @@ MonoBehaviour:
   range: 0
   jumpForce: 6
   jumptime: 0.26
-  jumpcounter: 0
   allowjump: 0
   allowdoublejump: 0
   touchedground: 0
   dbjumpForce: 6
   dbjumptime: 0.13
-  dbjumpcounter: 0
   dbjumpdelay: 0.01
-  dbjumpdelaycounter: 0
   jumplache: 0
   groundcheck: {fileID: 2146272741}
   radOcircle: 0.06
@@ -2664,7 +2668,6 @@ MonoBehaviour:
   valueright: 0
   horizontal: 0
   vertical: 0
-  shieldbreakcnter: 0
   shieldbar: {fileID: 890761104}
   shieldcancel: 0
   crouched: 0
@@ -3490,15 +3493,12 @@ MonoBehaviour:
   range: 0
   jumpForce: 6
   jumptime: 0.26
-  jumpcounter: 0
   allowjump: 0
   allowdoublejump: 0
   touchedground: 0
   dbjumpForce: 6
   dbjumptime: 0.13
-  dbjumpcounter: 0
   dbjumpdelay: 0.01
-  dbjumpdelaycounter: 0
   jumplache: 0
   groundcheck: {fileID: 1225970001}
   radOcircle: 0.06
@@ -3572,29 +3572,25 @@ MonoBehaviour:
   tiltrange: 0.3
   tiltpercent: 10
   tiltattackdelay: 15
-  tiltdelaycounter: 0
   tiltshielddamage: 250
   tiltlength: 0
-  tiltlengthcounter: 0
   tiltbaserecoil: 5
+  tiltfixedrecoil: 100
   nairattackpoint: {fileID: 939497463}
   nairrange: 0.45
   nairpercent: 1
   nairattackdelay: 5
-  nairdelaycounter: 0
   nairshielddamage: 250
   nairlength: 30
-  nairlengthcounter: 0
   nairbaserecoil: 100
   upbattackpoint: {fileID: 80772102}
   upbrange: 0.35
   upbpercent: 15
   upbattackdelay: 6
-  upbdelaycounter: 0
   upbshielddamage: 100
   upblength: 35
-  upblengthcounter: 0
   upbbaserecoil: 20
+  upbfixedrecoil: 100
   upbselfeject: 5
   upbused: 0
   dtiltattackpoint: {fileID: 960681106}
@@ -3602,10 +3598,8 @@ MonoBehaviour:
   dtilhby: 0.1
   dtiltpercent: 10
   dtiltattackdelay: 15
-  dtiltdelaycounter: 0
   dtiltshielddamage: 100
   dtiltlength: 40
-  dtiltlengthcounter: 0
   dtiltstartframe: 10
   dtiltbaserecoil: 2
   dtiltfixedrecoil: 300
@@ -3614,10 +3608,8 @@ MonoBehaviour:
   uptilhby: 0.8
   uptiltpercent: 10
   uptiltattackdelay: 15
-  uptiltdelaycounter: 0
   uptiltshielddamage: 100
   uptiltlength: 30
-  uptiltlengthcounter: 0
   uptiltstartframe: 5
   uptiltbaserecoil: 10
   cible: {fileID: 0}
@@ -3638,6 +3630,11 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+  upb: 0
+  "touch\xE9": 0
+  blinkcnt: 0
+  SR: {fileID: 0}
+  deblink: 0
 --- !u!114 &912949983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3657,7 +3654,6 @@ MonoBehaviour:
   valueright: 0
   horizontal: 0
   vertical: 0
-  shieldbreakcnter: 0
   shieldbar: {fileID: 646155277}
   shieldcancel: 0
   crouched: 0
@@ -6506,7 +6502,6 @@ MonoBehaviour:
   valueright: 0
   horizontal: 0
   vertical: 0
-  shieldbreakcnter: 0
   shieldbar: {fileID: 646155277}
   shieldcancel: 0
   crouched: 0
@@ -6540,6 +6535,11 @@ MonoBehaviour:
   shield: 0
   percent: 0
   iframes: 0
+  upb: 0
+  "touch\xE9": 0
+  blinkcnt: 0
+  SR: {fileID: 0}
+  deblink: 0
 --- !u!114 &1588210695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6619,13 +6619,11 @@ MonoBehaviour:
   range: 0
   jumpForce: 11
   jumptime: 0.26
-  jumpcounter: 0
   allowjump: 0
   allowdoublejump: 0
   touchedground: 0
   dbjumpForce: 11
   dbjumptime: 0.13
-  dbjumpcounter: 0
   dbjumpdelay: 0.01
   dbjumpdelaycounter: 0
   jumplache: 0
@@ -6636,6 +6634,14 @@ MonoBehaviour:
   whatisground:
     serializedVersion: 2
     m_Bits: 64
+  platformed: 0
+  plathbx: 0
+  plathby: 0
+  platdowntime: 0
+  platdowncnt: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 0
   grounded: 0
   horizontal: 0
   pressedjump: 0

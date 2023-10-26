@@ -1,16 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class charavalues : MonoBehaviour
 {
+    [Header("variables globales")]
+    public bool shielded; //détermine si le bouclier est activé
+    public int shield; //point de bouclier restant
+    public int percent; //pourcents du joueur
+    public int iframes; //nombres de frames d'invincibilités restantes
+    public bool upb; //bool qui détermine quand on active le upb. Il sert à désactiver le blocage de déplacement verticaux quand sur une plateforme
+    public bool touché; ////bool qui détermine quand un personnage est touché. Il peut être utilisé pour une attaque qui envoit vers le haut. Il sert à désactiver le blocage de déplacement verticaux quand sur une plateforme
 
-    public bool shielded;
-    public int shield;
-    public int percent;
-    public int iframes;
-    public bool upb;
+    [Header("variables de clignotement lors d'iframe")]
+    public int blinkcnt;
+    public SpriteRenderer SR;
+    public bool deblink;
+
+    void Start()
+    {
+        SR= GetComponent<SpriteRenderer>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -18,6 +30,39 @@ public class charavalues : MonoBehaviour
         if (iframes > 0)
         {
             iframes -= 1;
+            if(blinkcnt < 10)
+            {
+                if (!deblink)
+                {
+                    SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, SR.color.a*0.50f);
+                    blinkcnt += 1;
+                }
+                else
+                {
+                    SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, SR.color.a*1.750f);
+                    blinkcnt += 1;
+                }
+                
+            }
+            else
+            {
+                blinkcnt = 0;
+                if(deblink)
+                {
+                    deblink = false;
+                }
+                else
+                {
+                    deblink = true;
+                }
+            }
+            
+        }
+        if (iframes <= 0)
+        {
+            SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 255);
+            blinkcnt = 0;
+            deblink = false;
         }
        
     }

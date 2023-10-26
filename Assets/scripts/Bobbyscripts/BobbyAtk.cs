@@ -65,6 +65,7 @@ public class BobbyAtk : MonoBehaviour
     public int tiltlength;
     private int tiltlengthcounter;
     public float tiltbaserecoil;
+    public float tiltfixedrecoil;
 
     [Header("Nairattack variables")]
     public Transform nairattackpoint;
@@ -87,6 +88,7 @@ public class BobbyAtk : MonoBehaviour
     public int upblength;
     private int upblengthcounter;
     public float upbbaserecoil;
+    public float upbfixedrecoil;
     public float upbselfeject;
     public bool upbused;
 
@@ -288,40 +290,7 @@ public class BobbyAtk : MonoBehaviour
 
             tiltlengthcounter = tiltlength; //initialise lengthcounter
 
-            Collider2D[] hitenemies = Physics2D.OverlapCircleAll(tiltattackpoint.position, tiltrange); //va chercher tous les collider2D présent dans la hitbox de l'attaque
-
-            foreach (Collider2D enemy in hitenemies) //boucle for
-            {
-                if (((this.CompareTag("Player2")&& enemy.tag == "Player1")|| (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0) //check le tag de chaque hitbox. Ceci permet d'éviter de se faire toucehr par sa propre attaque, et dépend de si le personnage est le joueur 1 ou le joueur 2. Check également si le perso est pas en respawn iframes.
-                {
-                    cible = enemy;
-
-                    if (enemy.GetComponent<charavalues>().shielded) //fait des shield damage si le shield est actif
-                    {
-                        enemy.GetComponent<charavalues>().shield -= tiltshielddamage;
-                    }
-                    else //fait des pourcents et de l'éjéction sinon
-                    {
-                        enemy.GetComponent<charavalues>().percent += tiltpercent; //modifie les pourcents de l'ennemi
-                        enemyrb = enemy.GetComponent<Rigidbody2D>();
-
-                        //détermine la direction vers laquelle projeter l'ennemi en fonction de si il est derrière ou devant
-                        //il est à noter que cette partie peut être modifiée pour dépendre de horizontale pour que l'attaque projète toujours vers la même direction peu importe comment la cible est frappée
-                        if (transform.position.x >= enemy.transform.position.x) 
-                        {
-                            enemyrb.AddForce(new Vector2(-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
-
-                        }
-                        else
-                        {
-                            enemyrb.AddForce(new Vector2(tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
-                        }
-                        GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
-                    }
-
-                }
-
-            }
+            
         }
 
         
@@ -337,7 +306,7 @@ public class BobbyAtk : MonoBehaviour
         tiltlengthcounter -= 1;
         //get enemies in range
 
-        if(tiltlengthcounter%2==0)
+        if(tiltlengthcounter%2==0 && tiltlengthcounter>5)
         {
 
             Collider2D[] hitenemies = Physics2D.OverlapCircleAll(tiltattackpoint.position, tiltrange);
@@ -360,12 +329,12 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
-                            enemyrb.AddForce(new Vector2(-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
+                            enemyrb.AddForce(new Vector2(tiltfixedrecoil-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
 
                         }
                         else
                         {
-                            enemyrb.AddForce(new Vector2(tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
+                            enemyrb.AddForce(new Vector2(tiltfixedrecoil+tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
                         }
                         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
                     }
@@ -502,12 +471,12 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
-                            enemyrb.AddForce(new Vector2(-upbbaserecoil, 0)); //ici, l'éjection de l'attaque est fixe, car les pourcents de la cible ne rentrent pas en jeu.
+                            enemyrb.AddForce(new Vector2(upbfixedrecoil-upbbaserecoil, 0)); //ici, l'éjection de l'attaque est fixe, car les pourcents de la cible ne rentrent pas en jeu.
 
                         }
                         else
                         {
-                            enemyrb.AddForce(new Vector2(upbbaserecoil, 0));
+                            enemyrb.AddForce(new Vector2(upbfixedrecoil+upbbaserecoil, 0));
                         }
                         enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
                     }
@@ -546,12 +515,12 @@ public class BobbyAtk : MonoBehaviour
 
                     if (transform.position.x >= enemy.transform.position.x)
                     {
-                        enemyrb.AddForce(new Vector2(-upbbaserecoil, 0));
+                        enemyrb.AddForce(new Vector2(upbfixedrecoil-upbbaserecoil, 0));
 
                     }
                     else
                     {
-                        enemyrb.AddForce(new Vector2(upbbaserecoil, 0));
+                        enemyrb.AddForce(new Vector2(upbfixedrecoil+upbbaserecoil, 0));
                     }
                     enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
                 }
