@@ -2391,11 +2391,11 @@ MonoBehaviour:
   prevtempperc: 0
   justhit: 0
   tiltattackpoint: {fileID: 574951554}
-  tiltrange: 0.3
+  tiltrange: 0.2
   tiltpercent: 10
-  tiltattackdelay: 15
+  tiltattackdelay: 20
   tiltshielddamage: 250
-  tiltlength: 0
+  tiltlength: 10
   tiltbaserecoil: 5
   tiltfixedrecoil: 100
   nairattackpoint: {fileID: 457663978}
@@ -2685,6 +2685,52 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+--- !u!1 &773383773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 773383775}
+  - component: {fileID: 773383774}
+  m_Layer: 0
+  m_Name: Optionvalues
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &773383774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773383773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11acb2500eb1a4919af12597ed399cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p1char: Bobby
+  p2char: Bobby
+--- !u!4 &773383775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773383773}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 264.49667, y: 130.76646, z: -51.14419}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &847649309
 GameObject:
   m_ObjectHideFlags: 0
@@ -3569,11 +3615,11 @@ MonoBehaviour:
   prevtempperc: 0
   justhit: 0
   tiltattackpoint: {fileID: 2060496075}
-  tiltrange: 0.3
+  tiltrange: 0.2
   tiltpercent: 10
-  tiltattackdelay: 15
+  tiltattackdelay: 20
   tiltshielddamage: 250
-  tiltlength: 0
+  tiltlength: 10
   tiltbaserecoil: 5
   tiltfixedrecoil: 100
   nairattackpoint: {fileID: 939497463}
@@ -9246,7 +9292,7 @@ Transform:
   - {fileID: 281832964}
   - {fileID: 1187871384}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1940829395
 GameObject:

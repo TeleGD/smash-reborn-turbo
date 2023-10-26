@@ -2391,11 +2391,11 @@ MonoBehaviour:
   prevtempperc: 0
   justhit: 0
   tiltattackpoint: {fileID: 574951554}
-  tiltrange: 0.3
+  tiltrange: 0.2
   tiltpercent: 10
-  tiltattackdelay: 15
+  tiltattackdelay: 20
   tiltshielddamage: 250
-  tiltlength: 0
+  tiltlength: 10
   tiltbaserecoil: 5
   tiltfixedrecoil: 100
   nairattackpoint: {fileID: 457663978}
@@ -3571,9 +3571,9 @@ MonoBehaviour:
   tiltattackpoint: {fileID: 2060496075}
   tiltrange: 0.3
   tiltpercent: 10
-  tiltattackdelay: 15
+  tiltattackdelay: 20
   tiltshielddamage: 250
-  tiltlength: 0
+  tiltlength: 10
   tiltbaserecoil: 5
   tiltfixedrecoil: 100
   nairattackpoint: {fileID: 939497463}

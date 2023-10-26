@@ -306,7 +306,7 @@ public class BobbyAtk : MonoBehaviour
         tiltlengthcounter -= 1;
         //get enemies in range
 
-        if(tiltlengthcounter%2==0 && tiltlengthcounter>5)
+        if(tiltlengthcounter%2==0 && tiltlengthcounter>=4)
         {
 
             Collider2D[] hitenemies = Physics2D.OverlapCircleAll(tiltattackpoint.position, tiltrange);
