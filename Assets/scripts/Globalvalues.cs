@@ -90,8 +90,6 @@ public class Globalvalues : MonoBehaviour
         p2maxHP = playermaxhp;
         p1HP = playermaxhp;
         p2HP = playermaxhp;
-        P1healthbar.SetMaxhealth(p1maxHP);
-        P2healthbar.SetMaxhealth(p2maxHP);
     }
 
 
@@ -123,7 +121,6 @@ public class Globalvalues : MonoBehaviour
                         SceneManager.LoadScene("MainMenu");
                     }
                 }
-                P1healthbar.SetHealth(p1HP);
             }
             else if (player.tag == "Player2")
             {
@@ -145,7 +142,6 @@ public class Globalvalues : MonoBehaviour
                         SceneManager.LoadScene("MainMenu");
                     }
                 }
-                P2healthbar.SetHealth(p2HP);
             }
 
         }

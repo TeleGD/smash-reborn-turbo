@@ -227,6 +227,15 @@ public class BobbyAtk : MonoBehaviour
     void Update()
     {
 
+        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 )
+        {
+            GetComponent<charavalues>().attacking = true;
+        }
+        else
+        {
+            GetComponent <charavalues>().attacking = false;
+        }
+
         grabed = GetComponent<charavalues>().grabed;
 
         if (atkinput==1)

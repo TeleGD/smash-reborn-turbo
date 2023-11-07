@@ -66,6 +66,7 @@ public class Charamov : MonoBehaviour
     [SerializeField] private LayerMask whatisground;
     public bool grounded;
 
+    public bool attacking;
 
 
     private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
@@ -131,6 +132,7 @@ public class Charamov : MonoBehaviour
     {
         grabed = GetComponent<charavalues>().grabed;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
+        attacking=GetComponent<charavalues>().attacking;
 
 
         if (shieldcancel == 1)
@@ -220,9 +222,9 @@ public class Charamov : MonoBehaviour
     {
         //Section des mouvements
 
-        if(!GetComponent<charavalues>().shielded) //on ne bouge pas si le bouclier est actif
+        if(!GetComponent<charavalues>().shielded && !grabed && !attacking) //on ne bouge pas si le bouclier est actif
         {
-            if (!crouched && !grabed) //Si on est baissé ou qu'on s'est fait grab, on ne peut pas bouger
+            if (!crouched) //Si on est baissé ou qu'on s'est fait grab, on ne peut pas bouger
             {
                 if (Mathf.Abs(rb2D.velocity.x) <= maxspeed) //check si la vitesse est inférieure à la vitesse max et on accélère. 
                 {

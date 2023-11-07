@@ -15,6 +15,7 @@ public class charavalues : MonoBehaviour
     public bool touché; //bool qui détermine quand un personnage est touché. Il peut être utilisé pour une attaque qui envoit vers le haut. Il sert à désactiver le blocage de déplacement verticaux quand sur une plateforme
     public bool grabed; //bool qui détermine si un personnage se fait grab, il ne peut alors pas bouger ni attaquer.
     public int hp;
+    public bool attacking;
 
     [Header("variables de clignotement lors d'iframe")]
     public int blinkcnt;
