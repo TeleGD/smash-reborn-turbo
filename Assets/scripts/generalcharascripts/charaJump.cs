@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 
 
-public class BobbyJump : MonoBehaviour
+public class charaJump : MonoBehaviour
 {
     PlayerControls controls;
 
@@ -17,6 +17,8 @@ public class BobbyJump : MonoBehaviour
     public float range;
 
     [Header("Jump details")]
+    public int maxnumberofjumps; //number of jumps
+    private int numberjumped; //compte le nombre de sauts que le perso a fait
     public float jumpForce; //intensité du saut
     public float jumptime; //durée du saut
     private float jumpcounter; //compteur qui compte la durée du saut
@@ -56,9 +58,11 @@ public class BobbyJump : MonoBehaviour
     private Animator myanim;
     public float horizontal;
 
-
+    //les deux bools suivants servent à détecter les inputs du bouton de saut
     public bool pressedjump = false;
     public bool presseddown = false;
+
+    private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
 
     private void Awake()
     {
@@ -91,8 +95,10 @@ public class BobbyJump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        if(platdowncnt>0)
+
+        grabed = GetComponent<charavalues>().grabed;
+
+        if (platdowncnt>0)
         {
             platdowncnt -= 1;
 
@@ -115,7 +121,7 @@ public class BobbyJump : MonoBehaviour
             }
            rb.gravityScale = 0;
         }
-        else if(presseddown && platformed)
+        else if(presseddown && platformed && !grabed)
         {
             platdowncnt = platdowntime;
             platformed = false;
@@ -132,7 +138,7 @@ public class BobbyJump : MonoBehaviour
 
         //normal jump
 
-        if (pressedjump && grounded && !GetComponent<charavalues>().shielded) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
+        if (pressedjump && grounded && !GetComponent<charavalues>().shielded && !grabed) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
         {
             myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -165,12 +171,15 @@ public class BobbyJump : MonoBehaviour
         //double jump
 
 
-        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache) //vérifie que toutes les requirements pour lancer un double saut sont vérifiés
+        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache && !grabed && numberjumped<=maxnumberofjumps) //vérifie que toutes les requirements pour lancer un double saut sont vérifiés
         {
+
             myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, dbjumpForce);
             myanim.SetBool("falling", true);
             touchedground = false;
+            dbjumpdelaycounter = dbjumpdelay;
+            numberjumped += 1;
         }
 
         if (!grounded && pressedjump && dbjumpcounter > 0 && allowdoublejump && jumplache) //continue de gagner de la hauteur si le bouton de saut est maintenu.
@@ -184,9 +193,14 @@ public class BobbyJump : MonoBehaviour
 
             touchedground = false;
         }
-        if(dbjumpcounter<=0)
+        if(dbjumpdelaycounter<=0)
         {
+
             allowdoublejump = false;
+            if (numberjumped < maxnumberofjumps)
+            {
+                touchedground = true;
+            }
         }
 
 
@@ -206,6 +220,7 @@ public class BobbyJump : MonoBehaviour
 
         if (grounded)
         {
+            numberjumped = 0;
             jumplache = false;
             allowjump = true;
             touchedground = true;

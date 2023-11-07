@@ -45,11 +45,11 @@ Les attaques spéciales sont utilisables sur le sol et dans les airs.
 
 **Préambule**
 
-Il est conseillé de faire le kit du personnage avant de s'y mettre. Même si Riki peut aider, c'est à toi de programmer le personnage (en t'aidant de ce que j'ai déja fait).
-Attention ! En particulier pour les scripts, utiliser les mêmes bases pour les noms  ainsi que pour les variables qui concernent les attaques est conseillé. Par exemple, pour Bobby, le script d'attaque est BobbyAtk, celui pour Randy est RandyAtk. Il faut le mettre sous la forme NomAtk pour les attaques et NomJump pour les sauts.
-Il est absolument capitale d'utiliser **le même script charavalues, Charamov, et charaper** en le mettant dans le personnage. Ce script est ce qui permet à tous les persos de pouvoir se tabasser entre eux. Il ne doit pas être renommé ou modifié. Il est utilisable tel qu'il est et le modifier risque de casser les autres persos.
+Il est conseillé de faire le kit du personnage avant de s'y mettre. Même si Riki peut aider, c'est à toi de programmer les attaque du personnage (en t'aidant de ce que j'ai déja fait).
+Attention ! Il est conseillé utiliser les mêmes bases pour les noms ainsi que pour les variables qui concernent les attaques. Les movements et le sauts sont gérés dans des scripts conçus pour fonctionner sur tous les personnage. Le seul script à créer est le script d'attaque. Pour Bobby, il s'appèle est BobbyAtk, celui pour Randy est RandyAtk. Il faut le mettre sous la forme NomAtk pour les attaques pour que tout soit joli et standardisé.
+Il est absolument capitale d'utiliser **le même script charavalues, Charamov, charaper, charavalues et charajump** en le mettant dans le personnage. Ces script est ce qui permet à tous les persos de pouvoir se tabasser entre eux. Ils ne doivent pas être renommés ou modifiés. Ils sont utilisables tel qu'ils sont et les modifier risque de casser les autres persos.
 
-Les scripts de saut et d'attaques sont les seuls à faire propre à chaque personnage, car ils sont susceptibles d'être modifiés si le perso a plusieurs saut par exemple ou des attaques différentes de celle de Bobby (no way !).
+Le scrips d'attaque est le seul à faire pour à chaque personnage, car ils sont susceptibles d'être modifiés si le perso a des attaques différentes de celle de Bobby (no way !).
 
 **Animations**
 
@@ -84,7 +84,6 @@ Essaye d'organiser un minimum le projet, c'est à dire mettre les sprites dans u
 **Attaques complexes**
 
 Les attaques qui fonctionnent réellement ne sont pas simplement que des attaques qui sont actives pendant frame 1 et ensuite plus jamais. Pour avoir des exemples des attaques plus complexes, merci de se référer à certaines attaques particulière du kit de Bobby à savoir son Nair pour les multi-hit et son down tilt ou son up tilt pour une attaque qui n'est pas active frame one et dont la hitbox reste active pendant quelques frames.
-
 
 Pour faire une attaque avec plusieurs hitbox, ce qui permet que la hitbox finales soit plus précise qu'une sphère ou qu'un oval, ajouter des transform nomattackpoint (ex: tiltattackpoint). Il ne suffira alors que de modifier les boucles for dans les fonctions d'attaques pour qu'elles détectent les Collider2D dans toutes les hitbox et boom c'est dans la poche. Il est également possible de séparer les hitbox de cette manière, ce qui rend un tipper possible.
 

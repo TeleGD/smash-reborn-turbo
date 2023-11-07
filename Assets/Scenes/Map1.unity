@@ -932,7 +932,7 @@ GameObject:
   - component: {fileID: 170043933}
   - component: {fileID: 170043932}
   - component: {fileID: 170043931}
-  - component: {fileID: 170043929}
+  - component: {fileID: 170043937}
   - component: {fileID: 170043928}
   - component: {fileID: 170043926}
   - component: {fileID: 170043925}
@@ -963,6 +963,7 @@ MonoBehaviour:
   iframes: 0
   upb: 0
   "touch\xE9": 0
+  grabed: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -1029,49 +1030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56570b0dd66014e02be8a209cf38f7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &170043929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170043923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663ef40d234fa9d44b4b5f285ac83d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackpoint: {fileID: 15295183}
-  range: 0
-  jumpForce: 7
-  jumptime: 0.26
-  allowjump: 0
-  allowdoublejump: 0
-  touchedground: 0
-  dbjumpForce: 11
-  dbjumptime: 0.13
-  dbjumpdelay: 0.01
-  dbjumpdelaycounter: 0
-  jumplache: 0
-  groundcheck: {fileID: 330831251}
-  radOcircle: 0.06
-  hauteurgi: 0.06
-  largeurgi: 0.2
-  whatisground:
-    serializedVersion: 2
-    m_Bits: 64
-  platformed: 0
-  plathbx: 0.2
-  plathby: 0.2
-  platdowntime: 60
-  platdowncnt: 0
-  whatisplatform:
-    serializedVersion: 2
-    m_Bits: 256
-  grounded: 0
-  horizontal: 0
-  pressedjump: 0
-  presseddown: 0
 --- !u!61 &170043931
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1246,6 +1204,49 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+--- !u!114 &170043937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170043923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b135fd3b96d4b7e408eea3cf30f66372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackpoint: {fileID: 15295183}
+  range: 0
+  maxnumberofjumps: 2
+  jumpForce: 7
+  jumptime: 0.26
+  allowjump: 0
+  allowdoublejump: 0
+  touchedground: 0
+  dbjumpForce: 11
+  dbjumptime: 0.13
+  dbjumpdelay: 0.01
+  jumplache: 0
+  groundcheck: {fileID: 330831251}
+  radOcircle: 0.06
+  hauteurgi: 0.06
+  largeurgi: 0.2
+  whatisground:
+    serializedVersion: 2
+    m_Bits: 64
+  grounded: 0
+  platformed: 0
+  plathbx: 0.2
+  plathby: 0.2
+  platdowntime: 60
+  platdowncnt: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 256
+  horizontal: 0
+  pressedjump: 0
+  presseddown: 0
 --- !u!1 &229350949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,6 +2369,7 @@ MonoBehaviour:
   iframes: 0
   upb: 0
   "touch\xE9": 0
+  grabed: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -2450,6 +2452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackpoint: {fileID: 574951554}
   range: 0
+  maxnumberofjumps: 5
   jumpForce: 6
   jumptime: 0.26
   allowjump: 0
@@ -2457,7 +2460,7 @@ MonoBehaviour:
   touchedground: 0
   dbjumpForce: 6
   dbjumptime: 0.13
-  dbjumpdelay: 0.01
+  dbjumpdelay: 0.2
   jumplache: 0
   groundcheck: {fileID: 2146272741}
   radOcircle: 0.06
@@ -3491,6 +3494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackpoint: {fileID: 2060496075}
   range: 0
+  maxnumberofjumps: 2
   jumpForce: 6
   jumptime: 0.26
   allowjump: 0
@@ -3498,7 +3502,7 @@ MonoBehaviour:
   touchedground: 0
   dbjumpForce: 6
   dbjumptime: 0.13
-  dbjumpdelay: 0.01
+  dbjumpdelay: 0.2
   jumplache: 0
   groundcheck: {fileID: 1225970001}
   radOcircle: 0.06
@@ -3632,6 +3636,7 @@ MonoBehaviour:
   iframes: 0
   upb: 0
   "touch\xE9": 0
+  grabed: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -6470,7 +6475,7 @@ GameObject:
   - component: {fileID: 1588210701}
   - component: {fileID: 1588210700}
   - component: {fileID: 1588210699}
-  - component: {fileID: 1588210698}
+  - component: {fileID: 1588210704}
   - component: {fileID: 1588210697}
   - component: {fileID: 1588210696}
   - component: {fileID: 1588210695}
@@ -6537,6 +6542,7 @@ MonoBehaviour:
   iframes: 0
   upb: 0
   "touch\xE9": 0
+  grabed: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -6603,49 +6609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56570b0dd66014e02be8a209cf38f7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1588210698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588210692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663ef40d234fa9d44b4b5f285ac83d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackpoint: {fileID: 1048189810}
-  range: 0
-  jumpForce: 7
-  jumptime: 0.26
-  allowjump: 0
-  allowdoublejump: 0
-  touchedground: 0
-  dbjumpForce: 11
-  dbjumptime: 0.13
-  dbjumpdelay: 0.01
-  dbjumpdelaycounter: 0
-  jumplache: 0
-  groundcheck: {fileID: 1853126973}
-  radOcircle: 0.06
-  hauteurgi: 0.06
-  largeurgi: 0.2
-  whatisground:
-    serializedVersion: 2
-    m_Bits: 64
-  platformed: 0
-  plathbx: 0.2
-  plathby: 0.2
-  platdowntime: 60
-  platdowncnt: 0
-  whatisplatform:
-    serializedVersion: 2
-    m_Bits: 256
-  grounded: 0
-  horizontal: 0
-  pressedjump: 0
-  presseddown: 0
 --- !u!61 &1588210699
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6784,6 +6747,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1588210704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588210692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b135fd3b96d4b7e408eea3cf30f66372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackpoint: {fileID: 1048189810}
+  range: 0
+  maxnumberofjumps: 2
+  jumpForce: 7
+  jumptime: 0.26
+  allowjump: 0
+  allowdoublejump: 0
+  touchedground: 0
+  dbjumpForce: 11
+  dbjumptime: 0.13
+  dbjumpdelay: 0.01
+  jumplache: 0
+  groundcheck: {fileID: 1853126973}
+  radOcircle: 0.06
+  hauteurgi: 0.06
+  largeurgi: 0.2
+  whatisground:
+    serializedVersion: 2
+    m_Bits: 64
+  grounded: 0
+  platformed: 0
+  plathbx: 0.2
+  plathby: 0.2
+  platdowntime: 60
+  platdowncnt: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 256
+  horizontal: 0
+  pressedjump: 0
+  presseddown: 0
 --- !u!1 &1591478651
 GameObject:
   m_ObjectHideFlags: 0

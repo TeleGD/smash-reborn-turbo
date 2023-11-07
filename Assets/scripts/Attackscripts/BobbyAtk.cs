@@ -25,6 +25,7 @@ public class BobbyAtk : MonoBehaviour
     public bool justhit; //Booléen qui devient true si à une frame, les pourcents ont changé par rapport à la dernière frame, ce qui signifie qu'ils ont été touché par une attaque.
     private int atkinput; //détecte si le bouton d'attaque est pressé
     private int speinput; //détecte si le bouton d'attaque spéciale est pressé
+    private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
 
 
 
@@ -172,54 +173,61 @@ public class BobbyAtk : MonoBehaviour
 
     void InputAttack() //se déclenche si le bouton d'attaque est pressé
     {
-        if (grounded) //check si le perso est sur le sol
+        if(!grabed)
         {
-            if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
+            if (grounded) //check si le perso est sur le sol
             {
-                TiltAttack();
-                tiltdelaycounter = tiltattackdelay;
-            }
-            else if(dtiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && GetComponent<Charamov>().crouched)
-            {
-                DTiltAttack();
-                dtiltdelaycounter = dtiltattackdelay;
-            }
-            else if(uptiltdelaycounter==0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical==1)
-            {
-                UpTiltAttack();
-                uptiltdelaycounter = uptiltattackdelay;
-            }
-        }
-        else //se déclenche si le perso n'est pas au sol
-        {
-            if(GetComponent<Charamov>().valueright==0 && GetComponent<Charamov>().valueright == 0 && nairdelaycounter == 0 && !GetComponent<charavalues>().shielded) //si le perso peut faire un nair, qu'aucune input de direction n'est activée et que le bouclier est baissé, la fonction correspondant au nair se déclenche et le delai entre deux nairs aussi.
-            {
-                NairAttack();
-                nairdelaycounter = nairattackdelay;
-            }
-            else //si les conditions pour faire un nair ne sont pas remplis, comme il n'y a pas encore d'autres attaque aériennes implémentées, un tilt est fait.
-            {
-                if(tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded)
+                if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
                 {
                     TiltAttack();
                     tiltdelaycounter = tiltattackdelay;
                 }
+                else if (dtiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && GetComponent<Charamov>().crouched)
+                {
+                    DTiltAttack();
+                    dtiltdelaycounter = dtiltattackdelay;
+                }
+                else if (uptiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 1)
+                {
+                    UpTiltAttack();
+                    uptiltdelaycounter = uptiltattackdelay;
+                }
+            }
+            else //se déclenche si le perso n'est pas au sol
+            {
+                if (GetComponent<Charamov>().valueright == 0 && GetComponent<Charamov>().valueright == 0 && nairdelaycounter == 0 && !GetComponent<charavalues>().shielded) //si le perso peut faire un nair, qu'aucune input de direction n'est activée et que le bouclier est baissé, la fonction correspondant au nair se déclenche et le delai entre deux nairs aussi.
+                {
+                    NairAttack();
+                    nairdelaycounter = nairattackdelay;
+                }
+                else //si les conditions pour faire un nair ne sont pas remplis, comme il n'y a pas encore d'autres attaque aériennes implémentées, un tilt est fait.
+                {
+                    if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded)
+                    {
+                        TiltAttack();
+                        tiltdelaycounter = tiltattackdelay;
+                    }
+                }
             }
         }
-        
     }
 
     void InputSpecial()
     {
-        if(GetComponent<Charamov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
+        if(!grabed)
         {
-            upbAttack();
-            upbdelaycounter = upbattackdelay;
+            if (GetComponent<Charamov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
+            {
+                upbAttack();
+                upbdelaycounter = upbattackdelay;
+            }
         }
     }
 
     void Update()
     {
+
+        grabed = GetComponent<charavalues>().grabed;
 
         if (atkinput==1)
         {
@@ -237,7 +245,7 @@ public class BobbyAtk : MonoBehaviour
         
 
 
-        grounded = GetComponent<BobbyJump>().grounded;
+        grounded = GetComponent<Charamov>().grounded;
 
         if(grounded)
         {

@@ -68,7 +68,7 @@ public class Charamov : MonoBehaviour
 
 
 
-
+    private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
 
 
     private void Awake()
@@ -129,7 +129,7 @@ public class Charamov : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
-
+        grabed = GetComponent<charavalues>().grabed;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
 
 
@@ -139,13 +139,13 @@ public class Charamov : MonoBehaviour
         }
 
 
-        if(!grounded && vertical==-1 && rb2D.velocity.y<0) //correspond au quickfall. On check que la vitesseen y est négative, car ça veut dire qu'on est déja en train de tomber.
+        if(!grounded && vertical==-1 && rb2D.velocity.y<0 && !grabed) //correspond au quickfall. On check que la vitesse en y est négative, car ça veut dire qu'on est déja en train de tomber.
         {
             rb2D.velocity = new Vector2(rb2D.velocity.x,-quickfallspeed) ;
         }
 
 
-        if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded)
+        if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded && !grabed)
         {
             myanimator.SetBool("crouch", true);
             crouched = true;
@@ -169,7 +169,7 @@ public class Charamov : MonoBehaviour
         shieldbar.Setshield(GetComponent<charavalues>().shield); //update la barre de bouclier
 
 
-        if(!grounded)
+        if(!grounded || grabed)
         {
             myanimator.SetBool("shield", false); //annule l'animation du bouclier si le perso n'est pas au sol
         }
@@ -222,7 +222,7 @@ public class Charamov : MonoBehaviour
 
         if(!GetComponent<charavalues>().shielded) //on ne bouge pas si le bouclier est actif
         {
-            if (!crouched) //Si on est baissé, on ne peut pas bouger
+            if (!crouched && !grabed) //Si on est baissé ou qu'on s'est fait grab, on ne peut pas bouger
             {
                 if (Mathf.Abs(rb2D.velocity.x) <= maxspeed) //check si la vitesse est inférieure à la vitesse max et on accélère. 
                 {
@@ -273,7 +273,7 @@ public class Charamov : MonoBehaviour
     //fonction qui se déclenche lorsqu'on appuye sur le bouton de shield
     void ShieldInput()
     {
-        if(grounded && shieldbreakcnter<=0)
+        if(grounded && shieldbreakcnter<=0 && !grabed)
         {
             GetComponent<charavalues>().shielded = true;
             myanimator.SetBool("shield", true);

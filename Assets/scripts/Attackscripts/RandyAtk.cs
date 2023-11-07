@@ -14,9 +14,9 @@ public class RandyAtk : MonoBehaviour
     public PlayerInput Attack;
 
     private Animator playeranim;
-  
 
-  
+
+    private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
 
     //size of the attack 
     [Header("hitbox of the tilt attack")]
@@ -48,31 +48,41 @@ public class RandyAtk : MonoBehaviour
 
     void OnAttack()
     {
-        if (this.CompareTag("Player1"))
+        if (!grabed)
         {
-            if (delaycounter == 0 && !GetComponent<charavalues>().shielded)
+            if (this.CompareTag("Player1"))
             {
-                fctTiltAttack();
-                delaycounter = attackdelay;
+                if (delaycounter == 0 && !GetComponent<charavalues>().shielded)
+                {
+                    fctTiltAttack();
+                    delaycounter = attackdelay;
+                }
             }
         }
+        
     }
 
     void OnAttack1()
     {
-        if (this.CompareTag("Player2"))
+        if(!grabed)
         {
-            if (delaycounter == 0 && !GetComponent<charavalues>().shielded)
+            if (this.CompareTag("Player2"))
             {
-                fctTiltAttack();
-                delaycounter = attackdelay;
+                if (delaycounter == 0 && !GetComponent<charavalues>().shielded)
+                {
+                    fctTiltAttack();
+                    delaycounter = attackdelay;
+                }
             }
         }
+        
     }
 
 
     void Update()
     {
+
+        grabed = GetComponent<charavalues>().grabed;
 
         grounded = GetComponent<Charamov>().grounded;
         //attack cooldown
