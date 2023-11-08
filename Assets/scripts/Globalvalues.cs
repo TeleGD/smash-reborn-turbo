@@ -40,6 +40,7 @@ public class Globalvalues : MonoBehaviour
     public int p1maxHP;
     public int p2HP;
     public int p2maxHP;
+    public int hitstun;
     public Healthbar P1healthbar;
     public Healthbar P2healthbar;
 

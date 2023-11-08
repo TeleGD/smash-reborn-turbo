@@ -129,6 +129,8 @@ public class BobbyAtk : MonoBehaviour
 
     public bool grounded;
 
+    private int hitstun;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -173,7 +175,7 @@ public class BobbyAtk : MonoBehaviour
 
     void InputAttack() //se déclenche si le bouton d'attaque est pressé
     {
-        if(!grabed)
+        if(!grabed && hitstun<=0)
         {
             if (grounded) //check si le perso est sur le sol
             {
@@ -214,7 +216,7 @@ public class BobbyAtk : MonoBehaviour
 
     void InputSpecial()
     {
-        if(!grabed)
+        if(!grabed && hitstun<=0)
         {
             if (GetComponent<Charamov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
             {
@@ -226,6 +228,8 @@ public class BobbyAtk : MonoBehaviour
 
     void Update()
     {
+
+        hitstun = GetComponent<charavalues>().hitstuncnt;
 
         if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 )
         {
@@ -573,7 +577,7 @@ public class BobbyAtk : MonoBehaviour
        dtiltlengthcounter -= 1;
 
 
-        if (dtiltlengthcounter <= dtiltlength-dtiltstartframe)
+        if (dtiltlengthcounter <= dtiltlength-dtiltstartframe && dtiltlengthcounter>=dtiltstartframe)
         {
 
             Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(dtiltattackpoint.position.x - dtilhbx / 2, dtiltattackpoint.position.y + dtilhby / 2), new Vector2(dtiltattackpoint.position.x + dtilhbx / 2, dtiltattackpoint.position.y - dtilhby / 2));
@@ -629,7 +633,7 @@ public class BobbyAtk : MonoBehaviour
         uptiltlengthcounter -= 1;
         //get enemies in range
 
-        if (uptiltlengthcounter <= uptiltlength - uptiltstartframe)
+        if (uptiltlengthcounter <= uptiltlength - uptiltstartframe && uptiltlengthcounter >= uptiltstartframe)
         {
 
             Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(uptiltattackpoint.position.x - uptilhbx / 2, uptiltattackpoint.position.y + uptilhby / 2), new Vector2(uptiltattackpoint.position.x + uptilhbx / 2, uptiltattackpoint.position.y - uptilhby / 2));

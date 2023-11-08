@@ -63,6 +63,8 @@ public class charaJump : MonoBehaviour
     public bool presseddown = false;
 
     private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
+    private int hitstun;
+
 
     private void Awake()
     {
@@ -96,6 +98,8 @@ public class charaJump : MonoBehaviour
     private void FixedUpdate()
     {
 
+        hitstun = GetComponent<charavalues>().hitstuncnt;
+
         grabed = GetComponent<charavalues>().grabed;
 
         if (platdowncnt>0)
@@ -121,7 +125,7 @@ public class charaJump : MonoBehaviour
             }
            rb.gravityScale = 0;
         }
-        else if(presseddown && platformed && !grabed)
+        else if(presseddown && platformed && !grabed && hitstun<=0)
         {
             platdowncnt = platdowntime;
             platformed = false;
@@ -138,7 +142,7 @@ public class charaJump : MonoBehaviour
 
         //normal jump
 
-        if (pressedjump && grounded && !GetComponent<charavalues>().shielded && !grabed) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
+        if (pressedjump && grounded && !GetComponent<charavalues>().shielded && !grabed && hitstun <= 0) //si on est sur le sol, que le bouclier est désactivé et qu'on appuie sur le bouton de saut, on change l'animation et on applique la vitesse verticale du saut
         {
             myanim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -171,7 +175,7 @@ public class charaJump : MonoBehaviour
         //double jump
 
 
-        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache && !grabed && numberjumped<=maxnumberofjumps) //vérifie que toutes les requirements pour lancer un double saut sont vérifiés
+        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache && !grabed && hitstun <= 0 && numberjumped<=maxnumberofjumps) //vérifie que toutes les requirements pour lancer un double saut sont vérifiés
         {
 
             myanim.SetTrigger("jump");

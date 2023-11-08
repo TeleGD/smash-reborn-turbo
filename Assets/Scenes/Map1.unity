@@ -174,6 +174,7 @@ MonoBehaviour:
   p1maxHP: 0
   p2HP: 0
   p2maxHP: 0
+  hitstun: 15
   P1healthbar: {fileID: 0}
   P2healthbar: {fileID: 0}
   playable: 1
@@ -813,6 +814,8 @@ MonoBehaviour:
   "touch\xE9": 0
   grabed: 0
   hp: 0
+  attacking: 0
+  hitstuncnt: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -1053,6 +1056,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  attacking: 0
 --- !u!114 &170043937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2587,6 +2591,8 @@ MonoBehaviour:
   "touch\xE9": 0
   grabed: 0
   hp: 0
+  attacking: 0
+  hitstuncnt: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -2905,6 +2911,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  attacking: 0
 --- !u!1 &804067598
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,6 +4132,8 @@ MonoBehaviour:
   "touch\xE9": 0
   grabed: 0
   hp: 0
+  attacking: 0
+  hitstuncnt: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -4164,6 +4173,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  attacking: 0
 --- !u!1 &939497462
 GameObject:
   m_ObjectHideFlags: 0
@@ -6836,6 +6846,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  attacking: 0
 --- !u!114 &1588210694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6856,6 +6867,8 @@ MonoBehaviour:
   "touch\xE9": 0
   grabed: 0
   hp: 0
+  attacking: 0
+  hitstuncnt: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0

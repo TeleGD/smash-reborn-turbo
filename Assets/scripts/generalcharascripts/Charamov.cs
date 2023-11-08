@@ -68,6 +68,7 @@ public class Charamov : MonoBehaviour
 
     public bool attacking;
 
+    private int hitstun;
 
     private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
 
@@ -130,6 +131,7 @@ public class Charamov : MonoBehaviour
     // Handles input of the physics
     private void Update()
     {
+        hitstun= GetComponent<charavalues>().hitstuncnt;
         grabed = GetComponent<charavalues>().grabed;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
         attacking=GetComponent<charavalues>().attacking;
@@ -147,7 +149,7 @@ public class Charamov : MonoBehaviour
         }
 
 
-        if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded && !grabed)
+        if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded && !grabed && hitstun<=0)
         {
             myanimator.SetBool("crouch", true);
             crouched = true;
@@ -222,7 +224,7 @@ public class Charamov : MonoBehaviour
     {
         //Section des mouvements
 
-        if(!GetComponent<charavalues>().shielded && !grabed && !attacking) //on ne bouge pas si le bouclier est actif
+        if(!GetComponent<charavalues>().shielded && !grabed && !attacking && hitstun<=0) //on ne bouge pas si le bouclier est actif
         {
             if (!crouched) //Si on est baissé ou qu'on s'est fait grab, on ne peut pas bouger
             {
@@ -275,7 +277,7 @@ public class Charamov : MonoBehaviour
     //fonction qui se déclenche lorsqu'on appuye sur le bouton de shield
     void ShieldInput()
     {
-        if(grounded && shieldbreakcnter<=0 && !grabed)
+        if(grounded && shieldbreakcnter<=0 && !grabed && hitstun<=0)
         {
             GetComponent<charavalues>().shielded = true;
             myanimator.SetBool("shield", true);
