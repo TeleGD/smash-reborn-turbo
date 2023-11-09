@@ -26,6 +26,7 @@ public class BobbyAtk : MonoBehaviour
     private int atkinput; //détecte si le bouton d'attaque est pressé
     private int speinput; //détecte si le bouton d'attaque spéciale est pressé
     private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
+    private int temppercent;
 
 
 
@@ -229,6 +230,12 @@ public class BobbyAtk : MonoBehaviour
     void Update()
     {
 
+        if (tempperc != GetComponent<charavalues>().percent)
+        {
+            enanim.SetTrigger("hit");
+            tempperc = GetComponent<charavalues>().percent;
+        }
+
         hitstun = GetComponent<charavalues>().hitstuncnt;
 
         if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 )
@@ -350,11 +357,13 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
+                            enemyrb.velocity=new Vector2(0f,0f);
                             enemyrb.AddForce(new Vector2(tiltfixedrecoil-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
 
                         }
                         else
                         {
+                            enemyrb.velocity = new Vector2(0f, 0f);
                             enemyrb.AddForce(new Vector2(tiltfixedrecoil+tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
                         }
                         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
@@ -390,6 +399,7 @@ public class BobbyAtk : MonoBehaviour
 
                     if (enemy.GetComponent<charavalues>().shielded)
                     {
+                        enemyrb.velocity=new Vector2(0f,0f);
                         enemy.GetComponent<charavalues>().shield -= nairshielddamage;
                     }
                     else
@@ -399,11 +409,13 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
+                            enemyrb.velocity = new Vector2(0f, 0f);
                             enemyrb.AddForce(new Vector2(-nairbaserecoil, 0)); //ici, l'éjection de l'attaque est fixe, car les pourcents de la cible ne rentrent pas en jeu.
 
                         }
                         else
                         {
+                            enemyrb.velocity = new Vector2(0f, 0f);
                             enemyrb.AddForce(new Vector2(nairbaserecoil, 0));
                         }
                         enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
@@ -440,11 +452,13 @@ public class BobbyAtk : MonoBehaviour
 
                     if (transform.position.x >= enemy.transform.position.x)
                     {
+                        enemyrb.velocity = new Vector2(0f, 0f);
                         enemyrb.AddForce(new Vector2(-nairbaserecoil, 0));
 
                     }
                     else
                     {
+                        enemyrb.velocity = new Vector2(0f, 0f);
                         enemyrb.AddForce(new Vector2(nairbaserecoil, 0));
                     }
                     enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
@@ -492,11 +506,13 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
+                            enemyrb.velocity = new Vector2(0f, 0f);
                             enemyrb.AddForce(new Vector2(upbfixedrecoil-upbbaserecoil, 0)); //ici, l'éjection de l'attaque est fixe, car les pourcents de la cible ne rentrent pas en jeu.
 
                         }
                         else
                         {
+                            enemyrb.velocity = new Vector2(0f, 0f);
                             enemyrb.AddForce(new Vector2(upbfixedrecoil+upbbaserecoil, 0));
                         }
                         enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
@@ -527,6 +543,7 @@ public class BobbyAtk : MonoBehaviour
 
                 if (enemy.GetComponent<charavalues>().shielded)
                 {
+
                     enemy.GetComponent<charavalues>().shield -= upbshielddamage;
                 }
                 else
@@ -536,11 +553,13 @@ public class BobbyAtk : MonoBehaviour
 
                     if (transform.position.x >= enemy.transform.position.x)
                     {
+                        enemyrb.velocity = new Vector2(0f, 0f);
                         enemyrb.AddForce(new Vector2(upbfixedrecoil-upbbaserecoil, 0));
 
                     }
                     else
                     {
+                        enemyrb.velocity = new Vector2(0f, 0f);
                         enemyrb.AddForce(new Vector2(upbfixedrecoil+upbbaserecoil, 0));
                     }
                     enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
@@ -598,6 +617,7 @@ public class BobbyAtk : MonoBehaviour
                     {
                         enemy.GetComponent<charavalues>().percent += dtiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
+                        enemyrb.velocity = new Vector2(0f, 0f);
                         enemyrb.AddForce(new Vector2(0, dtiltfixedrecoil + dtiltbaserecoil * enemy.GetComponent<charavalues>().percent)); //ici fixedrecoil est additionné à baserecoil pour faire une attaque qui ejectera toujours environ à la même hauter, mais tout de même un tout petit peu augmenté par les pourcents.
 
                         
@@ -653,6 +673,7 @@ public class BobbyAtk : MonoBehaviour
                     {
                         enemy.GetComponent<charavalues>().percent += uptiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
+                        enemyrb.velocity = new Vector2(0f, 0f);
                         enemyrb.AddForce(new Vector2(0, uptiltbaserecoil * enemy.GetComponent<charavalues>().percent));
 
 

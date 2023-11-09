@@ -67,6 +67,7 @@ Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Neutral Air
 - Up Special
 - Bouclier
+- Hit
 
 Exporter les animation sous un format où toutes les frames sont sur le même .PNG
 

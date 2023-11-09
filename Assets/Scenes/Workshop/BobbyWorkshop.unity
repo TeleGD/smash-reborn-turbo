@@ -174,6 +174,7 @@ MonoBehaviour:
   p1maxHP: 0
   p2HP: 0
   p2maxHP: 0
+  hitstun: 0
   P1healthbar: {fileID: 1940829397}
   P2healthbar: {fileID: 1455610430}
   playable: 1
@@ -964,6 +965,9 @@ MonoBehaviour:
   upb: 0
   "touch\xE9": 0
   grabed: 0
+  hp: 0
+  attacking: 0
+  hitstuncnt: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -1204,6 +1208,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  attacking: 0
 --- !u!114 &170043937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,6 +2421,9 @@ MonoBehaviour:
   upb: 0
   "touch\xE9": 0
   grabed: 0
+  hp: 0
+  attacking: 0
+  hitstuncnt: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -2734,6 +2742,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  attacking: 0
 --- !u!1 &847649309
 GameObject:
   m_ObjectHideFlags: 0
@@ -3683,6 +3692,9 @@ MonoBehaviour:
   upb: 0
   "touch\xE9": 0
   grabed: 0
+  hp: 0
+  attacking: 0
+  hitstuncnt: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -3722,6 +3734,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  attacking: 0
 --- !u!1 &939497462
 GameObject:
   m_ObjectHideFlags: 0
@@ -3901,8 +3914,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abb18396ff31334ca78f64931185686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextUI: {fileID: 943134766}
+  Textper: {fileID: 0}
+  TextHP: {fileID: 0}
+  hptxt: 0
   percent: 0
+  hp: 0
 --- !u!1 &960681105
 GameObject:
   m_ObjectHideFlags: 0
@@ -6570,6 +6586,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  attacking: 0
 --- !u!114 &1588210694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6589,6 +6606,9 @@ MonoBehaviour:
   upb: 0
   "touch\xE9": 0
   grabed: 0
+  hp: 0
+  attacking: 0
+  hitstuncnt: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -8582,8 +8602,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abb18396ff31334ca78f64931185686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextUI: {fileID: 1710646377}
+  Textper: {fileID: 0}
+  TextHP: {fileID: 0}
+  hptxt: 0
   percent: 0
+  hp: 0
 --- !u!1 &1790424030
 GameObject:
   m_ObjectHideFlags: 0
