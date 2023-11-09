@@ -39,6 +39,7 @@ public class charavalues : MonoBehaviour
         {
             temppercent = percent;
             hitstuncnt = GameObject.Find("Global values").GetComponent<Globalvalues>().hitstun;
+            GetComponent<Rigidbody2D>().velocity=new Vector2(0f,0f);
         }
 
         if (hitstuncnt > 0)
