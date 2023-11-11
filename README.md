@@ -66,7 +66,8 @@ Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Up Tilt
 - Neutral Air
 - Up Special
-- Bouclier
+- Grab
+- Shield
 - Hit
 - Grabbed
 
