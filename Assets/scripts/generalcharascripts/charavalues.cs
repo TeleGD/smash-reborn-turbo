@@ -35,6 +35,16 @@ public class charavalues : MonoBehaviour
     void Update()
     {
 
+        if(grabed)
+        {
+            GetComponent<Animator>().SetBool("grabbed",true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("grabbed", false);
+        }
+
+
         if(temppercent!=percent)
         {
             temppercent = percent;

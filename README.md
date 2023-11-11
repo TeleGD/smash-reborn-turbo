@@ -68,8 +68,11 @@ Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Up Special
 - Bouclier
 - Hit
+- Grabbed
 
 Exporter les animation sous un format où toutes les frames sont sur le même .PNG
+Une fois les animations prête (les animation clip utilisables), simplement les remplacer dans l'animator.
+En cas d'ajout d'animation de windup, remplacer le windup par l'animation de base, désactiver le loop se cette animation puis faire une transistion entre l'animation de windup et l'animation d'attaque. Il faut ensuite faire une transition entre l'animation d'attaque et l'animation de idle.
 
 **Implémentation**
 
