@@ -53,7 +53,7 @@ public class Globalvalues : MonoBehaviour
     void Awake()
     {
         
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 48;
 
         if (playable)
         {

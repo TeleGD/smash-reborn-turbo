@@ -66,6 +66,7 @@ public class BobbyAtk : MonoBehaviour
     public int tiltshielddamage;
     public int tiltlength;
     private int tiltlengthcounter;
+    public int tiltstartframe;
     public float tiltbaserecoil;
     public float tiltfixedrecoil;
 
@@ -89,6 +90,7 @@ public class BobbyAtk : MonoBehaviour
     public int upbshielddamage;
     public int upblength;
     private int upblengthcounter;
+    public int upbstartframe;
     public float upbbaserecoil;
     public float upbfixedrecoil;
     public float upbselfeject;
@@ -118,7 +120,7 @@ public class BobbyAtk : MonoBehaviour
     private int uptiltdelaycounter;
     public int uptiltshielddamage;
     public int uptiltlength;
-    private int uptiltlengthcounter;
+    public int uptiltlengthcounter;
     public int uptiltstartframe;
     public float uptiltbaserecoil;
 
@@ -128,9 +130,11 @@ public class BobbyAtk : MonoBehaviour
     [Header("recoil variables")]
     private Rigidbody2D enemyrb;
 
-    public bool grounded;
+    public bool grounded; //perso au sol
 
-    private int hitstun;
+    private int hitstun; //perso a été touché et ne peut pas attaquer
+
+    public bool attacking; //le perso est en train d'attaquer
 
     // Start is called before the first frame update
     void Start()
@@ -176,14 +180,14 @@ public class BobbyAtk : MonoBehaviour
 
     void InputAttack() //se déclenche si le bouton d'attaque est pressé
     {
-        if(!grabed && hitstun<=0)
+        if(!grabed && hitstun<=0 && !attacking)
         {
             if (grounded) //check si le perso est sur le sol
             {
                 if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
                 {
                     TiltAttack();
-                    tiltdelaycounter = tiltattackdelay;
+                    tiltdelaycounter = tiltstartframe+tiltlength+tiltattackdelay;
                 }
                 else if (dtiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && GetComponent<Charamov>().crouched)
                 {
@@ -217,7 +221,7 @@ public class BobbyAtk : MonoBehaviour
 
     void InputSpecial()
     {
-        if(!grabed && hitstun<=0)
+        if(!grabed && hitstun<=0 && !attacking)
         {
             if (GetComponent<Charamov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
             {
@@ -316,7 +320,7 @@ public class BobbyAtk : MonoBehaviour
             //attack animation
             enanim.SetTrigger("attack");
 
-            tiltlengthcounter = tiltlength; //initialise lengthcounter
+            tiltlengthcounter = tiltlength+tiltstartframe; //initialise lengthcounter
 
             
         }
@@ -334,7 +338,7 @@ public class BobbyAtk : MonoBehaviour
         tiltlengthcounter -= 1;
         //get enemies in range
 
-        if(tiltlengthcounter%2==0 && tiltlengthcounter>=4)
+        if(tiltlengthcounter<=tiltlength && tiltlengthcounter>=0)
         {
 
             Collider2D[] hitenemies = Physics2D.OverlapCircleAll(tiltattackpoint.position, tiltrange);
@@ -480,23 +484,36 @@ public class BobbyAtk : MonoBehaviour
 
             upbused = true;
 
-            upblengthcounter = upblength;
+            upblengthcounter = upblength+upbstartframe;
 
             //attack animation
             enanim.SetBool("upb",true);
 
+            
+        }
+
+
+    }
+
+    void lingeringupb()
+    {
+        upblengthcounter -= 1;
+
+        if( upblengthcounter <= upblength && upblengthcounter>=0)
+        {
             //get enemies in range
             Collider2D[] hitenemies = Physics2D.OverlapCircleAll(upbattackpoint.position, upbrange);
 
             foreach (Collider2D enemy in hitenemies)
             {
-
-                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && cible !=enemy)
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && cible != enemy)
                 {
+
                     cible = enemy;
 
                     if (enemy.GetComponent<charavalues>().shielded)
                     {
+
                         enemy.GetComponent<charavalues>().shield -= upbshielddamage;
                     }
                     else
@@ -507,13 +524,13 @@ public class BobbyAtk : MonoBehaviour
                         if (transform.position.x >= enemy.transform.position.x)
                         {
                             enemyrb.velocity = new Vector2(0f, 0f);
-                            enemyrb.AddForce(new Vector2(upbfixedrecoil-upbbaserecoil, 0)); //ici, l'éjection de l'attaque est fixe, car les pourcents de la cible ne rentrent pas en jeu.
+                            enemyrb.AddForce(new Vector2(upbfixedrecoil - upbbaserecoil, 0));
 
                         }
                         else
                         {
                             enemyrb.velocity = new Vector2(0f, 0f);
-                            enemyrb.AddForce(new Vector2(upbfixedrecoil+upbbaserecoil, 0));
+                            enemyrb.AddForce(new Vector2(upbfixedrecoil + upbbaserecoil, 0));
                         }
                         enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
                     }
@@ -521,54 +538,10 @@ public class BobbyAtk : MonoBehaviour
                 }
 
             }
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0,upbselfeject); //fait aller le perso vers le haut (ben oui c'est un upb)
-        }
-
-
-    }
-
-    void lingeringupb()
-    {
-        upblengthcounter -= 1;
-
-        //get enemies in range
-        Collider2D[] hitenemies = Physics2D.OverlapCircleAll(upbattackpoint.position, upbrange);
-
-        foreach (Collider2D enemy in hitenemies)
-        {
-            if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && cible != enemy)
-            {
-
-                cible = enemy;
-
-                if (enemy.GetComponent<charavalues>().shielded)
-                {
-
-                    enemy.GetComponent<charavalues>().shield -= upbshielddamage;
-                }
-                else
-                {
-                    enemy.GetComponent<charavalues>().percent += upbpercent;
-                    enemyrb = enemy.GetComponent<Rigidbody2D>();
-
-                    if (transform.position.x >= enemy.transform.position.x)
-                    {
-                        enemyrb.velocity = new Vector2(0f, 0f);
-                        enemyrb.AddForce(new Vector2(upbfixedrecoil-upbbaserecoil, 0));
-
-                    }
-                    else
-                    {
-                        enemyrb.velocity = new Vector2(0f, 0f);
-                        enemyrb.AddForce(new Vector2(upbfixedrecoil+upbbaserecoil, 0));
-                    }
-                    enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
-                }
-
-            }
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, upbselfeject); //fait aller le perso vers le haut (ben oui c'est un upb)
 
         }
-        GetComponent<Rigidbody2D>().velocity = new Vector2(0, upbselfeject); //fait aller le perso vers le haut (ben oui c'est un upb)
+
 
     }
 
@@ -579,7 +552,7 @@ public class BobbyAtk : MonoBehaviour
         if (dtiltlengthcounter == 0)
         {
 
-            dtiltlengthcounter = dtiltlength;
+            dtiltlengthcounter = dtiltlength+dtiltstartframe;
 
             //attack animation
             enanim.SetTrigger("attack");
@@ -596,7 +569,7 @@ public class BobbyAtk : MonoBehaviour
        dtiltlengthcounter -= 1;
 
 
-        if (dtiltlengthcounter <= dtiltlength-dtiltstartframe && dtiltlengthcounter>=dtiltstartframe)
+        if (dtiltlengthcounter <= dtiltlength && dtiltlengthcounter>=0)
         {
 
             Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(dtiltattackpoint.position.x - dtilhbx / 2, dtiltattackpoint.position.y + dtilhby / 2), new Vector2(dtiltattackpoint.position.x + dtilhbx / 2, dtiltattackpoint.position.y - dtilhby / 2));
@@ -638,7 +611,7 @@ public class BobbyAtk : MonoBehaviour
         if (uptiltlengthcounter == 0)
         {
 
-            uptiltlengthcounter = uptiltlength;
+            uptiltlengthcounter = uptiltlength+uptiltstartframe;
 
             //attack animation
             enanim.SetTrigger("uptilt");
@@ -694,9 +667,35 @@ public class BobbyAtk : MonoBehaviour
     {
         if (tiltdelaycounter > 0) //CD du tilt
         {
-
+            attacking = true;
             tiltdelaycounter -= 1;
         }
+        else if (dtiltdelaycounter > 0) //CD du dtilt
+        {
+            attacking = true;
+            dtiltdelaycounter -= 1;
+        }
+        else if (nairdelaycounter > 0) //CD du nair
+        {
+            attacking = true;
+            nairdelaycounter -= 1;
+        }
+        else if (upbdelaycounter > 0) //CD du upb
+        {
+            attacking = true;
+            upbdelaycounter -= 1;
+        }
+        else if (uptiltdelaycounter > 0) //CD du tilt
+        {
+            attacking = true;
+            uptiltdelaycounter -= 1;
+        }
+        else
+        {
+            attacking=false;
+        }
+
+
 
         if (justhit) //si le perso a été touché, on termine toutes les animations en cours
         {
@@ -742,19 +741,12 @@ public class BobbyAtk : MonoBehaviour
                 Lingeringdtilt();
             }
         }
-        if (dtiltdelaycounter > 0) //CD du dtilt
-        {
-
-            dtiltdelaycounter -= 1;
-        }
+        
 
 
 
 
-        if (nairdelaycounter > 0) //CD du nair
-        {
-            nairdelaycounter -= 1;
-        }
+        
         if (nairlengthcounter > 0) //activation du nair si la hitbox est toujours actives
         {
 
@@ -763,10 +755,7 @@ public class BobbyAtk : MonoBehaviour
 
         }
 
-        if (upbdelaycounter > 0) //CD du upb
-        {
-            upbdelaycounter -= 1;
-        }
+        
         if (upblengthcounter > 0) //activation du upb si la hitbox est toujours actives
         {
             if(upblengthcounter == 1)
@@ -784,11 +773,7 @@ public class BobbyAtk : MonoBehaviour
         }
 
 
-        if (uptiltdelaycounter > 0) //CD du tilt
-        {
-
-            uptiltdelaycounter -= 1;
-        }
+        
 
 
 
