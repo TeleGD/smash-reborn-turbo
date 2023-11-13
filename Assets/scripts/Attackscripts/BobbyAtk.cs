@@ -57,6 +57,16 @@ public class BobbyAtk : MonoBehaviour
     //Cependant, lors des phases de débeugage, il est conseillé de les mettre soit en public soit d'ajouter [SerializeField] devant private pour que les variables apparaissent dans l'éditeur.
     //Perso je les mettrai pas juste en private, sauf éventuellement les counter
 
+
+    [Header("Grabattack variables")]
+    public Transform grabattackpoint;
+    public float grabrange;
+    public int grabattackdelay;
+    private int grabdelaycounter;
+    public int grablength;
+    private int grablengthcounter;
+    public int grabstartframe;
+
     [Header("Tiltattack variables")]
     public Transform tiltattackpoint;
     public float tiltrange;
@@ -130,11 +140,15 @@ public class BobbyAtk : MonoBehaviour
     [Header("recoil variables")]
     private Rigidbody2D enemyrb;
 
+    private bool shielded;
+
     public bool grounded; //perso au sol
 
     private int hitstun; //perso a été touché et ne peut pas attaquer
 
     public bool attacking; //le perso est en train d'attaquer
+
+    private bool grabbing;
 
     // Start is called before the first frame update
     void Start()
@@ -180,21 +194,21 @@ public class BobbyAtk : MonoBehaviour
 
     void InputAttack() //se déclenche si le bouton d'attaque est pressé
     {
-        if(!grabed && hitstun<=0 && !attacking)
+        if(!grabed && hitstun<=0 && !attacking && !shielded && !grabbing)
         {
             if (grounded) //check si le perso est sur le sol
             {
-                if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
+                if (tiltdelaycounter == 0 && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
                 {
                     TiltAttack();
                     tiltdelaycounter = tiltstartframe+tiltlength+tiltattackdelay;
                 }
-                else if (dtiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && GetComponent<Charamov>().crouched)
+                else if (dtiltdelaycounter == 0 && GetComponent<Charamov>().crouched)
                 {
                     DTiltAttack();
                     dtiltdelaycounter = dtiltattackdelay;
                 }
-                else if (uptiltdelaycounter == 0 && !GetComponent<charavalues>().shielded && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 1)
+                else if (uptiltdelaycounter == 0 && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 1)
                 {
                     UpTiltAttack();
                     uptiltdelaycounter = uptiltattackdelay;
@@ -202,14 +216,14 @@ public class BobbyAtk : MonoBehaviour
             }
             else //se déclenche si le perso n'est pas au sol
             {
-                if (GetComponent<Charamov>().valueright == 0 && GetComponent<Charamov>().valueright == 0 && nairdelaycounter == 0 && !GetComponent<charavalues>().shielded) //si le perso peut faire un nair, qu'aucune input de direction n'est activée et que le bouclier est baissé, la fonction correspondant au nair se déclenche et le delai entre deux nairs aussi.
+                if (GetComponent<Charamov>().valueright == 0 && GetComponent<Charamov>().valueright == 0 && nairdelaycounter == 0 ) //si le perso peut faire un nair, qu'aucune input de direction n'est activée et que le bouclier est baissé, la fonction correspondant au nair se déclenche et le delai entre deux nairs aussi.
                 {
                     NairAttack();
                     nairdelaycounter = nairattackdelay;
                 }
                 else //si les conditions pour faire un nair ne sont pas remplis, comme il n'y a pas encore d'autres attaque aériennes implémentées, un tilt est fait.
                 {
-                    if (tiltdelaycounter == 0 && !GetComponent<charavalues>().shielded)
+                    if (tiltdelaycounter == 0)
                     {
                         TiltAttack();
                         tiltdelaycounter = tiltattackdelay;
@@ -217,11 +231,16 @@ public class BobbyAtk : MonoBehaviour
                 }
             }
         }
+        else if (!grabed && hitstun <= 0 && !attacking && shielded && !grabbing)
+        {
+            Grab();
+            grabdelaycounter = grabattackdelay;
+        }
     }
 
     void InputSpecial()
     {
-        if(!grabed && hitstun<=0 && !attacking)
+        if(!grabed && hitstun<=0 && !attacking && !grabbing)
         {
             if (GetComponent<Charamov>().vertical == 1 && upbdelaycounter == 0 && !upbused)
             {
@@ -234,6 +253,12 @@ public class BobbyAtk : MonoBehaviour
     void Update()
     {
 
+        shielded = GetComponent<charavalues>().shielded;
+
+        grabbing = GetComponent<charavalues>().grabbing;
+
+        grabed = GetComponent<charavalues>().grabed;
+
         if (tempperc != GetComponent<charavalues>().percent)
         {
             enanim.SetTrigger("hit");
@@ -242,7 +267,7 @@ public class BobbyAtk : MonoBehaviour
 
         hitstun = GetComponent<charavalues>().hitstuncnt;
 
-        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 )
+        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 || grablengthcounter>0)
         {
             GetComponent<charavalues>().attacking = true;
         }
@@ -251,7 +276,7 @@ public class BobbyAtk : MonoBehaviour
             GetComponent <charavalues>().attacking = false;
         }
 
-        grabed = GetComponent<charavalues>().grabed;
+        
 
         if (atkinput==1)
         {
@@ -312,6 +337,41 @@ public class BobbyAtk : MonoBehaviour
     //A une exception près, je ne vais rien préciser sur NairAttack et LingeringNair ni sur toutes celles qui vont suivre car elles n'ont pas de différence majeures avec les tilts, si ce n'est la position de la transform et les valeurs des variables.
 
 
+    void Grab()
+    {
+        enanim.SetTrigger("grab");
+        grablengthcounter=grablength+grabstartframe;
+    }
+
+    void LingeringGrab()
+    {
+        grablengthcounter -= 1;
+
+        if(grablengthcounter <=grablength && grablengthcounter>0)
+        {
+            Collider2D[] hitenemies = Physics2D.OverlapCircleAll(grabattackpoint.position, grabrange);
+
+            foreach (Collider2D enemy in hitenemies)
+            {
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
+                {
+                    cible = enemy;
+
+                    enemy.GetComponent<charavalues>().grabbedframes = GameObject.Find("Global values").GetComponent<Globalvalues>().grabtime * (1 + enemy.GetComponent<charavalues>().percent/100);
+
+                    if(enemy.GetComponent<Charamov>().facingRight && GetComponent<Charamov>().facingRight)
+                    {
+                        enemy.GetComponent<Charamov>().Flip(-1f);
+                    }
+                    else if(!enemy.GetComponent<Charamov>().facingRight && !GetComponent<Charamov>().facingRight)
+                    {
+                        enemy.GetComponent<Charamov>().Flip(1f);
+                    }
+                }
+            }
+        }
+    }
+
     void TiltAttack()
     {
 
@@ -322,11 +382,7 @@ public class BobbyAtk : MonoBehaviour
 
             tiltlengthcounter = tiltlength+tiltstartframe; //initialise lengthcounter
 
-            
         }
-
-        
-
     }
 
     //cette fonction correspond aux hitbox après la première. Dans le cas d'attaque plus complexe que la simple: hitbox active frame 1, c'est cette fonction qui fera le heavy lifting.
@@ -361,13 +417,13 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
-                            enemyrb.velocity=new Vector2(0f,0f);
+                            
                             enemyrb.AddForce(new Vector2(tiltfixedrecoil-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
 
                         }
                         else
                         {
-                            enemyrb.velocity = new Vector2(0f, 0f);
+                             
                             enemyrb.AddForce(new Vector2(tiltfixedrecoil+tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
                         }
                         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
@@ -403,7 +459,7 @@ public class BobbyAtk : MonoBehaviour
 
                     if (enemy.GetComponent<charavalues>().shielded)
                     {
-                        enemyrb.velocity=new Vector2(0f,0f);
+                        
                         enemy.GetComponent<charavalues>().shield -= nairshielddamage;
                     }
                     else
@@ -413,13 +469,11 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
-                            enemyrb.velocity = new Vector2(0f, 0f);
                             enemyrb.AddForce(new Vector2(-nairbaserecoil, 0)); //ici, l'éjection de l'attaque est fixe, car les pourcents de la cible ne rentrent pas en jeu.
 
                         }
                         else
                         {
-                            enemyrb.velocity = new Vector2(0f, 0f);
                             enemyrb.AddForce(new Vector2(nairbaserecoil, 0));
                         }
                         enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
@@ -456,13 +510,11 @@ public class BobbyAtk : MonoBehaviour
 
                     if (transform.position.x >= enemy.transform.position.x)
                     {
-                        enemyrb.velocity = new Vector2(0f, 0f);
                         enemyrb.AddForce(new Vector2(-nairbaserecoil, 0));
 
                     }
                     else
                     {
-                        enemyrb.velocity = new Vector2(0f, 0f);
                         enemyrb.AddForce(new Vector2(nairbaserecoil, 0));
                     }
                     enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
@@ -523,13 +575,12 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
-                            enemyrb.velocity = new Vector2(0f, 0f);
                             enemyrb.AddForce(new Vector2(upbfixedrecoil - upbbaserecoil, 0));
 
                         }
                         else
                         {
-                            enemyrb.velocity = new Vector2(0f, 0f);
+                             
                             enemyrb.AddForce(new Vector2(upbfixedrecoil + upbbaserecoil, 0));
                         }
                         enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
@@ -590,7 +641,7 @@ public class BobbyAtk : MonoBehaviour
                     {
                         enemy.GetComponent<charavalues>().percent += dtiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
-                        enemyrb.velocity = new Vector2(0f, 0f);
+                         
                         enemyrb.AddForce(new Vector2(0, dtiltfixedrecoil + dtiltbaserecoil * enemy.GetComponent<charavalues>().percent)); //ici fixedrecoil est additionné à baserecoil pour faire une attaque qui ejectera toujours environ à la même hauter, mais tout de même un tout petit peu augmenté par les pourcents.
 
                         
@@ -646,7 +697,7 @@ public class BobbyAtk : MonoBehaviour
                     {
                         enemy.GetComponent<charavalues>().percent += uptiltpercent;
                         enemyrb = enemy.GetComponent<Rigidbody2D>();
-                        enemyrb.velocity = new Vector2(0f, 0f);
+                         
                         enemyrb.AddForce(new Vector2(0, uptiltbaserecoil * enemy.GetComponent<charavalues>().percent));
 
 
@@ -690,6 +741,11 @@ public class BobbyAtk : MonoBehaviour
             attacking = true;
             uptiltdelaycounter -= 1;
         }
+        else if(grabdelaycounter > 0)
+        {
+            attacking =true;
+            grabdelaycounter -= 1;
+        }
         else
         {
             attacking=false;
@@ -708,12 +764,28 @@ public class BobbyAtk : MonoBehaviour
             nairlengthcounter = 0;
 
             upblengthcounter = 0;
+
+            grablengthcounter = 0;
+
             upbused = false;
             enanim.SetBool("upb", false);
 
             cible = null;
             
 
+        }
+
+        if(grablengthcounter >0)
+        {
+            if(grablengthcounter == 1)
+            {
+                LingeringGrab();
+                cible = null;
+            }
+            else
+            {
+                LingeringGrab();
+            }
         }
 
         if (tiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
@@ -742,10 +814,6 @@ public class BobbyAtk : MonoBehaviour
             }
         }
         
-
-
-
-
         
         if (nairlengthcounter > 0) //activation du nair si la hitbox est toujours actives
         {

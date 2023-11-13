@@ -72,6 +72,8 @@ public class Charamov : MonoBehaviour
 
     private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
 
+    private bool grabbing; 
+
 
     private void Awake()
     {
@@ -133,6 +135,7 @@ public class Charamov : MonoBehaviour
     {
         hitstun= GetComponent<charavalues>().hitstuncnt;
         grabed = GetComponent<charavalues>().grabed;
+        grabbing = GetComponent<charavalues>().grabbing;
         grounded = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
         attacking=GetComponent<charavalues>().attacking;
 
@@ -143,13 +146,13 @@ public class Charamov : MonoBehaviour
         }
 
 
-        if(!grounded && vertical==-1 && rb2D.velocity.y<0 && !grabed) //correspond au quickfall. On check que la vitesse en y est négative, car ça veut dire qu'on est déja en train de tomber.
+        if(!grounded && vertical==-1 && rb2D.velocity.y<0 && !grabed && !grabbing) //correspond au quickfall. On check que la vitesse en y est négative, car ça veut dire qu'on est déja en train de tomber.
         {
             rb2D.velocity = new Vector2(rb2D.velocity.x,-quickfallspeed) ;
         }
 
 
-        if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded && !grabed && hitstun<=0)
+        if (vertical==-1 && grounded && !GetComponent<charavalues>().shielded && !grabed && !grabbing && hitstun<=0)
         {
             myanimator.SetBool("crouch", true);
             crouched = true;
@@ -164,7 +167,7 @@ public class Charamov : MonoBehaviour
             GetComponent<BoxCollider2D>().offset = new Vector2(GetComponent<BoxCollider2D>().offset.x, standinghboffsety);
         }
 
-        if (shieldcancel==0 && GetComponent<charavalues>().shielded) //annule le bouclier si le bouton est relaché
+        if (shieldcancel==0 && GetComponent<charavalues>().shielded || GetComponent<charavalues>().attacking) //annule le bouclier si le bouton est relaché
         {
            GetComponent<charavalues>().shielded = false;
             myanimator.SetBool("shield", false);
@@ -183,7 +186,7 @@ public class Charamov : MonoBehaviour
             GetComponent<charavalues>().shield += shieldrecharge;
         }
 
-        if (GetComponent<charavalues>().shielded && GetComponent<charavalues>().shield > 0) //diminue le shield si il est activé
+        if (GetComponent<charavalues>().shielded && GetComponent<charavalues>().shield > 0 && !GetComponent<charavalues>().attacking) //diminue le shield si il est activé
         {
             GetComponent<charavalues>().shield -= shielddimrate;
         }
@@ -224,7 +227,7 @@ public class Charamov : MonoBehaviour
     {
         //Section des mouvements
 
-        if(!GetComponent<charavalues>().shielded && !grabed && !attacking && hitstun<=0) //on ne bouge pas si le bouclier est actif
+        if(!GetComponent<charavalues>().shielded && !grabed && !attacking && hitstun<=0 && !grabbing) //on ne bouge pas si le bouclier est actif
         {
             if (!crouched) //Si on est baissé ou qu'on s'est fait grab, on ne peut pas bouger
             {
@@ -260,7 +263,7 @@ public class Charamov : MonoBehaviour
 
     }
     //permet de retourner la sprite du personnage
-    private void Flip(float horizontal) 
+    public void Flip(float horizontal) 
     {
         if (horizontal < 0 && facingRight || horizontal>0 && !facingRight)
         {
@@ -277,7 +280,7 @@ public class Charamov : MonoBehaviour
     //fonction qui se déclenche lorsqu'on appuye sur le bouton de shield
     void ShieldInput()
     {
-        if(grounded && shieldbreakcnter<=0 && !grabed && hitstun<=0)
+        if(grounded && shieldbreakcnter<=0 && !grabed && hitstun<=0 && !GetComponent<charavalues>().attacking)
         {
             GetComponent<charavalues>().shielded = true;
             myanimator.SetBool("shield", true);

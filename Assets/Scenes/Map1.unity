@@ -170,6 +170,7 @@ MonoBehaviour:
   player2char: Bobby
   rb2D: {fileID: 0}
   quickfallspeed: 6
+  grabtime: 48
   p1HP: 0
   p1maxHP: 0
   p2HP: 0
@@ -785,6 +786,8 @@ MonoBehaviour:
   hp: 0
   attacking: 0
   hitstuncnt: 0
+  grabbedframes: 0
+  grabbing: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -2520,6 +2523,8 @@ MonoBehaviour:
   hp: 0
   attacking: 0
   hitstuncnt: 0
+  grabbedframes: 0
+  grabbing: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -2542,6 +2547,11 @@ MonoBehaviour:
   tempperc: 0
   prevtempperc: 0
   justhit: 0
+  grabattackpoint: {fileID: 0}
+  grabrange: 0
+  grabattackdelay: 0
+  grablength: 0
+  grabstartframe: 0
   tiltattackpoint: {fileID: 492163971}
   tiltrange: 0.2
   tiltpercent: 10
@@ -3056,6 +3066,8 @@ MonoBehaviour:
   hp: 0
   attacking: 0
   hitstuncnt: 0
+  grabbedframes: 0
+  grabbing: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -3078,6 +3090,11 @@ MonoBehaviour:
   tempperc: 0
   prevtempperc: 0
   justhit: 0
+  grabattackpoint: {fileID: 1790763302}
+  grabrange: 0.2
+  grabattackdelay: 30
+  grablength: 16
+  grabstartframe: 9
   tiltattackpoint: {fileID: 574951554}
   tiltrange: 0.2
   tiltpercent: 10
@@ -3339,6 +3356,7 @@ Transform:
   - {fileID: 1075031242}
   - {fileID: 269825502}
   - {fileID: 1283664434}
+  - {fileID: 1790763302}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6908,6 +6926,8 @@ MonoBehaviour:
   hp: 0
   attacking: 0
   hitstuncnt: 0
+  grabbedframes: 0
+  grabbing: 0
   blinkcnt: 0
   SR: {fileID: 0}
   deblink: 0
@@ -9012,6 +9032,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1790763301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1790763302}
+  m_Layer: 0
+  m_Name: grabcheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1790763302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790763301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.457, y: -0.156, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 721399192}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1836456398
 GameObject:
   m_ObjectHideFlags: 0

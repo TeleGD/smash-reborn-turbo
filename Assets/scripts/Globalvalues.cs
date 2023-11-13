@@ -33,6 +33,7 @@ public class Globalvalues : MonoBehaviour
     public string player2char;
     public Rigidbody2D rb2D;
     public float quickfallspeed;
+    public int grabtime; //nombre de frame de base de durée du grab. La durée est augmentée avec nbframe=grabtime*(1+percent/100)
 
 
     [Header("Health variables")]

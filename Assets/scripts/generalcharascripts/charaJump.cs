@@ -65,6 +65,8 @@ public class charaJump : MonoBehaviour
     private bool grabed; //sert à déterminer si un perso est grab. Ce bool est récupéré du script charavalues
     private int hitstun;
 
+    private bool grabbing;
+
 
     private void Awake()
     {
@@ -97,6 +99,8 @@ public class charaJump : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        grabbing = GetComponent<charavalues>().grabbing;
 
         hitstun = GetComponent<charavalues>().hitstuncnt;
 
@@ -175,7 +179,7 @@ public class charaJump : MonoBehaviour
         //double jump
 
 
-        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache && !grabed && hitstun <= 0 && numberjumped<=maxnumberofjumps) //vérifie que toutes les requirements pour lancer un double saut sont vérifiés
+        if (pressedjump && !grounded && allowdoublejump && touchedground && jumplache && !grabed && !grabbing && hitstun <= 0 && numberjumped<=maxnumberofjumps) //vérifie que toutes les requirements pour lancer un double saut sont vérifiés
         {
 
             myanim.SetTrigger("jump");

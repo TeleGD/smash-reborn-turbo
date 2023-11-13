@@ -20,6 +20,9 @@ public class charavalues : MonoBehaviour
 
     private int temppercent; //int qui contient les pourcents de la frame d'avant pour pouvoir savoir quand le perso a pris des dégats pour pouvoir le hitstun
 
+    public float grabbedframes;
+
+    public bool grabbing;
 
     [Header("variables de clignotement lors d'iframe")]
     public int blinkcnt;
@@ -34,6 +37,46 @@ public class charavalues : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (grabbedframes>0f)
+        {
+            grabbedframes -= 1f;
+            grabed = true;
+        }
+        else
+        {
+            grabed = false;
+            grabbedframes = 0f;
+        }
+
+        if (this.CompareTag("Player2"))
+        {
+            foreach (GameObject O in GameObject.FindGameObjectsWithTag("Player1"))
+            {
+                if ( O.GetComponent<charavalues>().grabbedframes>0f)
+                {
+                    grabbing = true;
+                }
+                else
+                {
+                    grabbing= false;
+                }
+            }
+        }
+        else
+        {
+            foreach (GameObject O in GameObject.FindGameObjectsWithTag("Player2"))
+            {
+                if (O.GetComponent<charavalues>().grabbedframes > 0f)
+                {
+                    grabbing = true;
+                }
+                else
+                {
+                    grabbing = false;
+                }
+            }
+        }
 
         if(grabed)
         {
