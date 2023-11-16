@@ -574,13 +574,13 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
-                            enemyrb.AddForce(new Vector2(-upbfixedrecoil - upbbaserecoil, 0));
+                            enemyrb.AddForce(new Vector2(-upbfixedrecoil - upbbaserecoil* enemy.GetComponent<charavalues>().percent, 0));
 
                         }
                         else
                         {
                              
-                            enemyrb.AddForce(new Vector2(upbfixedrecoil + upbbaserecoil, 0));
+                            enemyrb.AddForce(new Vector2(upbfixedrecoil + upbbaserecoil*enemy.GetComponent<charavalues>().percent, 0));
                         }
                         enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
                     }

@@ -2543,7 +2543,6 @@ MonoBehaviour:
   Attack: {fileID: 0}
   playernumber: 1
   enemynumber: 2
-  enemytag: 
   tempperc: 0
   prevtempperc: 0
   justhit: 0
@@ -2664,7 +2663,7 @@ MonoBehaviour:
   valueright: 0
   horizontal: 0
   vertical: 0
-  shieldbar: {fileID: 890761104}
+  shieldbar: {fileID: 646155277}
   shieldcancel: 0
   crouched: 0
   crouchedhbx: 0.9
@@ -3118,7 +3117,6 @@ MonoBehaviour:
   Attack: {fileID: 0}
   playernumber: 2
   enemynumber: 1
-  enemytag: 
   tempperc: 0
   prevtempperc: 0
   justhit: 0
