@@ -78,7 +78,7 @@ public class charavalues : MonoBehaviour
             }
         }
 
-        if(grabed)
+        if(grabed) //gère les animations si le perso se fait grab
         {
             GetComponent<Animator>().SetBool("grabbed",true);
         }
@@ -87,8 +87,17 @@ public class charavalues : MonoBehaviour
             GetComponent<Animator>().SetBool("grabbed", false);
         }
 
+        if (grabbing) //gère les animations si le perso est en train de grab
+        {
+            GetComponent<Animator>().SetBool("grabbing", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("grabbing", false);
+        }
 
-        if(temppercent!=percent)
+
+        if (temppercent!=percent)
         {
             temppercent = percent;
             hitstuncnt = GameObject.Find("Global values").GetComponent<Globalvalues>().hitstun;

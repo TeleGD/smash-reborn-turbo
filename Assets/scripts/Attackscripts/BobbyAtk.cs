@@ -19,7 +19,6 @@ public class BobbyAtk : MonoBehaviour
     [Header("Character variables")] //Ces variables sont les variablesqui vont être modifiées lorsque l'ennemi va être attaqué. Les trois premières ont été regroupé dans un script qui sera le seul présent dans tous les personnages.
     public int playernumber;
     public int enemynumber;
-    public string enemytag;
     public int tempperc=0; //cette variable et la suivante permettent de déterminer quand le personnage a été touché par une attaque.afin de réinit les upB.
     public int prevtempperc=0;
     public bool justhit; //Booléen qui devient true si à une frame, les pourcents ont changé par rapport à la dernière frame, ce qui signifie qu'ils ont été touché par une attaque.
@@ -357,7 +356,7 @@ public class BobbyAtk : MonoBehaviour
                 {
                     cible = enemy;
 
-                    enemy.GetComponent<charavalues>().grabbedframes = GameObject.Find("Global values").GetComponent<Globalvalues>().grabtime * (1 + enemy.GetComponent<charavalues>().percent/100);
+                    enemy.GetComponent<charavalues>().grabbedframes = GameObject.Find("Global values").GetComponent<Globalvalues>().grabtime * (1 + enemy.GetComponent<charavalues>().percent/50);
 
                     if(enemy.GetComponent<Charamov>().facingRight && GetComponent<Charamov>().facingRight)
                     {
@@ -418,13 +417,13 @@ public class BobbyAtk : MonoBehaviour
                         if (transform.position.x >= enemy.transform.position.x)
                         {
                             
-                            enemyrb.AddForce(new Vector2(tiltfixedrecoil-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
+                            enemyrb.AddForce(new Vector2(-tiltfixedrecoil-tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 100));
 
                         }
                         else
                         {
                              
-                            enemyrb.AddForce(new Vector2(tiltfixedrecoil+tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
+                            enemyrb.AddForce(new Vector2(tiltfixedrecoil+tiltbaserecoil * enemy.GetComponent<charavalues>().percent, 100));
                         }
                         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
                     }
@@ -575,7 +574,7 @@ public class BobbyAtk : MonoBehaviour
 
                         if (transform.position.x >= enemy.transform.position.x)
                         {
-                            enemyrb.AddForce(new Vector2(upbfixedrecoil - upbbaserecoil, 0));
+                            enemyrb.AddForce(new Vector2(-upbfixedrecoil - upbbaserecoil, 0));
 
                         }
                         else
