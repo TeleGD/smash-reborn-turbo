@@ -70,6 +70,7 @@ Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Shield
 - Hit
 - Grabbed
+- Pummel
 
 Exporter les animation sous un format où toutes les frames sont sur le même .PNG
 Une fois les animations prête (les animation clip utilisables), simplement les remplacer dans l'animator.
