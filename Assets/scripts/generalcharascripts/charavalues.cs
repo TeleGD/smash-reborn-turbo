@@ -100,8 +100,12 @@ public class charavalues : MonoBehaviour
         if (temppercent!=percent)
         {
             temppercent = percent;
-            hitstuncnt = GameObject.Find("Global values").GetComponent<Globalvalues>().hitstun;
-            GetComponent<Animator>().SetTrigger("hit");
+            if(!grabed)
+            {
+                hitstuncnt = GameObject.Find("Global values").GetComponent<Globalvalues>().hitstun * (1 + percent / 50);
+                GetComponent<Animator>().SetTrigger("hit");
+            }
+           
         }
 
         if (hitstuncnt > 0)

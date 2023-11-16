@@ -168,14 +168,15 @@ MonoBehaviour:
   respawniframes: 120
   player1char: Randy
   player2char: Bobby
-  rb2D: {fileID: 0}
+  rb2D1: {fileID: 0}
+  rb2D2: {fileID: 0}
   quickfallspeed: 6
   grabtime: 48
   p1HP: 0
   p1maxHP: 0
   p2HP: 0
   p2maxHP: 0
-  hitstun: 15
+  hitstun: 16
   P1healthbar: {fileID: 0}
   P2healthbar: {fileID: 0}
   playable: 1
@@ -1028,6 +1029,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  platformed: 0
   attacking: 0
 --- !u!114 &170043937
 MonoBehaviour:
@@ -1041,8 +1043,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b135fd3b96d4b7e408eea3cf30f66372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackpoint: {fileID: 15295183}
-  range: 0
   maxnumberofjumps: 2
   jumpForce: 7
   jumptime: 0.26
@@ -2592,12 +2592,14 @@ MonoBehaviour:
   uptilhbx: 0.6
   uptilhby: 0.8
   uptiltpercent: 10
-  uptiltattackdelay: 48
+  uptiltattackdelay: 54
   uptiltshielddamage: 100
-  uptiltlength: 16
+  uptiltlength: 32
   uptiltlengthcounter: 0
   uptiltstartframe: 8
   uptiltbaserecoil: 10
+  pummelpercent: 3
+  pummelattackdelay: 16
   cible: {fileID: 0}
   grounded: 0
   attacking: 0
@@ -2613,8 +2615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b135fd3b96d4b7e408eea3cf30f66372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackpoint: {fileID: 492163971}
-  range: 0
   maxnumberofjumps: 1
   jumpForce: 6
   jumptime: 0.26
@@ -2680,6 +2680,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  platformed: 0
   attacking: 0
 --- !u!114 &692543878
 MonoBehaviour:
@@ -3166,12 +3167,14 @@ MonoBehaviour:
   uptilhbx: 0.6
   uptilhby: 0.8
   uptiltpercent: 10
-  uptiltattackdelay: 48
+  uptiltattackdelay: 54
   uptiltshielddamage: 100
-  uptiltlength: 16
+  uptiltlength: 32
   uptiltlengthcounter: 0
   uptiltstartframe: 8
   uptiltbaserecoil: 10
+  pummelpercent: 3
+  pummelattackdelay: 16
   cible: {fileID: 0}
   grounded: 0
   attacking: 0
@@ -3187,8 +3190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b135fd3b96d4b7e408eea3cf30f66372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackpoint: {fileID: 574951554}
-  range: 0
   maxnumberofjumps: 1
   jumpForce: 6
   jumptime: 0.26
@@ -3426,6 +3427,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  platformed: 0
   attacking: 0
 --- !u!1 &804067598
 GameObject:
@@ -6933,6 +6935,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  platformed: 0
   attacking: 0
 --- !u!114 &1588210694
 MonoBehaviour:
@@ -7174,8 +7177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b135fd3b96d4b7e408eea3cf30f66372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackpoint: {fileID: 1048189810}
-  range: 0
   maxnumberofjumps: 2
   jumpForce: 7
   jumptime: 0.26

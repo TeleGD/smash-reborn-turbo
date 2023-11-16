@@ -12,7 +12,7 @@ public class BobbyAtk : MonoBehaviour
 
     public PlayerInput Attack;
 
-    private Animator enanim;
+    private Animator anim;
 
 
 
@@ -133,6 +133,11 @@ public class BobbyAtk : MonoBehaviour
     public int uptiltstartframe;
     public float uptiltbaserecoil;
 
+    [Header("pummel variables")]
+    public int pummelpercent;
+    public int pummelattackdelay;
+    private int pummeldelaycounter;
+
     [Header("collider touché")]
     public Collider2D cible; //sert à garder en mémoire la dernière cible touchée lors d'une attaque non multi-hit. Cela permet de ne pas toucher deux fois avec la même attaque.
 
@@ -153,7 +158,7 @@ public class BobbyAtk : MonoBehaviour
     void Start()
     {
 
-        enanim = GetComponent<Animator>(); //initialisation de l'animateur
+        anim = GetComponent<Animator>(); //initialisation de l'animateur
 
         
 
@@ -230,6 +235,14 @@ public class BobbyAtk : MonoBehaviour
                 }
             }
         }
+        else if (!grabed && hitstun <= 0 && !attacking && !shielded && grabbing && pummeldelaycounter<=0)
+        {
+            anim.SetTrigger("pummel");
+            Pummel();
+            pummeldelaycounter = pummelattackdelay;
+
+
+        }
         else if (!grabed && hitstun <= 0 && !attacking && shielded && !grabbing)
         {
             Grab();
@@ -260,7 +273,7 @@ public class BobbyAtk : MonoBehaviour
 
         if (tempperc != GetComponent<charavalues>().percent)
         {
-            enanim.SetTrigger("hit");
+            anim.SetTrigger("hit");
             tempperc = GetComponent<charavalues>().percent;
         }
 
@@ -300,14 +313,14 @@ public class BobbyAtk : MonoBehaviour
             if(upblengthcounter==0)
             {
                 upbused = false;
-                enanim.SetBool("upb", false);
+                anim.SetBool("upb", false);
             }
 
         }
 
         tempperc=GetComponent<charavalues>().percent;
 
-        if (tempperc!=prevtempperc) //active justhit si les les pourcents ont changés, donc si l'ennemi a été touché.
+        if (tempperc!=prevtempperc && !GetComponent<charavalues>().grabed) //active justhit si les les pourcents ont changés, donc si l'ennemi a été touché.
         {
             justhit = true;
         }
@@ -325,20 +338,37 @@ public class BobbyAtk : MonoBehaviour
 
 
     //indications sur la façon dont les fonctions ont été faites:
-    //pour chaque attaque, il y a une version de base et une version "lingering".
+    //pour chaque attaque, il y a une version de base et une version "lingering". (pummel est une exception)
     //la version de base correspond à ce qui se fait directement quand le bouton est pressé.
     //la version lingering correspond à ce qui se passe dans les frames qui suivent.
     //Pour faire des comportement spéciaux tels que des multihits ou du lag avant l'attaque, il suffit de faire des case en fonction du nombre de frame écoulé, c'est à dire à la valeur de la variable lengthcounter.
     //Il est à noter que la suite fais des actions sur une entité désigné par "enemi" et qui peut être n'importe quel personnage en fonction des combats. Ceci est possible grâce au script charavalues, qui fait le lien entre les différents scripts des différents persos. Il est essentiel sur tous les persos.
-    
+
 
     //Je vais détailler précisément ce qui se passe dans TiltAttack, puis préciser quelques points sur LingeringTilt.
     //A une exception près, je ne vais rien préciser sur NairAttack et LingeringNair ni sur toutes celles qui vont suivre car elles n'ont pas de différence majeures avec les tilts, si ce n'est la position de la transform et les valeurs des variables.
 
-
+    void Pummel()
+    {
+        if (this.CompareTag("Player2"))
+        {
+            foreach (GameObject O in GameObject.FindGameObjectsWithTag("Player1"))
+            {
+                O.GetComponent<charavalues>().percent += pummelpercent;
+            }
+        }
+        else
+        {
+            foreach (GameObject O in GameObject.FindGameObjectsWithTag("Player2"))
+            {
+                O.GetComponent<charavalues>().percent += pummelpercent;
+            }
+        }
+        
+    }
     void Grab()
     {
-        enanim.SetTrigger("grab");
+        anim.SetTrigger("grab");
         grablengthcounter=grablength+grabstartframe;
     }
 
@@ -354,6 +384,8 @@ public class BobbyAtk : MonoBehaviour
             {
                 if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && enemy != cible) //il est important de remarquer qu'ici intervient cible pour éviter que l'attaque ne la touche plusieurs fois.
                 {
+                    pummeldelaycounter = pummelattackdelay;
+
                     cible = enemy;
 
                     enemy.GetComponent<charavalues>().grabbedframes = GameObject.Find("Global values").GetComponent<Globalvalues>().grabtime * (1 + enemy.GetComponent<charavalues>().percent/50);
@@ -377,7 +409,7 @@ public class BobbyAtk : MonoBehaviour
         if(tiltlengthcounter==0)//ne se déclenche que si lengthcounter est nul
         {
             //attack animation
-            enanim.SetTrigger("attack");
+            anim.SetTrigger("attack");
 
             tiltlengthcounter = tiltlength+tiltstartframe; //initialise lengthcounter
 
@@ -446,7 +478,7 @@ public class BobbyAtk : MonoBehaviour
             nairlengthcounter = nairlength;
 
             //attack animation
-            enanim.SetTrigger("nair");
+            anim.SetTrigger("nair");
 
             //get enemies in range
             Collider2D[] hitenemies = Physics2D.OverlapCircleAll(nairattackpoint.position, nairrange);
@@ -538,7 +570,7 @@ public class BobbyAtk : MonoBehaviour
             upblengthcounter = upblength+upbstartframe;
 
             //attack animation
-            enanim.SetBool("upb",true);
+            anim.SetBool("upb",true);
 
             
         }
@@ -605,7 +637,7 @@ public class BobbyAtk : MonoBehaviour
             dtiltlengthcounter = dtiltlength+dtiltstartframe;
 
             //attack animation
-            enanim.SetTrigger("attack");
+            anim.SetTrigger("attack");
 
         }
 
@@ -664,7 +696,7 @@ public class BobbyAtk : MonoBehaviour
             uptiltlengthcounter = uptiltlength+uptiltstartframe;
 
             //attack animation
-            enanim.SetTrigger("uptilt");
+            anim.SetTrigger("uptilt");
 
         }
 
@@ -715,6 +747,10 @@ public class BobbyAtk : MonoBehaviour
 
     void AttackCD() //gère les décrémentation des compteur des attaques ainsi que le déclenchement des attaques actives après frame 1
     {
+        if (pummeldelaycounter > 0) //CD du pummel
+        {
+            pummeldelaycounter -= 1;
+        }
         if (tiltdelaycounter > 0) //CD du tilt
         {
             attacking = true;
@@ -767,7 +803,7 @@ public class BobbyAtk : MonoBehaviour
             grablengthcounter = 0;
 
             upbused = false;
-            enanim.SetBool("upb", false);
+            anim.SetBool("upb", false);
 
             cible = null;
             
@@ -829,7 +865,7 @@ public class BobbyAtk : MonoBehaviour
             {
                 lingeringupb();
                 cible = null; //on réinitialise cible à la fin de l'attaque
-                enanim.SetBool("upb", false);
+                anim.SetBool("upb", false);
                 GetComponent<charavalues>().upb = false;
             }
             else
