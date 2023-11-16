@@ -280,7 +280,7 @@ public class Charamov : MonoBehaviour
     //fonction qui se déclenche lorsqu'on appuye sur le bouton de shield
     void ShieldInput()
     {
-        if(grounded && shieldbreakcnter<=0 && !grabed && hitstun<=0 && !GetComponent<charavalues>().attacking)
+        if(grounded && shieldbreakcnter<=0 && !grabed && hitstun<=0 && !GetComponent<charavalues>().attacking && !grabbing)
         {
             GetComponent<charavalues>().shielded = true;
             myanimator.SetBool("shield", true);
