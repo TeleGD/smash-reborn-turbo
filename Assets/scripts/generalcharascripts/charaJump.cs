@@ -12,10 +12,6 @@ public class charaJump : MonoBehaviour
 {
     PlayerControls controls;
 
-    [Header("hitbox of the attack")]
-    public Transform attackpoint;
-    public float range;
-
     [Header("Jump details")]
     public int maxnumberofjumps; //number of jumps
     private int numberjumped; //compte le nombre de sauts que le perso a fait
