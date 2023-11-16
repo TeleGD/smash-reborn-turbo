@@ -31,7 +31,8 @@ public class Globalvalues : MonoBehaviour
     public int respawniframes;
     public string player1char;
     public string player2char;
-    public Rigidbody2D rb2D;
+    public Rigidbody2D rb2D1;
+    public Rigidbody2D rb2D2;
     public float quickfallspeed;
     public int grabtime; //nombre de frame de base de durée du grab. La durée est augmentée avec nbframe=grabtime*(1+percent/100)
 
@@ -105,15 +106,15 @@ public class Globalvalues : MonoBehaviour
         {
             if (player.tag == "Player1")
             {
-                rb2D = player.GetComponent<Rigidbody2D>();
+                rb2D1 = player.GetComponent<Rigidbody2D>();
 
-                if (rb2D.position.x >= deathright || rb2D.position.y <= deathdown || rb2D.position.y >= deathup || rb2D.position.x <= deathleft)
+                if (rb2D1.position.x >= deathright || rb2D1.position.y <= deathdown || rb2D1.position.y >= deathup || rb2D1.position.x <= deathleft)
                 {
                     if (p1HP > 1)
                     {
                         p1HP -= 1;
                         player.transform.position = new Vector2(2, 2);
-                        rb2D.velocity = new Vector2(0, 0);
+                        rb2D1.velocity = new Vector2(0, 0);
                         player.GetComponent<charavalues>().iframes = respawniframes;
                         player.GetComponent<charavalues>().percent = 0;
 
@@ -126,15 +127,15 @@ public class Globalvalues : MonoBehaviour
             }
             else if (player.tag == "Player2")
             {
-                rb2D = player.GetComponent<Rigidbody2D>();
+                rb2D2 = player.GetComponent<Rigidbody2D>();
 
-                if (rb2D.position.x >= deathright || rb2D.position.y <= deathdown || rb2D.position.y >= deathup || rb2D.position.x <= deathleft)
+                if (rb2D2.position.x >= deathright || rb2D2.position.y <= deathdown || rb2D2.position.y >= deathup || rb2D2.position.x <= deathleft)
                 {
                     if (p2HP > 1)
                     {
                         p2HP -= 1;
                         player.transform.position = new Vector2(2, 2);
-                        rb2D.velocity = new Vector2(0, 0);
+                        rb2D2.velocity = new Vector2(0, 0);
                         player.GetComponent<charavalues>().iframes = respawniframes;
                         player.GetComponent<charavalues>().percent = 0;
 
