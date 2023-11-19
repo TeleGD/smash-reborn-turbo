@@ -51,6 +51,9 @@ public class BobbyAtk : MonoBehaviour
     //fixedrecoil: recul fixe de l'attaque. Cette variable existe pour faire une ejection fixe indépendante des pourcents de la cible
     //selfeject: ejection du perso qui lance l'attaque (par exemple pour une charge ou un upB)
     //used: bool qui sert à déterminer si l'attaque a déja été utilisée, typiquement pour les attaques spéciales
+    //startdistance: float qui détermine une distance fixe à parcourrir.
+    //direction: garde la direction de l'attaque si besoin;
+    //startx: garde la coordonnée en x de depart du perso
 
     //Il est à noter que ces variables peuvent être misent en privé ou en public. Comme aucun autre script ne les utilise, les mettre en public n'est techniquement pas utile.
     //Cependant, lors des phases de débeugage, il est conseillé de les mettre soit en public soit d'ajouter [SerializeField] devant private pour que les variables apparaissent dans l'éditeur.
@@ -132,6 +135,25 @@ public class BobbyAtk : MonoBehaviour
     public int uptiltlengthcounter;
     public int uptiltstartframe;
     public float uptiltbaserecoil;
+
+    [Header("SideBattack variables")]
+    public Transform sbattackpoint;
+    public float sbhbx;
+    public float sbhby;
+    public int sbpercent;
+    public int sbattackdelay;
+    public int sbdelaycounter;
+    public int sbshielddamage;
+    public int sblength;
+    public int sblengthcounter;
+    public int sbstartframe;
+    public float sbbaserecoil;
+    public float sbfixedrecoil;
+    public float sbselfeject;
+    public bool sbused;
+    public float sbdistance;
+    private float sbdirection;
+    private float sbstartx;
 
     [Header("pummel variables")]
     public int pummelpercent;
@@ -259,6 +281,11 @@ public class BobbyAtk : MonoBehaviour
                 upbAttack();
                 upbdelaycounter = upbattackdelay;
             }
+            else if (GetComponent<Charamov>().horizontal !=0 && sbdelaycounter == 0 && !sbused)
+            {
+                sbAttack(GetComponent<Charamov>().horizontal);
+                sbdelaycounter = sbattackdelay;
+            }
         }
     }
 
@@ -279,7 +306,7 @@ public class BobbyAtk : MonoBehaviour
 
         hitstun = GetComponent<charavalues>().hitstuncnt;
 
-        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 || grablengthcounter>0)
+        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 || grablengthcounter>0 || sblengthcounter>0)
         {
             GetComponent<charavalues>().attacking = true;
         }
@@ -314,6 +341,11 @@ public class BobbyAtk : MonoBehaviour
             {
                 upbused = false;
                 anim.SetBool("upb", false);
+            }
+            if(sblengthcounter==0)
+            {
+                sbused = false;
+                anim.SetBool("sideb", false) ;
             }
 
         }
@@ -628,6 +660,111 @@ public class BobbyAtk : MonoBehaviour
     }
 
 
+    void sbAttack(float dir)
+    {
+
+        if (sblengthcounter == 0)
+        {
+
+            sbdirection = dir;
+
+            sbstartx=transform.position.x;
+
+            GetComponent<charavalues>().sb = true;
+
+            sbused = true;
+
+            sblengthcounter = sblength + sbstartframe;
+
+            //attack animation
+            anim.SetBool("sideb", true);
+
+
+        }
+
+
+    }
+
+    void lingeringsb()
+    {
+
+        sblengthcounter -= 1;
+
+        if (sblengthcounter <= sblength && sblengthcounter >= 0)
+        {
+            //get enemies in range
+            Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(sbattackpoint.position.x - sbhbx / 2, sbattackpoint.position.y + sbhby / 2), new Vector2(sbattackpoint.position.x + sbhbx / 2, sbattackpoint.position.y - sbhby / 2));
+
+            foreach (Collider2D enemy in hitenemies)
+            {
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && cible != enemy)
+                {
+
+                    cible = enemy;
+
+                    if (enemy.GetComponent<charavalues>().shielded)
+                    {
+
+                        enemy.GetComponent<charavalues>().shield -= sbshielddamage;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<charavalues>().percent += sbpercent;
+                        enemyrb = enemy.GetComponent<Rigidbody2D>();
+
+                        enemyrb.AddForce(new Vector2(0, sbfixedrecoil + sbbaserecoil * enemy.GetComponent<charavalues>().percent));
+
+                        enemyrb.velocity = new Vector2(0, enemyrb.velocity.y);
+
+
+                    }
+
+                }
+
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+
+                sbdelaycounter = sbdelaycounter - sblengthcounter;
+
+                sblengthcounter = 0;
+
+                anim.SetBool("sideb", false);
+
+                cible = null;
+
+                GetComponent<charavalues>().sb = false;
+
+            }
+
+            if(sbdirection>0 && transform.position.x<sbstartx+sbdistance)
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(sbselfeject,0); 
+            }
+            else if(sbdirection<0 && transform.position.x > sbstartx - sbdistance)
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(-sbselfeject,0);
+            }
+            else
+            {
+
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+
+                sblengthcounter = 0;
+
+                anim.SetBool("sideb", false);
+
+                cible = null;
+
+                GetComponent<charavalues>().sb = false;
+            }
+
+      
+
+        }
+
+
+    }
+
+
     void DTiltAttack()
     {
 
@@ -771,6 +908,11 @@ public class BobbyAtk : MonoBehaviour
             attacking = true;
             upbdelaycounter -= 1;
         }
+        else if (sbdelaycounter > 0) //CD du sideb
+        {
+            attacking = true;
+            sbdelaycounter -= 1;
+        }
         else if (uptiltdelaycounter > 0) //CD du tilt
         {
             attacking = true;
@@ -800,10 +942,19 @@ public class BobbyAtk : MonoBehaviour
 
             upblengthcounter = 0;
 
+            sblengthcounter = 0;
+
             grablengthcounter = 0;
 
             upbused = false;
             anim.SetBool("upb", false);
+
+            GetComponent<charavalues>().upb = false;
+
+            sbused = false;
+            anim.SetBool("sideb", false);
+
+            GetComponent<charavalues>().sb = false;
 
             cible = null;
             
@@ -876,7 +1027,23 @@ public class BobbyAtk : MonoBehaviour
         }
 
 
-        
+
+
+        if (sblengthcounter > 0) //activation du sideb si la hitbox est toujours actives
+        {
+            if (sblengthcounter == 1)
+            {
+                lingeringsb();
+                cible = null; //on réinitialise cible à la fin de l'attaque
+                anim.SetBool("sideb", false);
+                GetComponent<charavalues>().sb = false;
+            }
+            else
+            {
+                lingeringsb();
+            }
+
+        }
 
 
 
@@ -910,6 +1077,7 @@ public class BobbyAtk : MonoBehaviour
         Gizmos.DrawWireSphere(upbattackpoint.position, upbrange);
         Gizmos.DrawCube(dtiltattackpoint.position, new Vector2(dtilhbx, dtilhby));
         Gizmos.DrawCube(uptiltattackpoint.position, new Vector2(uptilhbx, uptilhby));
+        Gizmos.DrawCube(sbattackpoint.position, new Vector2(sbhbx, sbhby));
     }
 //    void OnEnable()
   //  {
