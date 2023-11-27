@@ -171,6 +171,7 @@ MonoBehaviour:
   rb2D1: {fileID: 0}
   rb2D2: {fileID: 0}
   quickfallspeed: 6
+  speedwhenoverplayer: 0.25
   grabtime: 48
   p1HP: 0
   p1maxHP: 0
@@ -1060,8 +1061,15 @@ MonoBehaviour:
   whatisground:
     serializedVersion: 2
     m_Bits: 64
-  grounded: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 256
   platformed: 0
+  overaplayer: 0
+  groundchecksizey: 0.1
+  groundcheckoffsety: -0.05
+  grounded: 0
+  movewhenover: 0
   attacking: 0
 --- !u!114 &170043937
 MonoBehaviour:
@@ -1085,22 +1093,10 @@ MonoBehaviour:
   dbjumptime: 0.13
   dbjumpdelay: 0.01
   jumplache: 0
-  groundcheck: {fileID: 330831251}
-  radOcircle: 0.06
-  hauteurgi: 0.06
-  largeurgi: 0.2
-  whatisground:
-    serializedVersion: 2
-    m_Bits: 64
   grounded: 0
   platformed: 0
-  plathbx: 0.2
-  plathby: 0.2
   platdowntime: 60
   platdowncnt: 0
-  whatisplatform:
-    serializedVersion: 2
-    m_Bits: 256
   horizontal: 0
   pressedjump: 0
   presseddown: 0
@@ -2777,22 +2773,10 @@ MonoBehaviour:
   dbjumptime: 0.13
   dbjumpdelay: 0.2
   jumplache: 0
-  groundcheck: {fileID: 2146272741}
-  radOcircle: 0.06
-  hauteurgi: 0.06
-  largeurgi: 0.57
-  whatisground:
-    serializedVersion: 2
-    m_Bits: 64
   grounded: 0
   platformed: 0
-  plathbx: 0.6
-  plathby: 0.02
   platdowntime: 60
   platdowncnt: 0
-  whatisplatform:
-    serializedVersion: 2
-    m_Bits: 256
   horizontal: 0
   pressedjump: 0
   presseddown: 0
@@ -3004,8 +2988,15 @@ MonoBehaviour:
   whatisground:
     serializedVersion: 2
     m_Bits: 64
-  grounded: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 256
   platformed: 0
+  overaplayer: 0
+  groundchecksizey: 0.1
+  groundcheckoffsety: -0.05
+  grounded: 0
+  movewhenover: 0
   attacking: 0
 --- !u!1 &804067598
 GameObject:
@@ -6647,22 +6638,10 @@ MonoBehaviour:
   dbjumptime: 0.13
   dbjumpdelay: 0.2
   jumplache: 0
-  groundcheck: {fileID: 1812818917}
-  radOcircle: 0.06
-  hauteurgi: 0.06
-  largeurgi: 0.57
-  whatisground:
-    serializedVersion: 2
-    m_Bits: 64
   grounded: 0
   platformed: 0
-  plathbx: 0.6
-  plathby: 0.02
   platdowntime: 60
   platdowncnt: 0
-  whatisplatform:
-    serializedVersion: 2
-    m_Bits: 256
   horizontal: 0
   pressedjump: 0
   presseddown: 0
@@ -6701,8 +6680,15 @@ MonoBehaviour:
   whatisground:
     serializedVersion: 2
     m_Bits: 64
-  grounded: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 256
   platformed: 0
+  overaplayer: 0
+  groundchecksizey: 0.1
+  groundcheckoffsety: -0.05
+  grounded: 0
+  movewhenover: 0
   attacking: 0
 --- !u!114 &1585665819
 MonoBehaviour:
@@ -6938,8 +6924,15 @@ MonoBehaviour:
   whatisground:
     serializedVersion: 2
     m_Bits: 64
-  grounded: 0
+  whatisplatform:
+    serializedVersion: 2
+    m_Bits: 256
   platformed: 0
+  overaplayer: 0
+  groundchecksizey: 0.1
+  groundcheckoffsety: -0.05
+  grounded: 0
+  movewhenover: 0
   attacking: 0
 --- !u!114 &1588210694
 MonoBehaviour:
@@ -7192,22 +7185,10 @@ MonoBehaviour:
   dbjumptime: 0.13
   dbjumpdelay: 0.01
   jumplache: 0
-  groundcheck: {fileID: 1853126973}
-  radOcircle: 0.06
-  hauteurgi: 0.06
-  largeurgi: 0.2
-  whatisground:
-    serializedVersion: 2
-    m_Bits: 64
   grounded: 0
   platformed: 0
-  plathbx: 0.2
-  plathby: 0.2
   platdowntime: 60
   platdowncnt: 0
-  whatisplatform:
-    serializedVersion: 2
-    m_Bits: 256
   horizontal: 0
   pressedjump: 0
   presseddown: 0

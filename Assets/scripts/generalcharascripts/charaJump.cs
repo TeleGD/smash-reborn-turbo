@@ -31,23 +31,12 @@ public class charaJump : MonoBehaviour
     public bool jumplache; //bool qui détermine si le bouton de saut est pressé ou pas
 
 
-    [Header("Ground details")]
-    //ensemble de variables qui servent à détecter le sol
-    [SerializeField] private Transform groundcheck;
-    [SerializeField] private float radOcircle;
-    [SerializeField] private float hauteurgi;
-    [SerializeField] private float largeurgi;
-    [SerializeField] private LayerMask whatisground;
-
     public bool grounded; //bool qui dit si le perso est au sol ou pas
 
     [Header("Platform")]
     public bool platformed;
-    [SerializeField] private float plathbx;
-    [SerializeField] private float plathby;
     public int platdowntime;
     public int platdowncnt;
-    [SerializeField] private LayerMask whatisplatform;
 
     [Header("Components")]
     private Rigidbody2D rb;
@@ -111,7 +100,7 @@ public class charaJump : MonoBehaviour
         HandleLayers();
 
 
-        platformed = Physics2D.OverlapArea(new Vector2(groundcheck.position.x - (plathbx / 2), groundcheck.position.y + plathby / 2), new Vector2(groundcheck.position.x + plathbx / 2, groundcheck.position.y - plathby / 2),whatisplatform);
+        platformed = GetComponent<Charamov>().platformed;
 
         if (platformed && !presseddown && !pressedjump && platdowncnt==0 && !GetComponent<charavalues>().upb)
         {
@@ -237,11 +226,6 @@ public class charaJump : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawCube(groundcheck.position, new Vector2(largeurgi, hauteurgi));
-        Gizmos.DrawCube(groundcheck.position, new Vector2(plathbx, plathby));
-    }
 
     private void HandleLayers()
         //permet à l'animateur de changer entre la layer correspondant à l'air et celle correspondant au sol

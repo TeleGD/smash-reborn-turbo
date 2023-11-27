@@ -690,8 +690,39 @@ public class BobbyAtk : MonoBehaviour
 
         sblengthcounter -= 1;
 
+        if (sblengthcounter <= sblength+sbstartframe && sblengthcounter > sblength)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        }
+
+
         if (sblengthcounter <= sblength && sblengthcounter >= 0)
         {
+
+            if (sbdirection > 0 && transform.position.x < sbstartx + sbdistance)
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(sbselfeject, 0);
+            }
+            else if (sbdirection < 0 && transform.position.x > sbstartx - sbdistance)
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(-sbselfeject, 0);
+            }
+            else
+            {
+
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+
+                sblengthcounter = 0;
+
+                anim.SetBool("sideb", false);
+
+                cible = null;
+
+                GetComponent<charavalues>().sb = false;
+
+                sbdelaycounter = sbdelaycounter - sblengthcounter;
+            }
+
             //get enemies in range
             Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(sbattackpoint.position.x - sbhbx / 2, sbattackpoint.position.y + sbhby / 2), new Vector2(sbattackpoint.position.x + sbhbx / 2, sbattackpoint.position.y - sbhby / 2));
 
@@ -720,44 +751,7 @@ public class BobbyAtk : MonoBehaviour
                     }
 
                 }
-
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-
-                sbdelaycounter = sbdelaycounter - sblengthcounter;
-
-                sblengthcounter = 0;
-
-                anim.SetBool("sideb", false);
-
-                cible = null;
-
-                GetComponent<charavalues>().sb = false;
-
             }
-
-            if(sbdirection>0 && transform.position.x<sbstartx+sbdistance)
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(sbselfeject,0); 
-            }
-            else if(sbdirection<0 && transform.position.x > sbstartx - sbdistance)
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(-sbselfeject,0);
-            }
-            else
-            {
-
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-
-                sblengthcounter = 0;
-
-                anim.SetBool("sideb", false);
-
-                cible = null;
-
-                GetComponent<charavalues>().sb = false;
-            }
-
-      
 
         }
 

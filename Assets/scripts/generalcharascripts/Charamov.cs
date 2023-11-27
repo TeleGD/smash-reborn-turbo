@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -64,9 +65,19 @@ public class Charamov : MonoBehaviour
     [SerializeField] private float hauteurgi;
     [SerializeField] private float largeurgi;
     [SerializeField] private LayerMask whatisground;
+    [SerializeField] private LayerMask whatisplatform;
+    public bool platformed;
+
+    public bool overaplayer;
+
+    public float groundchecksizey;
+
+    public float groundcheckoffsety;
+
     public bool grounded;
 
-    public bool platformed;
+    public float movewhenover;
+    private bool overenemy;
 
     public bool attacking;
 
@@ -117,6 +128,7 @@ public class Charamov : MonoBehaviour
         shieldrecharge = GameObject.Find("Global values").GetComponent<Globalvalues>().shieldrecharge;
         shieldbreakCD = GameObject.Find("Global values").GetComponent<Globalvalues>().shieldbreakCD;
         quickfallspeed = GameObject.Find("Global values").GetComponent<Globalvalues>().quickfallspeed;
+        movewhenover = GameObject.Find("Global values").GetComponent<Globalvalues>().speedwhenoverplayer;
     }
 
     private void Start()
@@ -129,25 +141,48 @@ public class Charamov : MonoBehaviour
         GetComponent<charavalues>().shield = shieldmax; 
         shieldbar.SetMaxshield(shieldmax);
 
+
         
     }
 
     // Handles input of the physics
-    private void Update()
+    private void FixedUpdate()
     {
+        //Les trois lignes en dessous vont chercher les variables dans le script charavalues.
         hitstun= GetComponent<charavalues>().hitstuncnt;
         grabed = GetComponent<charavalues>().grabed;
         grabbing = GetComponent<charavalues>().grabbing;
-        grounded  = Physics2D.OverlapCircle(groundcheck.position, radOcircle, whatisground);
-        platformed = GetComponent<charaJump>().platformed;
+        //Les deux ligens en dessous permettent de détecter le sol et les platformes.
+        grounded = Physics2D.OverlapBox(new Vector2(rb2D.position.x, (rb2D.position.y - GetComponent<BoxCollider2D>().size.y / 2) - groundcheckoffsety), new Vector2(GetComponent<BoxCollider2D>().size.x, groundchecksizey),0, whatisground);
+        platformed = Physics2D.OverlapBox(new Vector2(rb2D.position.x, (rb2D.position.y - GetComponent<BoxCollider2D>().size.y / 2) - groundcheckoffsety), new Vector2(GetComponent<BoxCollider2D>().size.x, groundchecksizey), 0, whatisplatform);
+        overenemy = false;
         attacking=GetComponent<charavalues>().attacking;
 
+        Collider2D[] enemiesunder = Physics2D.OverlapBoxAll(new Vector2(rb2D.position.x, (rb2D.position.y - GetComponent<BoxCollider2D>().size.y / 2) - groundcheckoffsety), new Vector2(GetComponent<BoxCollider2D>().size.x, groundchecksizey),0);
 
-        if (shieldcancel == 1)
+        foreach (Collider2D enemy in enemiesunder)
+        {
+            if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")))
+            {
+                overenemy = true;
+                if(enemy.GetComponent<Rigidbody2D>().position.x >= rb2D.position.x)
+                {
+                    rb2D.velocity = new Vector2(rb2D.velocity.x - movewhenover, rb2D.velocity.y);
+                }
+                else
+                {
+                    rb2D.velocity = new Vector2(rb2D.velocity.x + movewhenover, rb2D.velocity.y);
+                }
+            }
+        }
+
+
+            if (shieldcancel == 1)
         {
             ShieldInput();
         }
 
+        
 
         if(!(grounded || platformed) && vertical==-1 && rb2D.velocity.y<0 && !grabed && !grabbing) //correspond au quickfall. On check que la vitesse en y est négative, car ça veut dire qu'on est déja en train de tomber.
         {
@@ -225,12 +260,9 @@ public class Charamov : MonoBehaviour
             horizontal = 0;
         }
 
-    }
-    private void FixedUpdate()
-    {
         //Section des mouvements
 
-        if(!GetComponent<charavalues>().shielded && !grabed && !attacking && hitstun<=0 && !grabbing) //on ne bouge pas si le bouclier est actif
+        if (!GetComponent<charavalues>().shielded && !grabed && !attacking && hitstun <= 0 && !grabbing && !overenemy) //on ne bouge pas si le bouclier est actif, si on attaque, si on est grab ou si on est sur un enemi
         {
             if (!crouched) //Si on est baissé ou qu'on s'est fait grab, on ne peut pas bouger
             {
@@ -238,13 +270,13 @@ public class Charamov : MonoBehaviour
                 {
                     rb2D.AddForce(new Vector2(horizontal * speed, 0));
                 }
-                if (horizontal==0 || (horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
+                if (horizontal == 0 || (horizontal > 0 && rb2D.velocity.x < 0) || (horizontal < 0 && rb2D.velocity.x > 0))
                 {
                     if (rb2D.velocity.x > 0.1)
                     {
                         rb2D.AddForce(new Vector2(-slowdownspeed, 0));
                     }
-                    else if(rb2D.velocity.x < -0.1)
+                    else if (rb2D.velocity.x < -0.1)
                     {
                         rb2D.AddForce(new Vector2(slowdownspeed, 0));
                     }
@@ -262,9 +294,8 @@ public class Charamov : MonoBehaviour
             }
         }
 
-       
-
     }
+
     //permet de retourner la sprite du personnage
     public void Flip(float horizontal) 
     {
@@ -300,4 +331,7 @@ public class Charamov : MonoBehaviour
     {
         controls.gameplay.Disable();
     }
+
 }
+
+

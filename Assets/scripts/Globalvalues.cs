@@ -34,6 +34,7 @@ public class Globalvalues : MonoBehaviour
     public Rigidbody2D rb2D1;
     public Rigidbody2D rb2D2;
     public float quickfallspeed;
+    public float speedwhenoverplayer;
     public int grabtime; //nombre de frame de base de durée du grab. La durée est augmentée avec nbframe=grabtime*(1+percent/100)
 
 
