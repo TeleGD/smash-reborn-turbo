@@ -2693,24 +2693,6 @@ MonoBehaviour:
   tiltstartframe: 9
   tiltbaserecoil: 5
   tiltfixedrecoil: 100
-  nairattackpoint: {fileID: 457663978}
-  nairrange: 0.45
-  nairpercent: 1
-  nairattackdelay: 20
-  nairshielddamage: 250
-  nairlength: 14
-  nairbaserecoil: 100
-  upbattackpoint: {fileID: 1283664434}
-  upbrange: 0.35
-  upbpercent: 15
-  upbattackdelay: 35
-  upbshielddamage: 100
-  upblength: 24
-  upbstartframe: 10
-  upbbaserecoil: 20
-  upbfixedrecoil: 100
-  upbselfeject: 5.5
-  upbused: 0
   dtiltattackpoint: {fileID: 1075031242}
   dtilhbx: 0.3
   dtilhby: 0.1
@@ -2731,15 +2713,45 @@ MonoBehaviour:
   uptiltlengthcounter: 0
   uptiltstartframe: 8
   uptiltbaserecoil: 10
+  nairattackpoint: {fileID: 457663978}
+  nairrange: 0.45
+  nairpercent: 1
+  nairattackdelay: 20
+  nairshielddamage: 250
+  nairlength: 14
+  nairbaserecoil: 100
+  upbattackpoint: {fileID: 1283664434}
+  upbrange: 0.35
+  upbpercent: 15
+  upbattackdelay: 35
+  upbshielddamage: 100
+  upblength: 24
+  upbstartframe: 10
+  upbbaserecoil: 20
+  upbfixedrecoil: 100
+  upbselfeject: 5.5
+  upbused: 0
+  dbattackpoint: {fileID: 959948923}
+  dbattackpoint2: {fileID: 1808488839}
+  dbrange: 0.3
+  dbhbx: 0.8
+  dbhby: 0.45
+  dbpercent: 25
+  dbattackdelay: 100
+  dbshielddamage: 150
+  dblength: 82
+  dbstartframe: 20
+  dbsecondhitboxstart: 20
+  dbbaserecoil: 30
+  dbfixedrecoil: 100
+  dbused: 0
   sbattackpoint: {fileID: 1049136658}
   sbhbx: 1.2
   sbhby: 0.4
   sbpercent: 10
   sbattackdelay: 72
-  sbdelaycounter: 0
-  sbshielddamage: 0
+  sbshielddamage: 30
   sblength: 48
-  sblengthcounter: 0
   sbstartframe: 20
   sbbaserecoil: 2
   sbfixedrecoil: 200
@@ -2950,6 +2962,8 @@ Transform:
   - {fileID: 1283664434}
   - {fileID: 1790763302}
   - {fileID: 1049136658}
+  - {fileID: 959948923}
+  - {fileID: 1808488839}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3894,6 +3908,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &914304424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 914304425}
+  m_Layer: 0
+  m_Name: dbattackpoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &914304425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914304424}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.05, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1585665824}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &943134763
 GameObject:
   m_ObjectHideFlags: 0
@@ -4048,6 +4093,37 @@ MonoBehaviour:
   hptxt: 0
   percent: 0
   hp: 0
+--- !u!1 &959948922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 959948923}
+  m_Layer: 0
+  m_Name: dbattackpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &959948923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959948922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08, y: -0.06, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 721399192}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1048189809
 GameObject:
   m_ObjectHideFlags: 0
@@ -6291,6 +6367,37 @@ Transform:
   m_Father: {fileID: 721399192}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1320846770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1320846771}
+  m_Layer: 0
+  m_Name: dbattackpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1320846771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320846770}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08, y: -0.06, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1585665824}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1360643408
 GameObject:
   m_ObjectHideFlags: 0
@@ -6558,24 +6665,6 @@ MonoBehaviour:
   tiltstartframe: 9
   tiltbaserecoil: 5
   tiltfixedrecoil: 100
-  nairattackpoint: {fileID: 1883670879}
-  nairrange: 0.45
-  nairpercent: 1
-  nairattackdelay: 20
-  nairshielddamage: 250
-  nairlength: 14
-  nairbaserecoil: 100
-  upbattackpoint: {fileID: 90011337}
-  upbrange: 0.35
-  upbpercent: 15
-  upbattackdelay: 35
-  upbshielddamage: 100
-  upblength: 24
-  upbstartframe: 10
-  upbbaserecoil: 20
-  upbfixedrecoil: 100
-  upbselfeject: 5.5
-  upbused: 0
   dtiltattackpoint: {fileID: 1092788766}
   dtilhbx: 0.3
   dtilhby: 0.1
@@ -6596,15 +6685,45 @@ MonoBehaviour:
   uptiltlengthcounter: 0
   uptiltstartframe: 8
   uptiltbaserecoil: 10
+  nairattackpoint: {fileID: 1883670879}
+  nairrange: 0.45
+  nairpercent: 1
+  nairattackdelay: 20
+  nairshielddamage: 250
+  nairlength: 14
+  nairbaserecoil: 100
+  upbattackpoint: {fileID: 90011337}
+  upbrange: 0.35
+  upbpercent: 15
+  upbattackdelay: 35
+  upbshielddamage: 100
+  upblength: 24
+  upbstartframe: 10
+  upbbaserecoil: 20
+  upbfixedrecoil: 100
+  upbselfeject: 5.5
+  upbused: 0
+  dbattackpoint: {fileID: 1320846771}
+  dbattackpoint2: {fileID: 914304425}
+  dbrange: 0.3
+  dbhbx: 0.8
+  dbhby: 0.45
+  dbpercent: 25
+  dbattackdelay: 100
+  dbshielddamage: 150
+  dblength: 62
+  dbstartframe: 40
+  dbsecondhitboxstart: 20
+  dbbaserecoil: 30
+  dbfixedrecoil: 100
+  dbused: 0
   sbattackpoint: {fileID: 1793323437}
   sbhbx: 1.2
   sbhby: 0.4
   sbpercent: 10
   sbattackdelay: 72
-  sbdelaycounter: 0
   sbshielddamage: 0
   sblength: 48
-  sblengthcounter: 0
   sbstartframe: 20
   sbbaserecoil: 2
   sbfixedrecoil: 200
@@ -6860,6 +6979,8 @@ Transform:
   - {fileID: 90011337}
   - {fileID: 34125404}
   - {fileID: 1793323437}
+  - {fileID: 1320846771}
+  - {fileID: 914304425}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8954,7 +9075,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1790424032}
   - component: {fileID: 1790424031}
-  - component: {fileID: 1790424033}
   m_Layer: 0
   m_Name: background1
   m_TagString: Untagged
@@ -9029,26 +9149,6 @@ Transform:
   m_Father: {fileID: 1936457073}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1790424033
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1790424030}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1790763301
 GameObject:
   m_ObjectHideFlags: 0
@@ -9110,6 +9210,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1585665824}
   m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1808488838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808488839}
+  m_Layer: 0
+  m_Name: dbattackpoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1808488839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808488838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.05, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 721399192}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1812818916
 GameObject:

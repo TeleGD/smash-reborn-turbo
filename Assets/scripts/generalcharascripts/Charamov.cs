@@ -194,8 +194,8 @@ public class Charamov : MonoBehaviour
         {
             myanimator.SetBool("crouch", true);
             crouched = true;
-            GetComponent<BoxCollider2D>().size = new Vector2(crouchedhbx, crouchedhby); //change la taille de la hitbox du perso lorsqu'il est baissé
-            GetComponent<BoxCollider2D>().offset = new Vector2(GetComponent<BoxCollider2D>().offset.x, crouchedhboffsety); //change la position de la hitbox du perso lorsqu'il est baissé
+            //GetComponent<BoxCollider2D>().size = new Vector2(crouchedhbx, crouchedhby); //change la taille de la hitbox du perso lorsqu'il est baissé
+            //GetComponent<BoxCollider2D>().offset = new Vector2(GetComponent<BoxCollider2D>().offset.x, crouchedhboffsety); //change la position de la hitbox du perso lorsqu'il est baissé
         }
         else //rétablit la hitbox du perso si il n'est pas baissé
         {

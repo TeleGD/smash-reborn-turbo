@@ -19,8 +19,8 @@ public class BobbyAtk : MonoBehaviour
     [Header("Character variables")] //Ces variables sont les variablesqui vont être modifiées lorsque l'ennemi va être attaqué. Les trois premières ont été regroupé dans un script qui sera le seul présent dans tous les personnages.
     public int playernumber;
     public int enemynumber;
-    public int tempperc=0; //cette variable et la suivante permettent de déterminer quand le personnage a été touché par une attaque.afin de réinit les upB.
-    public int prevtempperc=0;
+    public int tempperc = 0; //cette variable et la suivante permettent de déterminer quand le personnage a été touché par une attaque.afin de réinit les upB.
+    public int prevtempperc = 0;
     public bool justhit; //Booléen qui devient true si à une frame, les pourcents ont changé par rapport à la dernière frame, ce qui signifie qu'ils ont été touché par une attaque.
     private int atkinput; //détecte si le bouton d'attaque est pressé
     private int speinput; //détecte si le bouton d'attaque spéciale est pressé
@@ -36,7 +36,7 @@ public class BobbyAtk : MonoBehaviour
 
     //voici une liste et une description de chaque type (il n'est pas nécessaire de tous les avoirs. ça dépend de l'action):
 
-    //attackpoint: la transform qui correspondra à la hitbox de l'attaque. Si l'attaque doit avoir plusieurs hitbox, il faudra plusieurs transform
+    //attackpoint: la transform qui correspondra à la hitbox de l'attaque. Si l'attaque doit avoir plusieurs hitbox, il faudra plusieurs transform, alors il y aura des attackpoint2, attackpoint3, etc...
     //range: rayon de la sphère qu'est la hitbox
     //hbx: largeur du rectangle si la hitbox est un rectange
     //hby: hauteur du rectangle si la hitbox est un rectange
@@ -47,6 +47,7 @@ public class BobbyAtk : MonoBehaviour
     //length: durée pendant laquelle l'attaque est active (en frame)
     //lengthcounter: compteur lié à length.
     //startframe: première frame à laquelle les dégats sont faits.
+    //secondhitboxstart: première frmae à partir de laquelle la seconde hitbox devient active
     //baserecoil: recul de base de l'attaque. Les pourcents de la cible seront multiplié par cette valeur pour donner la force d'éjection finale.
     //fixedrecoil: recul fixe de l'attaque. Cette variable existe pour faire une ejection fixe indépendante des pourcents de la cible
     //selfeject: ejection du perso qui lance l'attaque (par exemple pour une charge ou un upB)
@@ -73,7 +74,7 @@ public class BobbyAtk : MonoBehaviour
     public Transform tiltattackpoint;
     public float tiltrange;
     public int tiltpercent;
-    public int tiltattackdelay; 
+    public int tiltattackdelay;
     private int tiltdelaycounter;
     public int tiltshielddamage;
     public int tiltlength;
@@ -81,33 +82,6 @@ public class BobbyAtk : MonoBehaviour
     public int tiltstartframe;
     public float tiltbaserecoil;
     public float tiltfixedrecoil;
-
-    [Header("Nairattack variables")]
-    public Transform nairattackpoint;
-    public float nairrange;
-    public int nairpercent;
-    public int nairattackdelay; 
-    private int nairdelaycounter;
-    public int nairshielddamage;
-    public int nairlength;
-    private int nairlengthcounter;
-    public float nairbaserecoil;
-
-    [Header("UpBattack variables")]
-    public Transform upbattackpoint;
-    public float upbrange;
-    public int upbpercent;
-    public int upbattackdelay;
-    private int upbdelaycounter;
-    public int upbshielddamage;
-    public int upblength;
-    private int upblengthcounter;
-    public int upbstartframe;
-    public float upbbaserecoil;
-    public float upbfixedrecoil;
-    public float upbselfeject;
-    public bool upbused;
-
 
     [Header("Dtiltattack variables")]
     public Transform dtiltattackpoint;
@@ -136,16 +110,61 @@ public class BobbyAtk : MonoBehaviour
     public int uptiltstartframe;
     public float uptiltbaserecoil;
 
+    [Header("Nairattack variables")]
+    public Transform nairattackpoint;
+    public float nairrange;
+    public int nairpercent;
+    public int nairattackdelay;
+    private int nairdelaycounter;
+    public int nairshielddamage;
+    public int nairlength;
+    private int nairlengthcounter;
+    public float nairbaserecoil;
+
+    [Header("UpBattack variables")]
+    public Transform upbattackpoint;
+    public float upbrange;
+    public int upbpercent;
+    public int upbattackdelay;
+    private int upbdelaycounter;
+    public int upbshielddamage;
+    public int upblength;
+    private int upblengthcounter;
+    public int upbstartframe;
+    public float upbbaserecoil;
+    public float upbfixedrecoil;
+    public float upbselfeject;
+    public bool upbused;
+
+    [Header("DownBattack variables")]
+    public Transform dbattackpoint;
+    public Transform dbattackpoint2;
+    public float dbrange;
+    public float dbhbx;
+    public float dbhby;
+    public int dbpercent;
+    public int dbattackdelay;
+    private int dbdelaycounter;
+    public int dbshielddamage;
+    public int dblength;
+    private int dblengthcounter;
+    public int dbstartframe;
+    public int dbsecondhitboxstart;
+    public float dbbaserecoil;
+    public float dbfixedrecoil;
+    public bool dbused;
+
+
     [Header("SideBattack variables")]
     public Transform sbattackpoint;
     public float sbhbx;
     public float sbhby;
     public int sbpercent;
     public int sbattackdelay;
-    public int sbdelaycounter;
+    private int sbdelaycounter;
     public int sbshielddamage;
     public int sblength;
-    public int sblengthcounter;
+    private int sblengthcounter;
     public int sbstartframe;
     public float sbbaserecoil;
     public float sbfixedrecoil;
@@ -286,6 +305,11 @@ public class BobbyAtk : MonoBehaviour
                 sbAttack(GetComponent<Charamov>().horizontal);
                 sbdelaycounter = sbattackdelay;
             }
+            else if (GetComponent<Charamov>().vertical == -1 && dbdelaycounter == 0 && !dbused)
+            {
+                dbAttack();
+                dbdelaycounter = dbattackdelay;
+            }
         }
     }
 
@@ -306,7 +330,7 @@ public class BobbyAtk : MonoBehaviour
 
         hitstun = GetComponent<charavalues>().hitstuncnt;
 
-        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 || grablengthcounter>0 || sblengthcounter>0)
+        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 || grablengthcounter>0 || sblengthcounter>0 || dblengthcounter>0)
         {
             GetComponent<charavalues>().attacking = true;
         }
@@ -346,6 +370,11 @@ public class BobbyAtk : MonoBehaviour
             {
                 sbused = false;
                 anim.SetBool("sideb", false) ;
+            }
+            if (dblengthcounter == 0)
+            {
+                dbused = false;
+                anim.SetBool("downb", false);
             }
 
         }
@@ -659,6 +688,111 @@ public class BobbyAtk : MonoBehaviour
 
     }
 
+    void dbAttack()
+    {
+
+        if (dblengthcounter == 0)
+        {
+
+            dbused = true;
+
+            dblengthcounter = dblength + dbstartframe;
+
+            //attack animation
+            anim.SetBool("downb", true);
+
+
+        }
+
+
+    }
+
+    void lingeringdb()
+    {
+        dblengthcounter -= 1;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+        if (dblengthcounter <= dblength && dblengthcounter >= 0)
+        {
+            //get enemies in range
+            Collider2D[] hitenemies = Physics2D.OverlapAreaAll(new Vector2(dbattackpoint.position.x - dbhbx / 2, dbattackpoint.position.y + dbhby / 2), new Vector2(dbattackpoint.position.x + dbhbx / 2, dbattackpoint.position.y - dbhby / 2));
+
+            foreach (Collider2D enemy in hitenemies)
+            {
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && cible != enemy)
+                {
+
+                    cible = enemy;
+
+                    if (enemy.GetComponent<charavalues>().shielded)
+                    {
+
+                        enemy.GetComponent<charavalues>().shield -= dbshielddamage;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<charavalues>().percent += dbpercent;
+                        enemyrb = enemy.GetComponent<Rigidbody2D>();
+
+                        if (transform.position.x >= enemy.transform.position.x)
+                        {
+                            enemyrb.AddForce(new Vector2(-dbfixedrecoil - dbbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
+
+                        }
+                        else
+                        {
+
+                            enemyrb.AddForce(new Vector2(dbfixedrecoil + dbbaserecoil * enemy.GetComponent<charavalues>().percent, 0));
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+        if (dblengthcounter <= dbsecondhitboxstart && dblengthcounter >= 0)
+        {
+            //Ici, comme on active la second hitbox, qui s'active plus tard que la première
+            Collider2D[] hitenemies = Physics2D.OverlapCircleAll(dbattackpoint.position, dbrange);
+
+            foreach (Collider2D enemy in hitenemies)
+            {
+                if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && enemy.GetComponent<charavalues>().iframes == 0 && cible != enemy)
+                {
+
+                    cible = enemy;
+
+                    if (enemy.GetComponent<charavalues>().shielded)
+                    {
+
+                        enemy.GetComponent<charavalues>().shield -= dbshielddamage;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<charavalues>().percent += dbpercent;
+                        enemyrb = enemy.GetComponent<Rigidbody2D>();
+
+                        if (transform.position.x >= enemy.transform.position.x)
+                        {
+                            enemyrb.AddForce(new Vector2(-dbfixedrecoil - dbbaserecoil * enemy.GetComponent<charavalues>().percent, dbfixedrecoil + dbbaserecoil* enemy.GetComponent<charavalues>().percent));
+
+                        }
+                        else
+                        {
+
+                            enemyrb.AddForce(new Vector2(dbfixedrecoil + dbbaserecoil * enemy.GetComponent<charavalues>().percent, dbfixedrecoil + dbbaserecoil * enemy.GetComponent<charavalues>().percent));
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+
+    }
+
 
     void sbAttack(float dir)
     {
@@ -907,6 +1041,11 @@ public class BobbyAtk : MonoBehaviour
             attacking = true;
             sbdelaycounter -= 1;
         }
+        else if (dbdelaycounter > 0) //CD du sideb
+        {
+            attacking = true;
+            dbdelaycounter -= 1;
+        }
         else if (uptiltdelaycounter > 0) //CD du tilt
         {
             attacking = true;
@@ -942,6 +1081,9 @@ public class BobbyAtk : MonoBehaviour
 
             upbused = false;
             anim.SetBool("upb", false);
+
+            dbused = false;
+            anim.SetBool("downb", false);
 
             GetComponent<charavalues>().upb = false;
 
@@ -1039,6 +1181,21 @@ public class BobbyAtk : MonoBehaviour
 
         }
 
+        if (dblengthcounter > 0) //activation du sideb si la hitbox est toujours actives
+        {
+            if (dblengthcounter == 1)
+            {
+                lingeringdb();
+                cible = null; //on réinitialise cible à la fin de l'attaque
+                anim.SetBool("downb", false);
+            }
+            else
+            {
+                lingeringdb();
+            }
+
+        }
+
 
 
         if (uptiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
@@ -1066,12 +1223,14 @@ public class BobbyAtk : MonoBehaviour
     private void OnDrawGizmos()
         //permet d'afficher les hitbox d'attaques. Décommenter pour les afficher
     {
-        Gizmos.DrawWireSphere(tiltattackpoint.position, tiltrange);
-        Gizmos.DrawWireSphere(nairattackpoint.position, nairrange);
-        Gizmos.DrawWireSphere(upbattackpoint.position, upbrange);
-        Gizmos.DrawCube(dtiltattackpoint.position, new Vector2(dtilhbx, dtilhby));
-        Gizmos.DrawCube(uptiltattackpoint.position, new Vector2(uptilhbx, uptilhby));
-        Gizmos.DrawCube(sbattackpoint.position, new Vector2(sbhbx, sbhby));
+        //Gizmos.DrawWireSphere(tiltattackpoint.position, tiltrange);
+        //Gizmos.DrawWireSphere(nairattackpoint.position, nairrange);
+        //Gizmos.DrawWireSphere(upbattackpoint.position, upbrange);
+        Gizmos.DrawWireSphere(dbattackpoint2.position, dbrange);
+        //Gizmos.DrawCube(dtiltattackpoint.position, new Vector2(dtilhbx, dtilhby));
+        //Gizmos.DrawCube(uptiltattackpoint.position, new Vector2(uptilhbx, uptilhby));
+        //Gizmos.DrawCube(sbattackpoint.position, new Vector2(sbhbx, sbhby));
+        Gizmos.DrawCube(dbattackpoint.position, new Vector2(dbhbx, dbhby));
     }
 //    void OnEnable()
   //  {
