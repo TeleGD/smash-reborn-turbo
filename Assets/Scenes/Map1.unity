@@ -2737,12 +2737,12 @@ MonoBehaviour:
   dbhbx: 0.8
   dbhby: 0.45
   dbpercent: 25
-  dbattackdelay: 100
+  dbattackdelay: 150
   dbshielddamage: 150
   dblength: 82
   dbstartframe: 20
   dbsecondhitboxstart: 20
-  dbbaserecoil: 30
+  dbbaserecoil: 13
   dbfixedrecoil: 100
   dbused: 0
   sbattackpoint: {fileID: 1049136658}
