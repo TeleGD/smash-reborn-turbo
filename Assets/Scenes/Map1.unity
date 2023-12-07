@@ -2742,8 +2742,8 @@ MonoBehaviour:
   dblength: 82
   dbstartframe: 20
   dbsecondhitboxstart: 20
-  dbbaserecoil: 13
-  dbfixedrecoil: 100
+  dbbaserecoil: 7
+  dbfixedrecoil: 50
   dbused: 0
   sbattackpoint: {fileID: 1049136658}
   sbhbx: 1.2
@@ -6714,8 +6714,8 @@ MonoBehaviour:
   dblength: 62
   dbstartframe: 40
   dbsecondhitboxstart: 20
-  dbbaserecoil: 30
-  dbfixedrecoil: 100
+  dbbaserecoil: 7
+  dbfixedrecoil: 50
   dbused: 0
   sbattackpoint: {fileID: 1793323437}
   sbhbx: 1.2
