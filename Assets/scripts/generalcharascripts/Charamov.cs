@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -162,7 +163,7 @@ public class Charamov : MonoBehaviour
 
         foreach (Collider2D enemy in enemiesunder)
         {
-            if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")))
+            if (((this.CompareTag("Player2") && enemy.tag == "Player1") || (this.CompareTag("Player1") && enemy.tag == "Player2")) && !grounded &&!attacking)
             {
                 overenemy = true;
                 if(enemy.GetComponent<Rigidbody2D>().position.x >= rb2D.position.x)
