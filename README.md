@@ -38,7 +38,7 @@ Bas permet de descendre des plate formes ou de se baisser.
 Les attaques implémentées sont:
 Au sol: Forward Tilt (attaque et direction), Up Tilt (attaque et haut), Down Tilt (attaque et bas)
 Dans les air: Neutral Air (attaque sans direction)
-Spécial: Up Special (attaque spéciale et haut), Side Special (attaque spéciale et côté) et Down Special (attaque spéciale et bas)
+Spécial: Up Special (attaque spéciale et haut), Side Special (attaque spéciale et côté), Down Special (attaque spéciale et bas) et Neutral Special (attaque speciale sans direction)
 Les attaques spéciales sont utilisables sur le sol et dans les airs.
 
 ## Instructions pour ajouter un personnage
@@ -68,6 +68,7 @@ Pour l'instant, de par le kit implémenté, les animations à faire sont:
 - Up Special
 - Side Special
 - Down Special
+- Neutral Special
 - Grab
 - Shield
 - Hit
@@ -95,7 +96,9 @@ Les attaques qui fonctionnent réellement ne sont pas simplement que des attaque
 
 Pour faire une attaque avec plusieurs hitbox, ce qui permet que la hitbox finales soit plus précise qu'une sphère ou qu'un oval, ajouter des transform nomattackpoint (ex: tiltattackpoint). Il ne suffira alors que d'ajouter un nouveau segment qui commence avec un If et avec le compteur de durée d'attaque et boom c'est dans la poche. Il est également possible de séparer les hitbox de cette manière, ce qui rend un tipper possible. Pour plus de précision, voir le Down B de Bobby
 
-Plusieurs archétypes d'attaques n'ont pas encore été implémentées et je n'y ai pas réflechi à comment les faire, donc si vous voulez faire des projectiles ou des attaques permettant de grab, amusez-vous bien. Si je suis deter, j'ajouterai des attaques de ce type à mon Bobby pour qu'il devienne un vrai petit `Kazuya Mishima`et que la base soit faire pour vous. En attendant, faites-le vous même ! Askip on est jamais mieux servi que de ctte façon là.
+Pour faire une attaque avec des projectiles, prendre exemple sur le neutral special de Bobby. Le script "proj" de ses projectiles est à utiliser tel qu'il. Si vous voulez que les projectiles soient chargeables, cela ne pose pas de problème avec mon script étant donné que les modifications se passeront du côté du scirpt d'attaque.
+
+Je peux le dire, ça y est. Mon Bobby n'est pas encore un `Kazuya Mishima` mais il dispose de tous les archétypes d'attaques nécessaire pour servir d'exemple, vous avez donc toutes les clés à disposition (sauf si j'ai oublié des trucs). En attendant, si c'est le cas, faites-le vous même ! Askip on est jamais mieux servi que de ctte façon là.
 
 ## Crédits
 

@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Animator))]
 public class BobbyAtk : MonoBehaviour
@@ -55,6 +58,11 @@ public class BobbyAtk : MonoBehaviour
     //startdistance: float qui détermine une distance fixe à parcourrir.
     //direction: garde la direction de l'attaque si besoin;
     //startx: garde la coordonnée en x de depart du perso
+    //activeprojindex: donne l'index du projectile qui va être utilisé par l'attaque
+    //activeproj: accède au gameObject qui est le projectile actif
+    //projk: accède au gameObject qui est le projectile d'indice k
+    //projdistance: la distance maximale que parcourt un projectile avant de disparaître
+    //projspeed: vitesse des projectiles
 
     //Il est à noter que ces variables peuvent être misent en privé ou en public. Comme aucun autre script ne les utilise, les mettre en public n'est techniquement pas utile.
     //Cependant, lors des phases de débeugage, il est conseillé de les mettre soit en public soit d'ajouter [SerializeField] devant private pour que les variables apparaissent dans l'éditeur.
@@ -174,6 +182,27 @@ public class BobbyAtk : MonoBehaviour
     private float sbdirection;
     private float sbstartx;
 
+    [Header("NeutralBattack variables")]
+    public Transform nbattackpoint;
+    public int nbpercent;
+    public int nbattackdelay;
+    private int nbdelaycounter;
+    public int nbshielddamage;
+    public int nblength;
+    private int nblengthcounter;
+    public int nbstartframe;
+    public float nbbaserecoil;
+    public float nbfixedrecoil;
+    private float nbdirection;
+    private int nbactiveprojindex;
+    private GameObject nbactiveproj;
+    private GameObject nbproj1;
+    private GameObject nbproj2;
+    private GameObject nbproj3;
+    public int nbprojdistance;
+    public float nbprojspeed;
+    
+
     [Header("pummel variables")]
     public int pummelpercent;
     public int pummelattackdelay;
@@ -201,7 +230,7 @@ public class BobbyAtk : MonoBehaviour
 
         anim = GetComponent<Animator>(); //initialisation de l'animateur
 
-        
+       
 
     }
 
@@ -310,11 +339,91 @@ public class BobbyAtk : MonoBehaviour
                 dbAttack();
                 dbdelaycounter = dbattackdelay;
             }
+            else if (GetComponent<Charamov>().horizontal == 0 && GetComponent<Charamov>().vertical==0 && nbdelaycounter == 0)
+            {
+               //On regarde le premier projectile qui n'est pas actif (qui n'a pas été utilisé) et on note son indice, on lance l'attaque, etc... Si ils sont tous actifs, on ne fait rien.
+                if (!nbproj1.activeSelf)
+                {
+                    nbactiveprojindex = 1;
+                    anim.SetTrigger("neutralb");
+                    nbAttack(GetComponent<Charamov>().facingRight);
+                    nbdelaycounter = nbattackdelay;
+                }
+                else if (!nbproj2.activeSelf)
+                {
+                    nbactiveprojindex = 2;
+                    anim.SetTrigger("neutralb");
+                    nbAttack(GetComponent<Charamov>().facingRight);
+                    nbdelaycounter = nbattackdelay;
+                }
+                else if (!nbproj3.activeSelf)
+                {
+                    nbactiveprojindex = 3;
+                    anim.SetTrigger("neutralb");
+                    nbAttack(GetComponent<Charamov>().facingRight);
+                    nbdelaycounter = nbattackdelay;
+                }
+            }
         }
     }
 
     void Update()
     {
+
+
+        if (nbproj1==null)
+        {
+            if (this.tag == "Player1")
+            {
+                GameObject[] projsP1 = GameObject.FindGameObjectsWithTag("P1proj");
+                foreach (GameObject proj in projsP1)
+                {
+                    if (proj.name == "slimenbproj1")
+                    {
+                        nbproj1 = proj;
+                        nbproj1.SetActive(false);
+                    }
+                    if (proj.name == "slimenbproj2")
+                    {
+                        nbproj2 = proj;
+                        nbproj2.SetActive(false);
+                    }
+                    if (proj.name == "slimenbproj3")
+                    {
+                        nbproj3 = proj;
+                        nbproj3.SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                GameObject[] projsP2 = GameObject.FindGameObjectsWithTag("P2proj");
+                foreach (GameObject proj in projsP2)
+                {
+                    if (proj.name == "slimenbproj1")
+                    {
+                        nbproj1 = proj;
+                        nbproj1.SetActive(false);
+                    }
+                    if (proj.name == "slimenbproj2")
+                    {
+                        nbproj2 = proj;
+                        nbproj2.SetActive(false);
+                    }
+                    if (proj.name == "slimenbproj3")
+                    {
+                        nbproj3 = proj;
+                        nbproj3.SetActive(false);
+                    }
+                }
+            }
+        }
+
+        if (GetComponent<charavalues>().iframes==GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes) //on réinitialise les CD de toutes les attaques si le perso meurt.
+        {
+            Attackreinit();
+        }
+
 
         shielded = GetComponent<charavalues>().shielded;
 
@@ -330,7 +439,7 @@ public class BobbyAtk : MonoBehaviour
 
         hitstun = GetComponent<charavalues>().hitstuncnt;
 
-        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 || grablengthcounter>0 || sblengthcounter>0 || dblengthcounter>0)
+        if (dtiltlengthcounter>0|| nairlengthcounter>0 || tiltlengthcounter>0 || upblengthcounter>0 || uptiltlengthcounter>0 || grablengthcounter>0 || sblengthcounter>0 || dblengthcounter>0 || nblengthcounter>0)
         {
             GetComponent<charavalues>().attacking = true;
         }
@@ -893,6 +1002,67 @@ public class BobbyAtk : MonoBehaviour
     }
 
 
+    void nbAttack(bool facingright)
+    {
+
+        if (nblengthcounter == 0)
+        {
+
+            if(facingright)
+            {
+                nbdirection = 1;
+            }
+            else
+            {
+                nbdirection = -1;
+            }
+
+            nblengthcounter = nblength + nbstartframe;
+
+        }
+
+
+    }
+
+    void lingeringnb()
+    {
+
+        nblengthcounter -= 1;
+
+        if (nblengthcounter == nblength)
+        {
+            
+            if(nbactiveprojindex==1)
+            {
+                nbactiveproj = nbproj1;  
+            }
+            else if (nbactiveprojindex==2)
+            {
+                nbactiveproj = nbproj2;
+            }
+            else
+            {
+                nbactiveproj = nbproj3;
+            }
+
+            nbactiveproj.SetActive(true);
+
+            nbactiveproj.transform.position = nbattackpoint.position;
+
+            nbactiveproj.GetComponent<proj>().percent = nbpercent;
+            nbactiveproj.GetComponent<proj>().baserecoil = nbbaserecoil;
+            nbactiveproj.GetComponent<proj>().fixedrecoil = nbfixedrecoil;
+            nbactiveproj.GetComponent<proj>().startx = nbactiveproj.GetComponent<Rigidbody2D>().position.x;
+            nbactiveproj.GetComponent<proj>().maxdistance = nbprojdistance;
+            nbactiveproj.GetComponent<proj>().projspeed = nbprojspeed;
+            nbactiveproj.GetComponent<proj>().projdirection = nbdirection;
+            nbactiveproj.GetComponent<proj>().sendertag = this.tag;
+        }
+
+
+    }
+
+
     void DTiltAttack()
     {
 
@@ -1046,6 +1216,11 @@ public class BobbyAtk : MonoBehaviour
             attacking = true;
             dbdelaycounter -= 1;
         }
+        else if (nbdelaycounter > 0) //CD du neutralb
+        {
+            attacking = true;
+            nbdelaycounter -= 1;
+        }
         else if (uptiltdelaycounter > 0) //CD du tilt
         {
             attacking = true;
@@ -1065,35 +1240,7 @@ public class BobbyAtk : MonoBehaviour
 
         if (justhit) //si le perso a été touché, on termine toutes les animations en cours
         {
-            tiltlengthcounter = 0;
-
-            dtiltlengthcounter = 0;
-
-            uptiltlengthcounter = 0;
-
-            nairlengthcounter = 0;
-
-            upblengthcounter = 0;
-
-            sblengthcounter = 0;
-
-            grablengthcounter = 0;
-
-            upbused = false;
-            anim.SetBool("upb", false);
-
-            dbused = false;
-            anim.SetBool("downb", false);
-
-            GetComponent<charavalues>().upb = false;
-
-            sbused = false;
-            anim.SetBool("sideb", false);
-
-            GetComponent<charavalues>().sb = false;
-
-            cible = null;
-            
+            Attackreinit();
 
         }
 
@@ -1196,6 +1343,19 @@ public class BobbyAtk : MonoBehaviour
 
         }
 
+        if (nblengthcounter > 0) //activation du neutralb si la hitbox est toujours actives
+        {
+            if (nblengthcounter == 1)
+            {
+                lingeringnb();
+            }
+            else
+            {
+                lingeringnb();
+            }
+
+        }
+
 
 
         if (uptiltlengthcounter > 0) //activation du tilt si la hitbox est toujours actives
@@ -1217,7 +1377,42 @@ public class BobbyAtk : MonoBehaviour
 
 
 
+    public void Attackreinit()
+    {
+        tiltlengthcounter = 0;
 
+        dtiltlengthcounter = 0;
+
+        uptiltlengthcounter = 0;
+
+        nairlengthcounter = 0;
+
+        upblengthcounter = 0;
+
+        sblengthcounter = 0;
+
+        grablengthcounter = 0;
+
+        dblengthcounter = 0;
+
+        nblengthcounter = 0;
+
+        upbused = false;
+
+        anim.SetBool("upb", false);
+
+        dbused = false;
+        anim.SetBool("downb", false);
+
+        GetComponent<charavalues>().upb = false;
+
+        sbused = false;
+        anim.SetBool("sideb", false);
+
+        GetComponent<charavalues>().sb = false;
+
+        cible = null;
+    }
 
 
     private void OnDrawGizmos()

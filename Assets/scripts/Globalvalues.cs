@@ -82,6 +82,7 @@ public class Globalvalues : MonoBehaviour
             {
                 GameObject.Find("Bobby2").SetActive(false);
             }
+
         }
 
     }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c1077b43955724a45a8eddabda51c357
+guid: 9a8b4865922819247a4ce04d6b9d8a1d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,8 +43,8 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
-  spriteMeshType: 1
+  spriteExtrude: 0
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 22
@@ -69,7 +69,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: slimesideb_0
+      name: slimenbproj_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
-        width: 64
-        height: 64
+        y: 24
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c2255db4944fbb4690c45a9d41ac00e
-      internalID: 1401639062
+      spriteID: 3afe4186a30ecc44c873d4986f8aaa3f
+      internalID: -839545177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slimesideb_1
+      name: slimenbproj_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
-        width: 64
-        height: 64
+        x: 12
+        y: 24
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64bbf0bea0680e944900a0d9ce9f9b08
-      internalID: -1707410612
+      spriteID: 4880cb048b851244a894b4132321b9a6
+      internalID: 1204006700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slimesideb_2
+      name: slimenbproj_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 64
-        height: 64
+        y: 12
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7d155481892d4f4cb529396a55b8b38
-      internalID: 39744686
+      spriteID: 72704151e08875e4b81b433ee7ea7bc6
+      internalID: -971700532
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slimesideb_3
+      name: slimenbproj_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
+        x: 12
+        y: 12
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8f56d5397e02754c8b9528d3a9be86c
-      internalID: -628577073
+      spriteID: e2cdff1ae0a2692479183b76278bd2b8
+      internalID: -1791576367
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slimesideb_4
+      name: slimenbproj_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6400edf37ed014f44b7577d0c92a7cb0
-      internalID: -645026575
+      spriteID: b636b292ea0c4994aa7ccf64231ce5ec
+      internalID: 1711037321
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slimesideb_5
+      name: slimenbproj_5
       rect:
         serializedVersion: 2
-        x: 64
+        x: 12
         y: 0
-        width: 64
-        height: 64
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 952c8f07b53f04f4f8fd678eeb6871fb
-      internalID: -154829173
+      spriteID: 46f73b21b711fde4683a3e02119e8e07
+      internalID: 1940062960
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      slimesideb_1: -1707410612
-      slimesideb_0: 1401639062
-      slimesideb_5: -154829173
-      slimesideb_3: -628577073
-      slimesideb_4: -645026575
-      slimesideb_2: 39744686
+      slimenbproj_4: 1711037321
+      slimenbproj_3: -1791576367
+      slimenbproj_2: -971700532
+      slimenbproj_5: 1940062960
+      slimenbproj_0: -839545177
+      slimenbproj_1: 1204006700
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

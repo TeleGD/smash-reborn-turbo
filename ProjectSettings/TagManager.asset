@@ -10,6 +10,8 @@ TagManager:
   - playmap
   - P2per
   - P1per
+  - P1proj
+  - P2proj
   layers:
   - Default
   - TransparentFX
