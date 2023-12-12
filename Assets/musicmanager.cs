@@ -26,8 +26,10 @@ public class musicmanager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        musiccbt.volume = GameObject.Find("Optionvalues").GetComponent<optionvalues>().musicvol;
+        musicmenu.volume = GameObject.Find("Optionvalues").GetComponent<optionvalues>().musicvol;
 
-        if(SceneManager.GetActiveScene().name=="Map1")
+        if (SceneManager.GetActiveScene().name=="Map1")
         {
             if(combatstart)
             {
