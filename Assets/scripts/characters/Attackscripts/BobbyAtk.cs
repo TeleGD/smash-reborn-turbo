@@ -341,83 +341,16 @@ public class BobbyAtk : MonoBehaviour
             }
             else if (GetComponent<Charamov>().horizontal == 0 && GetComponent<Charamov>().vertical==0 && nbdelaycounter == 0)
             {
-               //On regarde le premier projectile qui n'est pas actif (qui n'a pas été utilisé) et on note son indice, on lance l'attaque, etc... Si ils sont tous actifs, on ne fait rien.
-                if (!nbproj1.activeSelf)
-                {
-                    nbactiveprojindex = 1;
-                    anim.SetTrigger("neutralb");
-                    nbAttack(GetComponent<Charamov>().facingRight);
-                    nbdelaycounter = nbattackdelay;
-                }
-                else if (!nbproj2.activeSelf)
-                {
-                    nbactiveprojindex = 2;
-                    anim.SetTrigger("neutralb");
-                    nbAttack(GetComponent<Charamov>().facingRight);
-                    nbdelaycounter = nbattackdelay;
-                }
-                else if (!nbproj3.activeSelf)
-                {
-                    nbactiveprojindex = 3;
-                    anim.SetTrigger("neutralb");
-                    nbAttack(GetComponent<Charamov>().facingRight);
-                    nbdelaycounter = nbattackdelay;
-                }
+                anim.SetTrigger("neutralb");
+                nbAttack(GetComponent<Charamov>().facingRight);
+                nbdelaycounter = nbattackdelay;
+
             }
         }
     }
 
     void Update()
     {
-
-
-        if (nbproj1==null)
-        {
-            if (this.tag == "Player1")
-            {
-                GameObject[] projsP1 = GameObject.FindGameObjectsWithTag("P1proj");
-                foreach (GameObject proj in projsP1)
-                {
-                    if (proj.name == "slimenbproj1")
-                    {
-                        nbproj1 = proj;
-                        nbproj1.SetActive(false);
-                    }
-                    if (proj.name == "slimenbproj2")
-                    {
-                        nbproj2 = proj;
-                        nbproj2.SetActive(false);
-                    }
-                    if (proj.name == "slimenbproj3")
-                    {
-                        nbproj3 = proj;
-                        nbproj3.SetActive(false);
-                    }
-                }
-            }
-            else
-            {
-                GameObject[] projsP2 = GameObject.FindGameObjectsWithTag("P2proj");
-                foreach (GameObject proj in projsP2)
-                {
-                    if (proj.name == "slimenbproj1")
-                    {
-                        nbproj1 = proj;
-                        nbproj1.SetActive(false);
-                    }
-                    if (proj.name == "slimenbproj2")
-                    {
-                        nbproj2 = proj;
-                        nbproj2.SetActive(false);
-                    }
-                    if (proj.name == "slimenbproj3")
-                    {
-                        nbproj3 = proj;
-                        nbproj3.SetActive(false);
-                    }
-                }
-            }
-        }
 
         if (GetComponent<charavalues>().iframes==GameObject.Find("Global values").GetComponent<Globalvalues>().respawniframes) //on réinitialise les CD de toutes les attaques si le perso meurt.
         {
@@ -1039,33 +972,42 @@ public class BobbyAtk : MonoBehaviour
 
         if (nblengthcounter == nblength)
         {
-            
-            if(nbactiveprojindex==1)
+            nbactiveproj = GameObject.Find("slimenbproj1");
+            GameObject nouveauproj = Instantiate(nbactiveproj);
+            nouveauproj.GetComponent<proj>().sendertag = this.tag;
+            nouveauproj.transform.position = nbattackpoint.position;
+
+            nouveauproj.GetComponent<proj>().percent = nbpercent;
+            nouveauproj.GetComponent<proj>().shielddamage = nbshielddamage;
+            nouveauproj.GetComponent<proj>().baserecoil = nbbaserecoil;
+            nouveauproj.GetComponent<proj>().fixedrecoil = nbfixedrecoil;
+            nouveauproj.GetComponent<proj>().startx = nbattackpoint.position.x;
+            nouveauproj.GetComponent<proj>().maxdistance = nbprojdistance;
+            nouveauproj.GetComponent<proj>().projspeed = nbprojspeed;
+            nouveauproj.GetComponent<proj>().projdirection = nbdirection;
+            nouveauproj.GetComponent<proj>().isactive = true;
+            if(this.CompareTag("Player1"))
             {
-                nbactiveproj = nbproj1;  
-            }
-            else if (nbactiveprojindex==2)
-            {
-                nbactiveproj = nbproj2;
+                nouveauproj.tag = "P1proj";
             }
             else
             {
-                nbactiveproj = nbproj3;
+                nouveauproj.tag = "P2proj";
             }
 
-            nbactiveproj.SetActive(true);
+            //nbactiveproj.SetActive(true);
 
-            nbactiveproj.transform.position = nbattackpoint.position;
+            //nbactiveproj.transform.position = nbattackpoint.position;
 
-            nbactiveproj.GetComponent<proj>().percent = nbpercent;
-            nbactiveproj.GetComponent<proj>().shielddamage = nbshielddamage;
-            nbactiveproj.GetComponent<proj>().baserecoil = nbbaserecoil;
-            nbactiveproj.GetComponent<proj>().fixedrecoil = nbfixedrecoil;
-            nbactiveproj.GetComponent<proj>().startx = nbactiveproj.GetComponent<Rigidbody2D>().position.x;
-            nbactiveproj.GetComponent<proj>().maxdistance = nbprojdistance;
-            nbactiveproj.GetComponent<proj>().projspeed = nbprojspeed;
-            nbactiveproj.GetComponent<proj>().projdirection = nbdirection;
-            nbactiveproj.GetComponent<proj>().sendertag = this.tag;
+            //nbactiveproj.GetComponent<proj>().percent = nbpercent;
+            //nbactiveproj.GetComponent<proj>().shielddamage = nbshielddamage;
+            //nbactiveproj.GetComponent<proj>().baserecoil = nbbaserecoil;
+            //nbactiveproj.GetComponent<proj>().fixedrecoil = nbfixedrecoil;
+            //nbactiveproj.GetComponent<proj>().startx = nbactiveproj.GetComponent<Rigidbody2D>().position.x;
+            //nbactiveproj.GetComponent<proj>().maxdistance = nbprojdistance;
+            //nbactiveproj.GetComponent<proj>().projspeed = nbprojspeed;
+            //nbactiveproj.GetComponent<proj>().projdirection = nbdirection;
+            //nbactiveproj.GetComponent<proj>().sendertag = this.tag;
         }
 
 
