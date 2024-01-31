@@ -85,6 +85,36 @@ public class charaJump : MonoBehaviour
     private void FixedUpdate()
     {
 
+        //if(GetComponent<charavalues>().initjump)
+        //{
+        //    GetComponent<charavalues>().initjump = false;
+        //    //assigne les différents input possible à des variables
+        //    controls = new PlayerControls();
+
+        //    if (this.CompareTag("Player1"))
+        //    {
+        //        controls.gameplay.jump.performed += ctx => pressedjump = true;
+        //        controls.gameplay.jump.canceled += ctx => pressedjump = false;
+        //        controls.gameplay.down.performed += ctx => presseddown = true;
+        //        controls.gameplay.down.canceled += ctx => presseddown = false;
+        //    }
+        //    else if (this.CompareTag("Player2"))
+        //    {
+        //        controls.gameplay.jump1.performed += ctx => pressedjump = true;
+        //        controls.gameplay.jump1.canceled += ctx => pressedjump = false;
+        //        controls.gameplay.down1.performed += ctx => presseddown = true;
+        //        controls.gameplay.down1.canceled += ctx => presseddown = false;
+        //    }
+
+        //    //initialisation de variables
+        //    rb = GetComponent<Rigidbody2D>();
+        //    jumpcounter = jumptime;
+        //    dbjumpdelaycounter = dbjumpdelay;
+        //    dbjumpcounter = dbjumptime;
+        //    myanim = GetComponent<Animator>();
+
+        //}
+
         grabbing = GetComponent<charavalues>().grabbing;
 
         hitstun = GetComponent<charavalues>().hitstuncnt;

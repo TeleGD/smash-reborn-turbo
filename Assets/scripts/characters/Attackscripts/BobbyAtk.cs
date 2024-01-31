@@ -972,8 +972,12 @@ public class BobbyAtk : MonoBehaviour
 
         if (nblengthcounter == nblength)
         {
+
             nbactiveproj = GameObject.Find("slimenbproj1");
-            GameObject nouveauproj = Instantiate(nbactiveproj);
+            GameObject nouveauproj = Instantiate(nbactiveproj); //On créée une copie d'un gameobject qui correspond à un projectile. Il est toujours sur la map, mais inactif et hors de la cam.
+
+            //On initialise bien comme il faut tous les paramètres du projo
+
             nouveauproj.GetComponent<proj>().sendertag = this.tag;
             nouveauproj.transform.position = nbattackpoint.position;
 
@@ -994,20 +998,6 @@ public class BobbyAtk : MonoBehaviour
             {
                 nouveauproj.tag = "P2proj";
             }
-
-            //nbactiveproj.SetActive(true);
-
-            //nbactiveproj.transform.position = nbattackpoint.position;
-
-            //nbactiveproj.GetComponent<proj>().percent = nbpercent;
-            //nbactiveproj.GetComponent<proj>().shielddamage = nbshielddamage;
-            //nbactiveproj.GetComponent<proj>().baserecoil = nbbaserecoil;
-            //nbactiveproj.GetComponent<proj>().fixedrecoil = nbfixedrecoil;
-            //nbactiveproj.GetComponent<proj>().startx = nbactiveproj.GetComponent<Rigidbody2D>().position.x;
-            //nbactiveproj.GetComponent<proj>().maxdistance = nbprojdistance;
-            //nbactiveproj.GetComponent<proj>().projspeed = nbprojspeed;
-            //nbactiveproj.GetComponent<proj>().projdirection = nbdirection;
-            //nbactiveproj.GetComponent<proj>().sendertag = this.tag;
         }
 
 

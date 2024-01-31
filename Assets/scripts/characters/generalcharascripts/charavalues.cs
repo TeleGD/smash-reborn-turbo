@@ -19,6 +19,9 @@ public class charavalues : MonoBehaviour
     public bool attacking; //bool qui détermine si le joueur est en animation d'attaque
     public int hitstuncnt;
 
+    public bool initmov;
+    public bool initjump;
+
     private int temppercent; //int qui contient les pourcents de la frame d'avant pour pouvoir savoir quand le perso a pris des dégats pour pouvoir le hitstun
 
     public float grabbedframes;

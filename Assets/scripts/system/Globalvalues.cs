@@ -75,6 +75,11 @@ public class Globalvalues : MonoBehaviour
             }
             if (GameObject.Find("Optionvalues").GetComponent<optionvalues>().p2char == "Bobby")
             {
+                //GameObject Bobby2 = Instantiate(GameObject.Find("Bobby1"));
+                //Bobby2.SetActive(true);
+                //Bobby2.tag = "Player2";
+                //Bobby2.GetComponent<charavalues>().initmov = true;
+                //Bobby2.GetComponent<charavalues>().initjump = true;
                 GameObject.Find("Randy2").SetActive(false);
 
             }
