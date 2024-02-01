@@ -166,6 +166,9 @@ MonoBehaviour:
   shieldbreakCD: 300
   playermaxhp: 5
   respawniframes: 120
+  respawntime: 100
+  respawntimeP1: 0
+  respawntimeP2: 0
   player1char: Randy
   player2char: Bobby
   rb2D1: {fileID: 0}

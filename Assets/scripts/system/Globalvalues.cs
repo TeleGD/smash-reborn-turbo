@@ -29,6 +29,9 @@ public class Globalvalues : MonoBehaviour
     [Header("player variables")]
     public int playermaxhp; //nombre de vies des joueurs
     public int respawniframes;
+    public int respawntime;
+    public int respawntimeP1;
+    public int respawntimeP2;
     public string player1char;
     public string player2char;
     public Rigidbody2D rb2D1;
@@ -36,6 +39,7 @@ public class Globalvalues : MonoBehaviour
     public float quickfallspeed;
     public float speedwhenoverplayer;
     public int grabtime; //nombre de frame de base de durée du grab. La durée est augmentée avec nbframe=grabtime*(1+percent/100)
+    private Collider2D activeplayer;
 
 
     [Header("Health variables")]
@@ -107,6 +111,55 @@ public class Globalvalues : MonoBehaviour
     void Update()
     {
 
+        if(respawntimeP1 > 0)
+        {
+            respawntimeP1--;
+            if (respawntimeP1==0)
+            {
+                if (p1HP > 1)
+                {
+                    activeplayer.transform.position = new Vector2(2, 2);
+                    rb2D1.velocity = new Vector2(0, 0);
+                    SpriteRenderer SR = activeplayer.GetComponent<SpriteRenderer>();
+                    SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 255);
+                    activeplayer.GetComponent<charavalues>().iframes = respawniframes;
+                    activeplayer.GetComponent<charavalues>().percent = 0;
+
+
+                }
+                else
+                {
+                    GameObject.Find("soundeffect").GetComponent<soundeffectmanager>().playdeath = true;
+                    SceneManager.LoadScene("MainMenu");
+                }
+            }
+        }
+
+        if(respawntimeP2>0)
+        {
+            respawntimeP2--;
+            if(respawntimeP2==0)
+            {
+                if (p2HP > 1)
+                {
+                    
+                    activeplayer.transform.position = new Vector2(2, 2);
+                    rb2D2.velocity = new Vector2(0, 0);
+                    SpriteRenderer SR = activeplayer.GetComponent<SpriteRenderer>();
+                    SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 255);
+                    activeplayer.GetComponent<charavalues>().iframes = respawniframes;
+                    activeplayer.GetComponent<charavalues>().percent = 0;
+
+                }
+                else
+                {
+                    GameObject.Find("soundeffect").GetComponent<soundeffectmanager>().playdeath = true;
+                    SceneManager.LoadScene("MainMenu");
+                }
+            }
+        }
+
+
         Collider2D[] findplayers = Physics2D.OverlapCircleAll(new Vector2(0, 0), 100000); //va chercher tous les collider2D présent sur la scène
 
         foreach (Collider2D player in findplayers) //boucle for
@@ -115,55 +168,30 @@ public class Globalvalues : MonoBehaviour
             {
                 rb2D1 = player.GetComponent<Rigidbody2D>();
 
-                if (rb2D1.position.x >= deathright || rb2D1.position.y <= deathdown || rb2D1.position.y >= deathup || rb2D1.position.x <= deathleft)
+                if ((rb2D1.position.x >= deathright || rb2D1.position.y <= deathdown || rb2D1.position.y >= deathup || rb2D1.position.x <= deathleft)&&respawntimeP1==0 && player.GetComponent<charavalues>().iframes==0)
                 {
-                    if (p1HP > 1)
-                    {
-                        GameObject.Find("soundeffect").GetComponent<soundeffectmanager>().playdeath = true;
-                        p1HP -= 1;
-                        GameObject.Find("deathP1").transform.position = player.transform.position;
-                        GameObject.Find("deathP1").GetComponent<Animator>().SetTrigger("playdeath");
-                        player.transform.position = new Vector2(2, 2);
-                        rb2D1.velocity = new Vector2(0, 0);
-                        SpriteRenderer SR = player.GetComponent<SpriteRenderer>();
-                        SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 255);
-                        player.GetComponent<charavalues>().iframes = respawniframes;
-                        player.GetComponent<charavalues>().percent = 0;
-                        
 
-                    }
-                    else
-                    {
-                        GameObject.Find("soundeffect").GetComponent<soundeffectmanager>().playdeath = true;
-                        SceneManager.LoadScene("MainMenu");
-                    }
+                    GameObject.Find("soundeffect").GetComponent<soundeffectmanager>().playdeath = true;
+                    p1HP -= 1;
+                    GameObject.Find("deathP1").transform.position = player.transform.position;
+                    GameObject.Find("deathP1").GetComponent<Animator>().SetTrigger("playdeath");
+                    activeplayer = player;
+                    respawntimeP1 = respawntime;
+                   
                 }
             }
             else if (player.tag == "Player2")
             {
                 rb2D2 = player.GetComponent<Rigidbody2D>();
 
-                if (rb2D2.position.x >= deathright || rb2D2.position.y <= deathdown || rb2D2.position.y >= deathup || rb2D2.position.x <= deathleft)
+                if ((rb2D2.position.x >= deathright || rb2D2.position.y <= deathdown || rb2D2.position.y >= deathup || rb2D2.position.x <= deathleft) && respawntimeP2 == 0 && player.GetComponent<charavalues>().iframes == 0)
                 {
-                    if (p2HP > 1)
-                    {
-                        GameObject.Find("soundeffect").GetComponent<soundeffectmanager>().playdeath = true;
-                        p2HP -= 1;
-                        GameObject.Find("deathP2").transform.position = player.transform.position;
-                        GameObject.Find("deathP2").GetComponent<Animator>().SetTrigger("playdeath");
-                        player.transform.position = new Vector2(2, 2);
-                        rb2D2.velocity = new Vector2(0, 0);
-                        SpriteRenderer SR = player.GetComponent<SpriteRenderer>();
-                        SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 255);
-                        player.GetComponent<charavalues>().iframes = respawniframes;
-                        player.GetComponent<charavalues>().percent = 0;
-
-                    }
-                    else
-                    {
-                        GameObject.Find("soundeffect").GetComponent<soundeffectmanager>().playdeath = true;
-                        SceneManager.LoadScene("MainMenu");
-                    }
+                    GameObject.Find("soundeffect").GetComponent<soundeffectmanager>().playdeath = true;
+                    p2HP -= 1;
+                    GameObject.Find("deathP2").transform.position = player.transform.position;
+                    GameObject.Find("deathP2").GetComponent<Animator>().SetTrigger("playdeath");
+                    activeplayer = player;
+                    respawntimeP2 = respawntime;
                 }
             }
 
