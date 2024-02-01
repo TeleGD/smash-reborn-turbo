@@ -473,6 +473,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: explosion_17
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 0
+        width: 142
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 180698e4db59b564fbcc5458aa52fe1c
+      internalID: 661470761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -495,6 +516,7 @@ TextureImporter:
       explosion_14: -496577930
       explosion_10: -8403114
       explosion_4: 870049012
+      explosion_17: 661470761
       explosion_6: -1456513956
       explosion_15: -810555079
       explosion_9: -1851991665
