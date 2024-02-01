@@ -125,8 +125,11 @@ public class Globalvalues : MonoBehaviour
                         GameObject.Find("deathP1").GetComponent<Animator>().SetTrigger("playdeath");
                         player.transform.position = new Vector2(2, 2);
                         rb2D1.velocity = new Vector2(0, 0);
+                        SpriteRenderer SR = player.GetComponent<SpriteRenderer>();
+                        SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 255);
                         player.GetComponent<charavalues>().iframes = respawniframes;
                         player.GetComponent<charavalues>().percent = 0;
+                        
 
                     }
                     else
@@ -150,6 +153,8 @@ public class Globalvalues : MonoBehaviour
                         GameObject.Find("deathP2").GetComponent<Animator>().SetTrigger("playdeath");
                         player.transform.position = new Vector2(2, 2);
                         rb2D2.velocity = new Vector2(0, 0);
+                        SpriteRenderer SR = player.GetComponent<SpriteRenderer>();
+                        SR.color = new Vector4(SR.color.r, SR.color.g, SR.color.b, 255);
                         player.GetComponent<charavalues>().iframes = respawniframes;
                         player.GetComponent<charavalues>().percent = 0;
 

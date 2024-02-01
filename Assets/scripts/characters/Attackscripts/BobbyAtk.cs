@@ -58,9 +58,7 @@ public class BobbyAtk : MonoBehaviour
     //startdistance: float qui détermine une distance fixe à parcourrir.
     //direction: garde la direction de l'attaque si besoin;
     //startx: garde la coordonnée en x de depart du perso
-    //activeprojindex: donne l'index du projectile qui va être utilisé par l'attaque
     //activeproj: accède au gameObject qui est le projectile actif
-    //projk: accède au gameObject qui est le projectile d'indice k
     //projdistance: la distance maximale que parcourt un projectile avant de disparaître
     //projspeed: vitesse des projectiles
 
@@ -194,11 +192,7 @@ public class BobbyAtk : MonoBehaviour
     public float nbbaserecoil;
     public float nbfixedrecoil;
     private float nbdirection;
-    private int nbactiveprojindex;
     private GameObject nbactiveproj;
-    private GameObject nbproj1;
-    private GameObject nbproj2;
-    private GameObject nbproj3;
     public int nbprojdistance;
     public float nbprojspeed;
     
@@ -990,6 +984,7 @@ public class BobbyAtk : MonoBehaviour
             nouveauproj.GetComponent<proj>().projspeed = nbprojspeed;
             nouveauproj.GetComponent<proj>().projdirection = nbdirection;
             nouveauproj.GetComponent<proj>().isactive = true;
+            nouveauproj.GetComponent<SpriteRenderer>().enabled = true;
             if(this.CompareTag("Player1"))
             {
                 nouveauproj.tag = "P1proj";
