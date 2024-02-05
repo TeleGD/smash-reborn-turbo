@@ -264,7 +264,7 @@ public class BobbyAtk : MonoBehaviour
     {
         if(!grabed && hitstun<=0 && !attacking && !shielded && !grabbing)
         {
-            if (grounded) //check si le perso est sur le sol
+            if (grounded || GetComponent<Charamov>().platformed) //check si le perso est sur le sol
             {
                 if (tiltdelaycounter == 0 && !GetComponent<Charamov>().crouched && GetComponent<Charamov>().vertical == 0) //si le perso peut faire un tilt et que le bouclier est baissé, la fonction correspondant au tilt se déclenche et le delai entre deux tilts aussi.
                 {
